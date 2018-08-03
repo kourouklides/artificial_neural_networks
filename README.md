@@ -1,2 +1,2 @@
-# bayesian_nn
-Bayesian Neural Networkis in Python (using TensorFlow and Edward libraries)
+# artificial_neural_networks
+Artificial Neural Networkis in Python (using TensorFlow and Keras libraries)
