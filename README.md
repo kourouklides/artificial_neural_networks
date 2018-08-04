@@ -4,6 +4,8 @@ This repository contains a collection of Methods and Models for various architec
 Currently it includes the following architectures:
 
 * [Feedforward Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks)
+  * Bayesian Neural Networks
+  * Convolutional Neural Networks
   * Standard Neural Networks
 * [Recurrent Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/recurrent_neural_networks)
   * GRU
