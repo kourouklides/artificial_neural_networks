@@ -2,14 +2,12 @@
 !datasets/README.md
 !model_zoo/README.md
 !trained_models/README.md
-!blabla/README.md
 
 # But ignore the following:
 .DS_Store
 datasets/*
 model_zoo/
 trained_models/
-blabla/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
