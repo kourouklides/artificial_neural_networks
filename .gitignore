@@ -1,13 +1,13 @@
-# Ignore the following files and (sub)directories:
+# Do NOT ignore the following files and (sub)directories::
+!datasets/README.md
+!model_zoo/README.md
+!trained_models/README.md
+
+# But ignore the following:
 .DS_Store
 datasets/
 model_zoo/
 trained_models/
-
-# But do not ignore the following:
-!datasets/README.md
-!model_zoo/README.md
-!trained_models/README.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
