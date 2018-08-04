@@ -3,8 +3,8 @@ This repository contains a collection of Methods and Models for various architec
 
 Currently it includes the following architectures:
 
-- [Feedforward Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks)
-- [Recurrent Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/recurrent_neural_networks)
+* [Feedforward Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks)
+* [Recurrent Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/recurrent_neural_networks)
 
 It also includes applications in several domains:
 
