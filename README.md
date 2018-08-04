@@ -1,6 +1,8 @@
 # artificial_neural_networks
 This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networkis.
 
+The code implementation is in Python (using TensorFlow and Keras libraries).
+
 Currently, it includes the following architectures:
 
 - [Feedforward Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks)
@@ -24,5 +26,3 @@ Some advanced Methods of Machine Learning are also included:
 
 - Ensemble Learning
 - Transfer Learning
-
-The code implementation is in Python (using TensorFlow and Keras libraries).
