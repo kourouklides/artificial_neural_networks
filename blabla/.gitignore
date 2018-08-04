@@ -1,6 +1,0 @@
-# Ignore everything
-*
-
-# But do NOT ignore these files:
-!.gitignore
-!.README.md
