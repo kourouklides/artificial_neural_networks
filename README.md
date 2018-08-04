@@ -8,19 +8,19 @@ Currently, it includes the following architectures:
 - [Feedforward Neural Network](code/architectures/feedforward_neural_networks)
   - Bayesian Neural Networks
   - Convolutional Neural Networks
-  - [Standard Neural Networks](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks/standard_neural_networks)
-- [Recurrent Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/recurrent_neural_networks)
+  - [Standard Neural Networks](code/architectures/feedforward_neural_networks/standard_neural_networks)
+- [Recurrent Neural Network](code/architectures/recurrent_neural_networks)
   - GRU
   - LSTM
   - Vanilla RNN
 
 It also includes applications in several domains:
 
-- [Bioinformatics](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/bioinformatics)
-- [Computational Finance](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/computational_finance)
-- [Computer Vision](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/computer_vision)
-- [Natural Language Processing](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/natural_language_processing)
-- [Speech Processing](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/speech_processing)
+- [Bioinformatics](code/applications/bioinformatics)
+- [Computational Finance](code/applications/computational_finance)
+- [Computer Vision](code/applications/computer_vision)
+- [Natural Language Processing](code/applications/natural_language_processing)
+- [Speech Processing](code/applications/speech_processing)
 
 Some advanced Methods of Machine Learning are also included:
 
