@@ -17,7 +17,7 @@ Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outs
 ## Downloading
 It is strongly recommended that you download the whole GitHub repository, but you can also try to download just the individual Python files and see if they work. However, there is no guarantee that individual files will work on their own.
 
-To download the wholre repository, there are currently two mains options:
+To download the whole repository, there are currently two mains options:
 * Clone the repository using [GitHub Desktop](https://desktop.github.com/) or using the [command line (terminal)](https://help.github.com/articles/cloning-a-repository/)
 * Download the respository as a ZIP file
 
@@ -56,6 +56,8 @@ Finally, regarding Theory of Artificial Neural Networks, you can check the follo
 - [Artificial Neural Network](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
 - [Deep Learning](https://wiki.kourouklides.com/wiki/Deep_Learning)
 - [Machine Learning](https://wiki.kourouklides.com/wiki/Machine_Learning)
+
+The wiki contains curated online and offline resources (books, papers, URL links) about these topics.
 
 ## Contributers
 
