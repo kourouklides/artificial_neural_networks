@@ -6,6 +6,7 @@ trained_models/
 
 # But do not ignore the following:
 !*/README.md
+!*/README2.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
