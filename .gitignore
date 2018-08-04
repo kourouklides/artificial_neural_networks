@@ -5,8 +5,9 @@ model_zoo/
 trained_models/
 
 # But do not ignore the following:
-!*/README.md
-!*/README2.md
+!datasets/README.md
+!model_zoo/README.md
+!trained_models/README.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
