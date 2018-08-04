@@ -1,7 +1,7 @@
 
 # Ignore the followingfiles and (sub)directories:
 .DS_Store
-datasets/*
+datasets/
 model_zoo/
 trained_models/
 
