@@ -38,7 +38,7 @@ Some advanced Methods of Machine Learning are also included:
 - Transfer Learning
 
 ## Applications
-Various applications of the aforementioned Methods and Models are also included. These fall under the following domains:
+Various applications of the aforementioned Methods and Models are also included and they fall under the following domains:
 
 - [Bioinformatics](code/applications/bioinformatics)
 - [Computational Finance](code/applications/computational_finance)
