@@ -5,7 +5,7 @@
 
 # But ignore the following:
 .DS_Store
-datasets/
+datasets/*
 model_zoo/
 trained_models/
 
