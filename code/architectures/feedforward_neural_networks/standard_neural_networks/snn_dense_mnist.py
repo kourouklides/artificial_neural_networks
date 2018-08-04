@@ -125,7 +125,7 @@ if (one_hot):
 else:
     loss_function = 'sparse_categorical_crossentropy'
 
-metrics=['accuracy']
+metrics = ['accuracy']
 
 model.compile(optimizer = optimizer, \
               loss = loss_function, \

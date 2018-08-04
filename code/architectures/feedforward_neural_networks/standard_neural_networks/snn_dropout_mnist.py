@@ -34,7 +34,7 @@ import os
 
 # Settings
 parser = argparse.ArgumentParser()
-parser.add_argument('--verbose', type = int, default = )
+parser.add_argument('--verbose', type = int, default = 2)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 parser.add_argument('--n_layers', type = int, default = 2)
@@ -127,7 +127,7 @@ if (one_hot):
 else:
     loss_function = 'sparse_categorical_crossentropy'
 
-metrics=['accuracy']
+metrics = ['accuracy']
 
 model.compile(optimizer = optimizer, \
               loss = loss_function, \
