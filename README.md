@@ -7,7 +7,7 @@ Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outs
 
 ## Introduction
 
-Currently, this repository is neither a library nor a framework. However, it is a collection of code examples.
+* Currently, this repository is neither a library nor a framework. However, it is a collection of code examples.
 
 ## Downloading
 
