@@ -1,9 +1,27 @@
 # artificial_neural_networks
 This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networks.
 
-The code implementation is in Python (using TensorFlow and Keras libraries).
+The code implementation is in Python (using [TensorFlow]() and [Keras]() libraries).
 
-Currently, it includes the following architectures:
+Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
+
+## Introduction
+
+* Currently, this repository is neither a library nor a framework, but it is a collection of code examples
+* The source code is well documented so that it can be used for both educational purposes and for real-life applications
+* This repository is intended to be friendly to beginners, but it is not limited just to them
+* Since TensorFlow is ideal for both Research and Production Development, then so is this repository
+* In order to deploy the source code into Production, a few extensions will have to be made first
+* The [license](LICENSE) of this code essentially allows you to do whatever you want with the code
+
+## Downloading
+
+
+## Setup and Installation
+
+
+## Models and Methods 
+This repository includes the following architectures:
 
 - [Feedforward Neural Network](code/architectures/feedforward_neural_networks)
   - Bayesian Neural Networks
@@ -14,7 +32,13 @@ Currently, it includes the following architectures:
   - LSTM
   - Vanilla RNN
 
-It also includes applications in several domains:
+Some advanced Methods of Machine Learning are also included:
+
+- Ensemble Learning
+- Transfer Learning
+
+## Applications
+Various applications of the aforementioned Methods and Models are also included and they fall under the following domains:
 
 - [Bioinformatics](code/applications/bioinformatics)
 - [Computational Finance](code/applications/computational_finance)
@@ -22,18 +46,12 @@ It also includes applications in several domains:
 - [Natural Language Processing](code/applications/natural_language_processing)
 - [Speech Processing](code/applications/speech_processing)
 
-Some advanced Methods of Machine Learning are also included:
-
-- Ensemble Learning
-- Transfer Learning
-
+## Theory
 Finally, regarding Theory of Artificial Neural Networks, you can check the following pages of my personal wiki:
 
 - [Artificial Neural Network](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
 - [Deep Learning](https://wiki.kourouklides.com/wiki/Deep_Learning)
 - [Machine Learning](https://wiki.kourouklides.com/wiki/Machine_Learning)
-
-Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
 
 ## Contributers
 
