@@ -22,7 +22,9 @@ To download the whole repository, there are currently two mains options:
 * Download the respository as a ZIP file
 
 ## Setup and Installation
+The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
 
+Guides and instructions on how to install the necessary libraries and how to setup your environment can be found [here](setup/README.md).
 
 ## Models and Methods 
 This repository includes the following architectures:
