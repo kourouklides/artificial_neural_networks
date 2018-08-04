@@ -29,4 +29,4 @@ Some advanced Methods of Machine Learning are also included:
 
 Finally, regarding Theory of Artificial Neural Networks, you can check the following page of my personal wiki:
 
-- [https://wiki.kourouklides.com/wiki/Artificial_Neural_Network](Artificial Neural Network)
+- [Artificial Neural Network](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
