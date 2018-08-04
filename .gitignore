@@ -1,6 +1,6 @@
 .DS_Store
-data/
-pretrained_model/
+datasets/
+model_zoo/
 trained_models/
 
 # Byte-compiled / optimized / DLL files
