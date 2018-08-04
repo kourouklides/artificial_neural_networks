@@ -132,7 +132,7 @@ model.compile(optimizer = optimizer, \
               metrics = metrics)
 
 #%% 
-# Save models for every epoch
+# Save trained models for every epoch
 
 models_path = '../../../../trained_models/'
 model_name = 'mnist_snn_dense'
