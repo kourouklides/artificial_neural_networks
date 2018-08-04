@@ -1,6 +1,6 @@
 """
 
-Model: Standard Neural Network (SNN) with dense (i.e. fully connected) layers
+Model: Standard Neural Network (SNN) with dropout layers
 Mehtod: Backpropagation
 
 Architecture: Feedforward Neural Network
@@ -34,7 +34,7 @@ import os
 
 # Settings
 parser = argparse.ArgumentParser()
-parser.add_argument('--verbose', type = int, default = 1)
+parser.add_argument('--verbose', type = int, default = )
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 parser.add_argument('--n_layers', type = int, default = 2)
