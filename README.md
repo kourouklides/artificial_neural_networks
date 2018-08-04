@@ -8,7 +8,7 @@ Currently, it includes the following architectures:
 - [Feedforward Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks)
   - Bayesian Neural Networks
   - Convolutional Neural Networks
-  - Standard Neural Networks
+  - [Standard Neural Networks](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/feedforward_neural_networks/standard_neural_networks)
 - [Recurrent Neural Network](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/architectures/recurrent_neural_networks)
   - GRU
   - LSTM
