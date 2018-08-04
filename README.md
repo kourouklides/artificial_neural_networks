@@ -1,5 +1,5 @@
 # artificial_neural_networks
-This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networkis.
+This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networks.
 
 The code implementation is in Python (using TensorFlow and Keras libraries).
 
