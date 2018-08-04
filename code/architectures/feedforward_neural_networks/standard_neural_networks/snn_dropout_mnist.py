@@ -34,7 +34,7 @@ import os
 
 # Settings
 parser = argparse.ArgumentParser()
-parser.add_argument('--verbose', type = int, default = 2)
+parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 parser.add_argument('--n_layers', type = int, default = 2)
