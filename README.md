@@ -59,7 +59,7 @@ Finally, regarding Theory of Artificial Neural Networks, you can check the follo
 - [Deep Learning](https://wiki.kourouklides.com/wiki/Deep_Learning)
 - [Machine Learning](https://wiki.kourouklides.com/wiki/Machine_Learning)
 
-The wiki contains curated online and offline resources (books, papers, URL links) about these topics.
+The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
 ## Contributers
 
