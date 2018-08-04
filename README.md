@@ -3,7 +3,7 @@ This repository contains a collection of Methods and Models for various architec
 
 It also includes applications in several domains:
 
-- Bioinformatics
+- [Bioinformatics](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/bioinformatics)
 - Computational Finance
 - Computer Vision
 - Natural Language Processing
