@@ -1,7 +1,7 @@
 """
 
 Model: Standard Neural Network (SNN) with dense (i.e. fully connected) layers
-Mehtod: Backpropagation
+Method: Backpropagation
 
 Architecture: Feedforward Neural Network
 Dataset: MNIST
