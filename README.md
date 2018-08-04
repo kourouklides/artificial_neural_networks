@@ -32,3 +32,8 @@ Finally, regarding Theory of Artificial Neural Networks, you can check the follo
 - [Artificial Neural Network](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
 
 Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
+
+## License
+
+[Apache License 2.0](LICENSE)
+
