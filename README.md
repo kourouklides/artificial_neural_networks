@@ -33,6 +33,10 @@ Finally, regarding Theory of Artificial Neural Networks, you can check the follo
 
 Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
 
+## Contributers
+
+Contributers are all welcome.
+
 ## License
 
 [Apache License 2.0](LICENSE)
