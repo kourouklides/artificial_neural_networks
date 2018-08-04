@@ -27,9 +27,11 @@ Some advanced Methods of Machine Learning are also included:
 - Ensemble Learning
 - Transfer Learning
 
-Finally, regarding Theory of Artificial Neural Networks, you can check the following page of my personal wiki:
+Finally, regarding Theory of Artificial Neural Networks, you can check the following pages of my personal wiki:
 
 - [Artificial Neural Network](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
+- [Deep Learning](https://wiki.kourouklides.com/wiki/Deep_Learning)
+- [Machine Learning](https://wiki.kourouklides.com/wiki/Machine_Learning)
 
 Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
 
