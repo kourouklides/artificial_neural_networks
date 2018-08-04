@@ -1,6 +1,11 @@
 # artificial_neural_networks
 This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networkis.
 
+Currently it includes the following architectures:
+
+- Feedforward Neural Network
+- Recurrent Neural Network
+
 It also includes applications in several domains:
 
 - [Bioinformatics](https://github.com/kourouklides/artificial_neural_networks/tree/master/code/applications/bioinformatics)
