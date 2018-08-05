@@ -6,11 +6,12 @@ The code should run on any machine (i.e. Windows, macOS, Linux) that supports Py
 
 ## Quick installation
 
-If, for any reason, you want to spend the minimum time of setting up your environment, then you can follow the instructions below.
+If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow the instructions below.
 
 ### 1. Install Python 3
 
 ### 2. Install the required packages
 
 
+## Recommended installation
 
