@@ -27,7 +27,7 @@ To install the required Python packages and dependencies you have to run the fol
 
     pip install -r requirements.txt
 
-Note that to run the command, you first have to change to the directory to the current one:
+Note that to run the command above, you first have to change to the directory to the current one:
 
     cd artificial_neural_networks/setup
 
