@@ -21,6 +21,8 @@ To download the whole repository, there are currently two mains options:
 * Clone the repository using [GitHub Desktop](https://desktop.github.com/) or using the [command line (terminal)](https://help.github.com/articles/cloning-a-repository/)
 * Download the respository as a ZIP file
 
+You can choose the one which you consider best for you. People who are experienced with Software Development will go for the first option most probably.
+
 ## Setup and Installation
 The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
 
