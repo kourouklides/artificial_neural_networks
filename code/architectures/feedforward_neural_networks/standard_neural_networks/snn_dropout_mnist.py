@@ -63,7 +63,7 @@ if (args.reproducible):
 #%% 
 # Load MNIST data
 
-mnist_path = '../../../../data/mnist.npz'
+mnist_path = '../../../../datasets/mnist.npz'
 mnist = np.load(mnist_path)
 train_x = mnist['x_train'].astype(np.float32)
 train_y = mnist['y_train'].astype(np.int32)
@@ -140,12 +140,14 @@ models_path = '../../../../trained_models/'
 model_name = 'mnist_snn_dropout'
 weights_path = models_path + model_name + '_weights'
 model_path = models_path + model_name + '_model'
+file_suffix = '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
 
 if (args.save_weights_only):
     file_path = weights_path
 else:
     file_path = model_path
-file_path += '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
+
+file_path += file_suffix
 
 # monitor = 'val_loss'
 monitor = 'val_acc'
@@ -186,9 +188,9 @@ if (args.verbose > 0):
 
 architecture_path = models_path + model_name + '_architecture'
 
-last = '_{0:04d}_{1:.4f}_{2:.4f}'.format(args.n_epochs, \
-                                         score_dict['val_acc'], \
-                                         score_dict['val_loss'])
+last_suffix = file_suffix.format(epoch = args.n_epochs, \
+                          val_acc = score_dict['val_acc'], \
+                          val_loss = score_dict['val_loss'])
 
 if (args.save_architecture):
     # Save only the archtitecture (as a JSON file)
@@ -201,9 +203,9 @@ if (args.save_architecture):
 
 # Save only the weights (as an HDF5 file)
 if (args.save_last_weights):
-    model.save_weights(weights_path + last + '.h5')
+    model.save_weights(weights_path + last_suffix + '.h5')
 
 # Save the whole model (as an HDF5 file)
 if (args.save_last_model):
-    model.save(model_path + last + '.h5')
+    model.save(model_path + last_suffix + '.h5')
 
