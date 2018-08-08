@@ -45,7 +45,7 @@ Some advanced Methods of Machine Learning are also included:
 - Ensemble Learning
 - Transfer Learning
 
-## Applications
+## Areas of Application
 Various applications of the aforementioned Methods and Models are also included and they fall under the following domains:
 
 - [Bioinformatics](code/applications/bioinformatics)
