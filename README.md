@@ -63,7 +63,7 @@ Finally, regarding Theory of Artificial Neural Networks, you can check the follo
 
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
-## Contributers
+## Contributing
 
 Contributers are all welcome.
 
