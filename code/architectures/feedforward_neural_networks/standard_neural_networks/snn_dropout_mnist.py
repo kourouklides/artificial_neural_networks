@@ -190,8 +190,8 @@ if (args.verbose > 0):
 architecture_path = models_path + model_name + '_architecture'
 
 last_suffix = file_suffix.format(epoch = args.n_epochs, \
-                          val_acc = score_dict['val_acc'], \
-                          val_loss = score_dict['val_loss'])
+                                 val_acc = score_dict['val_acc'], \
+                                 val_loss = score_dict['val_loss'])
 
 if (args.save_architecture):
     # Save only the archtitecture (as a JSON file)
