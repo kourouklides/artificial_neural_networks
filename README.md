@@ -28,7 +28,7 @@ The code should run on any machine (i.e. Windows, macOS, Linux) that supports Py
 
 Guides and instructions on how to install the necessary libraries and how to setup your environment can be found [here](setup/README.md).
 
-## Models and Methods 
+## Methods and Models
 This repository includes the following architectures:
 
 - [Feedforward Neural Network](code/architectures/feedforward_neural_networks)
