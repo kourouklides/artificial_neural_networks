@@ -7,6 +7,7 @@ Architecture: Feedforward Neural Network
 Dataset: MNIST
 
     Author: Ioannis Kourouklides, www.kourouklides.com
+    License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
 
 """
 #%% 
