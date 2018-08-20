@@ -51,7 +51,7 @@ Various applications of the aforementioned Methods and Models are also included 
 - [Bioinformatics](code/applications/bioinformatics)
 - [Computational Finance](code/applications/computational_finance)
 - [Computer Vision](code/applications/computer_vision)
-- Medical Imaging
+- [Medical Imaging](code/applications/medical_imaging)
 - [Natural Language Processing](code/applications/natural_language_processing)
 - [Speech Processing](code/applications/speech_processing)
 
