@@ -24,7 +24,7 @@ The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/
 The code examples require several Python packages to be installed. These packages are listed in the 
 [requirements.txt](requirements.txt) file of this folder. You do not need to edit the file for the quick installation.
 
-To install the required Python packages and dependencies you have to run the following command in a terminal:
+To install the required Python packages and dependencies you have to run the following commands in a terminal:
 
     pip install -r requirements.txt
     conda install PyYAML==3.13 -y
