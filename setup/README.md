@@ -22,7 +22,7 @@ The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/
 ### 2. Install the required packages
 
 The code examples require several Python packages to be installed. These packages are listed in the 
-[requirements.txt](setup/requirements.txt) file of this folder. You do not need to edit the file for the quick installation.
+[requirements.txt](requirements.txt) file of this folder. You do not need to edit the file for the quick installation.
 
 To install the required Python packages and dependencies you have to run the following command in a terminal:
 
