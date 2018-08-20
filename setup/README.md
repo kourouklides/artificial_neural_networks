@@ -27,8 +27,9 @@ The code examples require several Python packages to be installed. These package
 To install the required Python packages and dependencies you have to run the following command in a terminal:
 
     pip install -r requirements.txt
+    conda install PyYAML==3.13 -y
 
-Note that to run the command above, you first have to change to the directory to the current one:
+Note that in order to run the commands above, you first have to change to the directory to the current one:
 
     cd artificial_neural_networks/setup
 
