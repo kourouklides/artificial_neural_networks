@@ -1,5 +1,9 @@
-Download the following datasets and then save them in this folder:
+To download the each of the datasets below, either use the URL link to manually download them and then save them in this folder or run the code to do this automatically.
 
-https://s3.amazonaws.com/img-datasets/mnist.npz
+1. MNIST
+- URL: https://s3.amazonaws.com/img-datasets/mnist.npz
+- Code: 
 
-https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+2. CIFAR-10
+- URL: https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+- Code: 
