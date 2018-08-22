@@ -35,7 +35,7 @@ Note that in order to run the commands above, you first have to change to the di
 
 ### 3. Download the datasets
 
-You need to download the necessary data for each corresponding code example, as they are not inluded in this repository. To do this, follow the instructions in the [datasets](https://github.com/kourouklides/artificial_neural_networks/tree/master/datasets) folder.
+You need to download the necessary data for each corresponding code example, as they are not inluded in this repository. To do this, follow the instructions in the [datasets](../datasets) folder.
 
 
 ## Recommended installation
