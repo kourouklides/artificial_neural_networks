@@ -1,4 +1,4 @@
-To download the each of the datasets below, either use the corresponding URL link to manually download it and then save it in this folder or run the corresponding Python code to do this automatically.
+To download each of the datasets below, either use the corresponding URL link to manually download it and then save it in this folder or run the corresponding Python code to do this automatically.
 
 ## MNIST
 - URL: https://s3.amazonaws.com/img-datasets/mnist.npz
