@@ -13,9 +13,18 @@ from __future__ import print_function
 
 from six.moves.urllib.request import urlretrieve
 
+import os
+
 mnist_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
 mnist_path = '../../datasets/mnist.npz'
 
-urlretrieve(mnist_url, mnist_path)
+exists = os.path.isfile(mnist_path)
 
-print("MNIST dataset was downloaded succesfully.")
+#%%
+
+if exists:
+    print("MNIST dataset already exists.")
+    print("You have to delete it first, if you want to re-download it.")
+else:
+    urlretrieve(mnist_url, mnist_path)
+    print("MNIST dataset was downloaded succesfully.")
