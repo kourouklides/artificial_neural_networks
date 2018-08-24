@@ -1,6 +1,6 @@
-# artificial_neural_networks
+# Model zoo
 
-Model zoo
+Model zoo is a collection of pre-trained models.
 
 https://modelzoo.co/
 
