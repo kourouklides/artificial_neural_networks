@@ -31,7 +31,9 @@ To install the required Python packages and dependencies you have to run the fol
 
 Note that in order to run the commands above, you first have to change to the directory to the current one:
 
-    cd artificial_neural_networks/setup
+    cd <your directory path>/setup
+    
+__Note:__ For Windows, you should run the all of the commands, including the above, at __Anaconda Prompt__ instead of the Termianl.
 
 ### 3. Download the datasets
 
