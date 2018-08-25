@@ -33,7 +33,7 @@ Note that in order to run the commands above, you first have to change to the di
 
     cd <your directory path>/setup
     
-__Note:__ For Windows, you should run the all of the commands, including the above, at __Anaconda Prompt__ instead of the Termianl.
+__Note:__ For Windows, you should run the all of the commands, including the above, at __Anaconda Prompt__ instead of the Terminal.
 
 ### 3. Download the datasets
 
