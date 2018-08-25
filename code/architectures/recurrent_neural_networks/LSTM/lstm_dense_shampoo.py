@@ -108,7 +108,7 @@ train, test = supervised_values[0:-12], supervised_values[-12:]
 scaler, train_scaled, test_scaled = scale(train, test)
 
 # repeat experiment
-repeats = 30
+repeats = 3
 error_scores = list()
 for r in range(repeats):
 	# fit the model
