@@ -4,7 +4,7 @@ This is a step-by-step tutorial that will guide you through the installation of 
 
 The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
 
-Note: It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does not support Python 2.
+__Note:__ It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does not support Python 2.
 
 ## Quick installation
 
