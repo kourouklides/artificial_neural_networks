@@ -1,6 +1,6 @@
 # Setup and Installation
 
-This step-by-step tutorial will guide you through the installation of the necessary libraries and how to setup your environment, in order to run the various code examples.
+This is a step-by-step tutorial that will guide you through the installation of the necessary libraries and how to setup your environment, in order to run the various code examples.
 
 The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
 
