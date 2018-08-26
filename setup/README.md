@@ -17,7 +17,7 @@ In order to save a lot of trouble, download the [Anaconda Distribution](https://
 1. Go to the [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
 2. Choose **Python 3.6** or later.
 
-The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for Machine Learning, Data Science and Scientific Computing.
+The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering.
 
 ### 2. Install the required packages
 
