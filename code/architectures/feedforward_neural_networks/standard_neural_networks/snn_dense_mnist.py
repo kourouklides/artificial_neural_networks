@@ -65,7 +65,7 @@ if (args.reproducible):
 #%% 
 # Load MNIST data
     
-mnist_path = '../../../../datasets/mnist.npz'
+mnist_path = r'../../../../datasets/mnist.npz'
 mnist = np.load(mnist_path)
 train_x = mnist['x_train'].astype(np.float32)
 train_y = mnist['y_train'].astype(np.int32)
@@ -137,7 +137,7 @@ model.compile(optimizer = optimizer, \
 #%% 
 # Save trained models for every epoch
 
-models_path = '../../../../trained_models/'
+models_path = r'../../../../trained_models/'
 model_name = 'mnist_snn_dense'
 weights_path = models_path + model_name + '_weights'
 model_path = models_path + model_name + '_model'
