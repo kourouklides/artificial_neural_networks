@@ -42,6 +42,8 @@ parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
 parser.add_argument('--n_epochs', type = int, default = 50)
 parser.add_argument('--batch_size', type = int, default = 512)
+parser.add_argument('--lrearning_rate', type = float, default = 1e-2)
+parser.add_argument('--epsilon', type = float, default = 1e0)
 parser.add_argument('--save_architecture', type = bool, default = True)
 parser.add_argument('--save_last_weights', type = bool, default = True)
 parser.add_argument('--save_last_model', type = bool, default = True)
@@ -103,10 +105,10 @@ for i in range(args.n_layers):
     N.append(args.layer_size) # hidden layer i
 N.append(n_out) # output layer
 # N = [n_in, 64, 128, 64, n_out]
-lrearning_rate = 1e-2
-epsilon = 1e0
-optimizer = optimizers.RMSprop(lr=lrearning_rate,epsilon=epsilon)
-# optimizer = optimizers.Adam(lr=lrearning_rate,epsilon=epsilon)
+lrearning_rate = args.lrearning_rate
+epsilon = args.epsilon
+optimizer = optimizers.RMSprop(lr = lrearning_rate, epsilon = epsilon)
+# optimizer = optimizers.Adam(lr = lrearning_rate, epsilon = epsilon)
 
 # ANN Architecture
 L = len(N) - 1
