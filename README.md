@@ -7,10 +7,10 @@ Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outs
 
 ## Introduction
 
-* Currently, this repository is neither a library nor a framework, but it is a collection of _code examples_
-* The source code is well documented so that it can be used for both _educational purposes_ and for _real-life applications_
+* Currently, this repository is neither a library nor a framework, but it is a collection of __code examples__
+* The source code is well documented so that it can be used for both __educational purposes__ and for __real-life applications__
 * This repository is intended to be friendly to beginners, but it is not limited just to them
-* Since TensorFlow is ideal for both _Research_ and _Production Development_, then so is this repository
+* Since TensorFlow is ideal for both __Research__ and __Production Development__, then so is this repository
 * In order to deploy the source code into Production, a few extensions will have to be made first
 * The [license](LICENSE) of this code essentially allows you to do whatever you want with the code
 
