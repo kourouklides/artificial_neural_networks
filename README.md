@@ -5,7 +5,7 @@ The code implementation is in Python (using [TensorFlow]() and [Keras]() librari
 
 Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
 
-If you like this repository or found it useful, feel fre to __Star, Fork, Watch__ it or __share__ it online.
+If you like this repository or if you found it useful, feel fre to __Star, Fork, Watch__ it or __share__ it online.
 
 ## Introduction
 
