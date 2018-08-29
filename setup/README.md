@@ -8,7 +8,7 @@ __Note:__ It is possible that the code might work with Python 2, either as is or
 
 ## Quick installation
 
-If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow the steps below.
+If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow all the steps below.
 
 ### 1. Install Python 3
 
