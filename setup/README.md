@@ -43,3 +43,8 @@ You need to download the necessary data for each corresponding code example, as 
 ## Recommended installation
 
 TODO: write this section
+
+## Troubleshoot (if you have errors/problems)
+
+If you face any errors then first please try asking at the several forums and websites online. For example:
+- 
