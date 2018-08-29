@@ -44,7 +44,7 @@ You need to download the necessary data for each corresponding code example, as 
 
 TODO: write this section
 
-## Troubleshoot (if you have errors/problems)
+## Troubleshoot (if you have errors or problems)
 
 If you face any errors then first please try asking at the __all__ the available forums and websites online. For example:
 - (StackExchange)[https://stackexchange.com/] and any of its sub-forums, such as (Data Science)[https://datascience.stackexchange.com/]
