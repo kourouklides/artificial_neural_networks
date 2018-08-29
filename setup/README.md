@@ -46,9 +46,10 @@ TODO: write this section
 
 ## Troubleshoot (if you have errors or problems)
 
-If you face any errors then first please try asking at the __all__ the available forums and websites online. For example:
+If you face any errors then first please try asking at the __all__ of the available forums and websites online. For example:
 - [StackExchange](https://stackexchange.com/) and any of its sub-forums, such as [Data Science](https://datascience.stackexchange.com/)
 - [Reddit](https://www.reddit.com/) and any of its sub-forums, such as [Python](https://www.reddit.com/r/Python/)
 - any other website similar to the above
 
+If you have asked at __all__ of the available forums and websites online, then in that case, you can copy-paste the URL links of your questions in this repository and ask your question and we will try our best to resolve this issue.
 
