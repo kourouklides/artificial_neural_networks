@@ -4,7 +4,7 @@ This is a step-by-step tutorial that will guide you through the installation of 
 
 The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
 
-__Note:__ It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does not support Python 2.
+__Note:__ It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does not support Python 2. Also, there is no guarantee that individual files will work on their own.
 
 ## Quick installation
 
@@ -39,6 +39,7 @@ __Note:__ For Windows, you should run all of the commands, including the above, 
 
 You need to download the necessary data for each corresponding code example, as they are not inluded in this repository. To do this, follow the instructions in the [datasets](../datasets) folder.
 
+    cd <your directory path>/datasets
 
 ## Recommended installation
 
