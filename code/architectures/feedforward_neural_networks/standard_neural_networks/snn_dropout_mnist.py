@@ -93,8 +93,8 @@ scaling_factor = (1/255)
 translation = 0
 
 # Reshape training and test sets
-train_x = scaling_factor * train_x.reshape(n_train, n_in) + translation
-test_x = scaling_factor * test_x.reshape(n_test, n_in) + translation
+train_x = scaling_factor * (train_x.reshape(n_train, n_in) - translation)
+test_x = scaling_factor * (test_x.reshape(n_test, n_in) - translation)
 
 one_hot = False
 
