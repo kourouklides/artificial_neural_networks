@@ -42,6 +42,8 @@ parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
 parser.add_argument('--n_epochs', type = int, default = 50)
 parser.add_argument('--batch_size', type = int, default = 512)
+parser.add_argument('--lrearning_rate', type = float, default = 1e-2)
+parser.add_argument('--epsilon', type = float, default = 1e0)
 parser.add_argument('--save_architecture', type = bool, default = True)
 parser.add_argument('--save_last_weights', type = bool, default = True)
 parser.add_argument('--save_last_model', type = bool, default = True)
@@ -84,10 +86,11 @@ n_out = np.unique(train_y).shape[0] # number of classes/labels
 
 # PREPROCESSING STEP
 scaling_factor = (255/255) 
+translation = 0
 
 # Reshape training and test sets
-train_x = scaling_factor * train_x.reshape(n_train, n_in)
-test_x = scaling_factor * test_x.reshape(n_test, n_in)
+train_x = scaling_factor * train_x.reshape(n_train, n_in) + translation
+test_x = scaling_factor * test_x.reshape(n_test, n_in) + translation
 
 one_hot = False
 
@@ -103,10 +106,10 @@ for i in range(args.n_layers):
     N.append(args.layer_size) # hidden layer i
 N.append(n_out) # output layer
 # N = [n_in, 64, 128, 64, n_out]
-lrearning_rate = 1e-2
-epsilon = 1e0
-optimizer = optimizers.RMSprop(lr=lrearning_rate,epsilon=epsilon)
-# optimizer = optimizers.Adam(lr=lrearning_rate,epsilon=epsilon)
+lrearning_rate = args.lrearning_rate
+epsilon = args.epsilon
+optimizer = optimizers.RMSprop(lr = lrearning_rate, epsilon = epsilon)
+# optimizer = optimizers.Adam(lr = lrearning_rate, epsilon = epsilon)
 
 # ANN Architecture
 L = len(N) - 1
@@ -188,8 +191,8 @@ if (args.verbose > 0):
 architecture_path = models_path + model_name + '_architecture'
 
 last_suffix = file_suffix.format(epoch = args.n_epochs, \
-                          val_acc = score_dict['val_acc'], \
-                          val_loss = score_dict['val_loss'])
+                                 val_acc = score_dict['val_acc'], \
+                                 val_loss = score_dict['val_loss'])
 
 if (args.save_architecture):
     # Save only the archtitecture (as a JSON file)

@@ -87,11 +87,12 @@ n_in = img_width * img_length # number of features / dimensions
 n_out = np.unique(train_y).shape[0] # number of classes/labels
 
 # PREPROCESSING STEP
-scaling_factor = (255/255) 
+scaling_factor = (255/255)
+translation = 0
 
 # Reshape training and test sets
-train_x = scaling_factor * train_x.reshape(n_train, n_in)
-test_x = scaling_factor * test_x.reshape(n_test, n_in)
+train_x = scaling_factor * train_x.reshape(n_train, n_in) + translation
+test_x = scaling_factor * test_x.reshape(n_test, n_in) + translation
 
 one_hot = False
 

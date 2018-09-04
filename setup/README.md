@@ -8,7 +8,7 @@ __Note:__ It is possible that the code might work with Python 2, either as is or
 
 ## Quick installation
 
-If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow the steps below.
+If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow __all__ the steps below.
 
 ### 1. Install Python 3
 
@@ -43,3 +43,13 @@ You need to download the necessary data for each corresponding code example, as 
 ## Recommended installation
 
 TODO: write this section
+
+## Troubleshoot (if you have errors or problems)
+
+If you face any errors then please try asking at the __all__ of the available forums and websites online __first__. For example:
+- [StackExchange](https://stackexchange.com/) and any of its sub-forums, such as [Data Science](https://datascience.stackexchange.com/)
+- [Reddit](https://www.reddit.com/) and any of its sub-forums, such as [Python](https://www.reddit.com/r/Python/)
+- any other website similar to the above
+
+If you have asked at __all__ of the available forums and websites online, then in that case, you can copy-paste the URL links of your questions in this repository and ask your question here. We will try our best to resolve the issue(s).
+
