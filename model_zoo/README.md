@@ -11,3 +11,5 @@ https://github.com/tensorflow/models/blob/master/research/deeplab/g3doc/model_zo
 https://github.com/tensorflow/models
 
 https://github.com/hwalsuklee/tensorflow-generative-model-collections
+
+https://github.com/DLTK/models
