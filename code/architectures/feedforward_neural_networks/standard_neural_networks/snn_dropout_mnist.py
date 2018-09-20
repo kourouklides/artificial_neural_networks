@@ -78,6 +78,10 @@ test_y = mnist['y_test'].astype(np.int32)
 mnist.close()
 
 #%% 
+# PREPROCESSING STEP
+scaling_factor = (1/255)
+translation = 0
+
 # Set up the model and the methods
 
 img_width = train_x.shape[1]
@@ -87,10 +91,6 @@ n_train = train_x.shape[0] # number of training examples/samples
 n_test = test_x.shape[0] # number of test examples/samples
 n_in = img_width * img_length # number of features / dimensions
 n_out = np.unique(train_y).shape[0] # number of classes/labels
-
-# PREPROCESSING STEP
-scaling_factor = (1/255)
-translation = 0
 
 # Reshape training and test sets
 train_x = scaling_factor * (train_x.reshape(n_train, n_in) - translation)
