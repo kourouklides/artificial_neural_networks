@@ -96,7 +96,7 @@ n_out = np.unique(train_y).shape[0] # number of classes/labels
 train_x = scaling_factor * (train_x.reshape(n_train, n_in) - translation)
 test_x = scaling_factor * (test_x.reshape(n_test, n_in) - translation)
 
-one_hot = False
+one_hot = False # It works exactly the same for both True and False
 
 # Convert class vectors to binary class matrices (i.e. One hot encoding)
 if (one_hot):
