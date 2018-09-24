@@ -178,7 +178,7 @@ model_history = model.fit(x = train_x, y = train_y,
                           callbacks = callbacks)
 
 #%% 
-# VALIDATION PHASE
+# TESTING PHASE
 
 score = model.evaluate(x = test_x, y = test_y, verbose = args.verbose)
 score_dict = {'val_loss' : score[0], 'val_acc' : score[1]}
