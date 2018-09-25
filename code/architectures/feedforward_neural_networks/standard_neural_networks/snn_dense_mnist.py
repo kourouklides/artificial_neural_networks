@@ -39,6 +39,8 @@ parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 
+parser.add_argument('--scaling_factor', type = float, default = (255/255) )
+parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
 parser.add_argument('--n_epochs', type = int, default = 50)
@@ -77,8 +79,8 @@ mnist.close()
 
 #%% 
 # PREPROCESSING STEP
-scaling_factor = (255/255)
-translation = 0
+scaling_factor = args.scaling_factor
+translation = args.translation
 
 # Set up the model and the methods
 
