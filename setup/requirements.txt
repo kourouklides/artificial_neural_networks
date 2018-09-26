@@ -2,3 +2,4 @@ edward==1.3.5
 tensorflow==1.7.0
 numpy==1.14.3
 Keras==2.2.0
+msgpack
