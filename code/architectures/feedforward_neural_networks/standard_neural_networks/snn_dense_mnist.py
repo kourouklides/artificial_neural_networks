@@ -45,7 +45,7 @@ parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--same_size', type = bool, default = True)
 parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
-parser.add_argument('--different_layer_sizes', nargs='*', type=int, default = [128, 128])
+parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default = [128, 128])
 parser.add_argument('--n_epochs', type = int, default = 50)
 parser.add_argument('--batch_size', type = int, default = 512)
 parser.add_argument('--optimizer', type = str, default = 'RMSprop')
@@ -118,9 +118,9 @@ if (args.same_size):
     for i in range(n_layers):
         N.append(args.layer_size) # hidden layer i
 else:
-    n_layers = len(args.different_layer_sizes)
+    n_layers = len(args.explicit_layer_sizes)
     for i in range(n_layers):
-        N.append(args.different_layer_sizes[i]) # hidden layer i
+        N.append(args.explicit_layer_sizes[i]) # hidden layer i
 N.append(n_out) # output layer
 
 # ANN Architecture
