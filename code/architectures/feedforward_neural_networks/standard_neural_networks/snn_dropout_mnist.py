@@ -113,9 +113,7 @@ for i in range(args.n_layers):
     N.append(args.layer_size) # hidden layer i
 N.append(n_out) # output layer
 # N = [n_in, 64, 128, 64, n_out]
-lrearning_rate = args.lrearning_rate
-epsilon = args.epsilon
-optimizer = optimizers.RMSprop(lr = lrearning_rate, epsilon = epsilon)
+optimizer = optimizers.RMSprop(lr = args.lrearning_rate, epsilon = args.epsilon)
 # optimizer = optimizers.Adam(lr = lrearning_rate, epsilon = epsilon)
 
 # ANN Architecture
