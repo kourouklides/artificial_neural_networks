@@ -42,10 +42,13 @@ parser.add_argument('--seed', type = int, default = 0)
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--scaling_factor', type = float, default = (255/255) )
 parser.add_argument('--translation', type = float, default = 0)
+parser.add_argument('--same_size', type = bool, default = True)
 parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
+parser.add_argument('--different_layer_sizes', nargs='*', type=int, default = [128, 128])
 parser.add_argument('--n_epochs', type = int, default = 50)
 parser.add_argument('--batch_size', type = int, default = 512)
+parser.add_argument('--optimizer', type = str, default = 'RMSprop')
 parser.add_argument('--lrearning_rate', type = float, default = 1e-2)
 parser.add_argument('--epsilon', type = float, default = 1e0)
 
@@ -105,15 +108,20 @@ if (one_hot):
     train_y = to_categorical(train_y, n_out)
     test_y = to_categorical(test_y, n_out)
 
+#%% 
 # Model hyperparameters
+
 N = []
 N.append(n_in) #input layer
-for i in range(args.n_layers):
-    N.append(args.layer_size) # hidden layer i
+if (args.same_size):
+    n_layers = args.n_layers
+    for i in range(n_layers):
+        N.append(args.layer_size) # hidden layer i
+else:
+    n_layers = len(args.different_layer_sizes)
+    for i in range(n_layers):
+        N.append(args.different_layer_sizes[i]) # hidden layer i
 N.append(n_out) # output layer
-# N = [n_in, 64, 128, 64, n_out]
-optimizer = optimizers.RMSprop(lr = args.lrearning_rate, epsilon = args.epsilon)
-# optimizer = optimizers.Adam(lr = lrearning_rate, epsilon = epsilon)
 
 # ANN Architecture
 L = len(N) - 1
@@ -134,6 +142,28 @@ else:
     loss_function = 'sparse_categorical_crossentropy'
 
 metrics = ['accuracy']
+
+lr = args.lrearning_rate
+epsilon = args.epsilon
+optimizer_selection = {'Adadelta' : optimizers.Adadelta( \
+                               lr=lr, rho=0.95, epsilon=epsilon, decay=0.0), \
+                       'Adagrad' : optimizers.Adagrad( \
+                               lr=lr, epsilon=epsilon, decay=0.0), \
+                       'Adam' : optimizers.Adam( \
+                               lr=lr, beta_1=0.9, beta_2=0.999, \
+                               epsilon=epsilon, decay=0.0, amsgrad=False), \
+                       'Adamax' : optimizers.Adamax( \
+                               lr=lr, beta_1=0.9, beta_2=0.999, \
+                               epsilon=epsilon, decay=0.0), \
+                       'Nadam' : optimizers.Nadam( \
+                               lr=lr, beta_1=0.9, beta_2=0.999, \
+                               epsilon=epsilon, schedule_decay=0.004), \
+                       'RMSprop' : optimizers.RMSprop( \
+                               lr=lr, rho=0.9, epsilon=epsilon, decay=0.0), \
+                       'SGD' : optimizers.SGD( \
+                               lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
+
+optimizer = optimizer_selection[args.optimizer]
 
 model.compile(optimizer = optimizer, \
               loss = loss_function, \
