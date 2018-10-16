@@ -33,12 +33,13 @@ import argparse
 
 import os
 
-# Settings
+# SETTINGS
 parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 
+# Settings for preprocessing and hyperparameters
 parser.add_argument('--scaling_factor', type = float, default = (1/255) )
 parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--n_layers', type = int, default = 2)
@@ -47,15 +48,15 @@ parser.add_argument('--n_epochs', type = int, default = 20)
 parser.add_argument('--batch_size', type = int, default = 128)
 parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
 parser.add_argument('--epsilon', type = float, default = None)
+parser.add_argument('--dropout_rate', type = int, default = 0.2)
 
+# Settings for saving the model
 parser.add_argument('--save_architecture', type = bool, default = True)
 parser.add_argument('--save_last_weights', type = bool, default = True)
 parser.add_argument('--save_last_model', type = bool, default = True)
 parser.add_argument('--save_models', type = bool, default = False)
 parser.add_argument('--save_weights_only', type = bool, default = False)
 parser.add_argument('--save_best_only', type = bool, default = False)
-
-parser.add_argument('--dropout_rate', type = int, default = 0.2)
 args = parser.parse_args()
 
 if (args.verbose > 0):
