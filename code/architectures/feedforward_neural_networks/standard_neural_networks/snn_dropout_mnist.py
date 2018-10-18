@@ -51,7 +51,8 @@ parser.add_argument('--batch_size', type = int, default = 128)
 parser.add_argument('--optimizer', type = str, default = 'RMSprop')
 parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
 parser.add_argument('--epsilon', type = float, default = None)
-parser.add_argument('--dropout_rate', type = int, default = 0.2)
+parser.add_argument('--dropout_rate_input', type = int, default = 0.1)
+parser.add_argument('--dropout_rate_hidden', type = int, default = 0.2)
 
 # Settings for saving the model
 parser.add_argument('--save_architecture', type = bool, default = True)
@@ -91,16 +92,20 @@ translation = args.translation
 # Set up the model and the methods
 
 img_width = train_x.shape[1]
-img_length = train_x.shape[2]
+img_height = train_x.shape[2]
 
 n_train = train_x.shape[0] # number of training examples/samples
 n_test = test_x.shape[0] # number of test examples/samples
-n_in = img_width * img_length # number of features / dimensions
+n_in = img_width * img_height # number of features / dimensions
 n_out = np.unique(train_y).shape[0] # number of classes/labels
 
 # Reshape training and test sets
-train_x = scaling_factor * (train_x.reshape(n_train, n_in) - translation)
-test_x = scaling_factor * (test_x.reshape(n_test, n_in) - translation)
+train_x = train_x.reshape(n_train, n_in)
+test_x = test_x.reshape(n_test, n_in)
+
+# Apply preprocessing
+train_x = scaling_factor * (train_x - translation)
+test_x = scaling_factor * (test_x - translation)
 
 one_hot = False # It works exactly the same for both True and False
 
@@ -126,12 +131,14 @@ N.append(n_out) # output layer
 
 # ANN Architecture
 L = len(N) - 1
+
 x = Input(shape = (n_in,)) #input layer
-h = Dropout(args.dropout_rate)(x)
+h = Dropout(rate = args.dropout_rate_input)(x)
+
 for i in range(1,L):
-    h = Dense(N[i], activation = 'relu')(h) # hidden layer i
-    h = Dropout(args.dropout_rate)(h)
-out = Dense(n_out, activation = 'softmax')(h) # output layer
+    h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
+    h = Dropout(rate = args.dropout_rate_hidden)(h)
+out = Dense(units = n_out, activation = 'softmax')(h) # output layer
 
 model = Model(inputs = x, outputs = out)
 

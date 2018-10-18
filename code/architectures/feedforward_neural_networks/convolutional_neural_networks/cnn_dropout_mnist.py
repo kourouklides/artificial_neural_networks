@@ -1,6 +1,6 @@
 """
 
-Model: Standard Neural Network (SNN) with dense (i.e. fully connected) layers
+Model: Convolutional Neural Network (CNN) with dropout layers
 Method: Backpropagation
 
 Architecture: Feedforward Neural Network
@@ -22,7 +22,7 @@ import tensorflow as tf
 import random as rn
 
 from keras import optimizers
-from keras.layers import Input, Dense
+from keras.layers import Input, Dense, Dropout, Conv2D, MaxPooling2D, Flatten
 from keras.models import Model
 from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
@@ -40,17 +40,20 @@ parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 
 # Settings for preprocessing and hyperparameters
-parser.add_argument('--scaling_factor', type = float, default = (255/255) )
+parser.add_argument('--scaling_factor', type = float, default = (1/255) )
 parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--same_size', type = bool, default = True)
 parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
-parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default = [128, 128])
-parser.add_argument('--n_epochs', type = int, default = 50)
-parser.add_argument('--batch_size', type = int, default = 512)
-parser.add_argument('--optimizer', type = str, default = 'RMSprop')
-parser.add_argument('--lrearning_rate', type = float, default = 1e-2)
-parser.add_argument('--epsilon', type = float, default = 1e0)
+parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default = [512, 512])
+parser.add_argument('--n_epochs', type = int, default = 12)
+parser.add_argument('--batch_size', type = int, default = 128)
+parser.add_argument('--optimizer', type = str, default = 'Adadelta')
+parser.add_argument('--lrearning_rate', type = float, default = 1e0)
+parser.add_argument('--epsilon', type = float, default = None)
+parser.add_argument('--dropout_rate_input', type = int, default = 0.0)
+parser.add_argument('--dropout_rate_conv', type = int, default = 0.25)
+parser.add_argument('--dropout_rate_hidden', type = int, default = 0.5)
 
 # Settings for saving the model
 parser.add_argument('--save_architecture', type = bool, default = True)
@@ -73,7 +76,7 @@ if (args.reproducible):
 
 #%% 
 # Load MNIST data
-    
+
 mnist_path = r'../../../../datasets/mnist.npz'
 mnist = np.load(mnist_path)
 train_x = mnist['x_train'].astype(np.float32)
@@ -98,8 +101,8 @@ n_in = img_width * img_height # number of features / dimensions
 n_out = np.unique(train_y).shape[0] # number of classes/labels
 
 # Reshape training and test sets
-train_x = train_x.reshape(n_train, n_in)
-test_x = test_x.reshape(n_test, n_in)
+train_x = train_x.reshape(n_train, img_width, img_height, 1)
+test_x = test_x.reshape(n_test, img_width, img_height, 1)
 
 # Apply preprocessing
 train_x = scaling_factor * (train_x - translation)
@@ -130,12 +133,23 @@ N.append(n_out) # output layer
 # ANN Architecture
 L = len(N) - 1
 
-x = Input(shape = (n_in,)) #input layer
-h = x
+x = Input(shape = (img_width, img_height, 1)) #input layer
+h = Dropout(rate = args.dropout_rate_input)(x)
+
+h = Conv2D(filters = 32, kernel_size = (3, 3), activation='relu')(h)
+h = MaxPooling2D(pool_size = (2, 2))(h)
+h = Dropout(rate = args.dropout_rate_conv)(h)
+
+h = Conv2D(filters = 64, kernel_size = (3, 3), activation='relu')(h)
+h = MaxPooling2D(pool_size = (2, 2))(h)
+h = Dropout(rate = args.dropout_rate_conv)(h)
+
+h = Flatten()(h)
 
 for i in range(1,L):
-    h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
-out = Dense(units = n_out, activation = 'softmax')(h) # output layer
+    h = Dense(N[i], activation = 'relu')(h) # hidden layer i
+    h = Dropout(rate = args.dropout_rate_hidden)(h)
+out = Dense(n_out, activation = 'softmax')(h) # output layer
 
 model = Model(inputs = x, outputs = out)
 
@@ -179,7 +193,7 @@ model.compile(optimizer = optimizer, \
 # Save trained models for every epoch
 
 models_path = r'../../../../trained_models/'
-model_name = 'mnist_snn_dense'
+model_name = 'mnist_cnn_dropout'
 weights_path = models_path + model_name + '_weights'
 model_path = models_path + model_name + '_model'
 file_suffix = '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
