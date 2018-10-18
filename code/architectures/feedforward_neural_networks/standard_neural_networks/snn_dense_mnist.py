@@ -72,7 +72,7 @@ if (args.reproducible):
     tf.set_random_seed(args.seed)
 
 #%% 
-# Load MNIST data
+# Load the MNIST dataset
     
 mnist_path = r'../../../../datasets/mnist.npz'
 mnist = np.load(mnist_path)

@@ -14,7 +14,7 @@ from __future__ import print_function
 
 from download_dataset import download
 
-file_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
-file_name = 'mnist.npz'
+file_url = 'https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz'
+file_name = 'cifar-100-python.tar.gz'
 
 download(file_url,file_name)

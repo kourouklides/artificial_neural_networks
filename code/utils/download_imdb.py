@@ -14,7 +14,7 @@ from __future__ import print_function
 
 from download_dataset import download
 
-file_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
-file_name = 'mnist.npz'
+file_url = 'https://s3.amazonaws.com/text-datasets/imdb.npz'
+file_name = 'imdb.npz'
 
 download(file_url,file_name)
