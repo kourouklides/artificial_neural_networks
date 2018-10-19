@@ -27,14 +27,6 @@ import argparse
 
 import os
 
-def series_to_supervised(dataset, look_back=1):
-	dataX, dataY = [], []
-	for i in range(len(dataset)-look_back-1):
-		a = dataset[i:(i+look_back), 0]
-		dataX.append(a)
-		dataY.append(dataset[i + look_back, 0])
-	return np.array(dataX), np.array(dataY)
-
 # SETTINGS
 parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
@@ -73,6 +65,14 @@ sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
 
 #%% 
 # Train-Test split
+
+def series_to_classification(dataset, look_back=1):
+	dataX, dataY = [], []
+	for i in range(len(dataset)-look_back-1):
+		a = dataset[i:(i+look_back), 0]
+		dataX.append(a)
+		dataY.append(dataset[i + look_back, 0])
+	return np.array(dataX), np.array(dataY)
 
 n_series = len(sunspots)
 
