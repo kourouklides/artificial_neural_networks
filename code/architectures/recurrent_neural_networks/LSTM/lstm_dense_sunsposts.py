@@ -27,6 +27,14 @@ import argparse
 
 import os
 
+def series_to_supervised(dataset, look_back=1):
+	dataX, dataY = [], []
+	for i in range(len(dataset)-look_back-1):
+		a = dataset[i:(i+look_back), 0]
+		dataX.append(a)
+		dataY.append(dataset[i + look_back, 0])
+	return np.array(dataX), np.array(dataY)
+
 # SETTINGS
 parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
@@ -34,6 +42,8 @@ parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
 
 # Settings for preprocessing and hyperparameters
+parser.add_argument('--scaling_factor', type = float, default = (1/255) )
+parser.add_argument('--translation', type = float, default = 0)
 
 # Settings for saving the model
 parser.add_argument('--save_architecture', type = bool, default = True)
@@ -57,22 +67,30 @@ if (args.reproducible):
 #%% 
 # Load the Montly sunspots dataset
 
-mnist_path = r'../../../../datasets/mnist.npz'
-mnist = np.load(mnist_path)
-train_x = mnist['x_train'].astype(np.float32)
-train_y = mnist['y_train'].astype(np.int32)
-test_x = mnist['x_test'].astype(np.float32)
-test_y = mnist['y_test'].astype(np.int32)
-mnist.close()
+sunspots_path = r'../../../../datasets/monthly-sunspots.csv'
+sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
+                        delimiter = ",", skip_header = 1, usecols = 1)
 
+#%% 
+# Train-Test split
 
+n_series = len(sunspots)
 
+n_train = int(n_series * 2/3) # number of training examples/samples
+n_test = n_series - n_train  # number of test examples/samples
 
+train_x = np.arange(n_train)
+test_x = np.arange(n_train, n_series) + 1
 
+train_y = sunspots[:n_train]
+test_y = sunspots[n_train:]
 
+#%% 
+# PREPROCESSING STEP
+scaling_factor = args.scaling_factor
+translation = args.translation
 
-
-
+# Set up the model and the methods
 
 
 
