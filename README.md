@@ -1,7 +1,9 @@
 # artificial_neural_networks
 This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networks.
 
-The code implementation is in Python (using [TensorFlow]() and [Keras]() libraries).
+The code implementation is in Python (using [TensorFlow](https://www.tensorflow.org/) and [Keras](https://keras.io/) libraries).
+
+The repository is the one used for the Master's degree (MSc in Data Science) at Cyrpus University of Technology and also, at the meetups and workshops of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/)
 
 Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
 
@@ -35,11 +37,11 @@ This repository includes the following architectures:
 
 - [Feedforward Neural Network](code/architectures/feedforward_neural_networks)
   - Bayesian Neural Networks
-  - Convolutional Neural Networks
+  - [Convolutional Neural Networks](code/architectures/feedforward_neural_networks/convolutional_neural_networks)
   - [Standard Neural Networks](code/architectures/feedforward_neural_networks/standard_neural_networks)
 - [Recurrent Neural Network](code/architectures/recurrent_neural_networks)
   - GRU
-  - LSTM
+  - [LSTM](code/architectures/recurrent_neural_networks/LSTM/lstm_dense_sunsposts.py)
   - Vanilla RNN
 
 Some advanced Methods of Machine Learning are also included:
