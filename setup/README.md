@@ -2,7 +2,7 @@
 
 This is a step-by-step tutorial that will guide you through the installation of the necessary libraries and how to setup your environment, in order to run the various code examples.
 
-The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
+The code should run on any machine (i.e. Windows, macOS, Linux) that supports __Python 3__.
 
 __Note:__ It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does not support Python 2. Also, there is no guarantee that individual files will work on their own.
 
@@ -15,7 +15,7 @@ If, for any reason, you want to spend the minimum amount of time for setting up 
 In order to save a lot of trouble, download the [Anaconda Distribution](https://www.anaconda.com/distribution/), which is actively supported by the Data Science community.
 
 1. Go to the [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
-2. Choose **Python 3.6** or later.
+2. Choose __Python 3.6__ or later.
 
 The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering.
 
