@@ -47,7 +47,7 @@ TODO: write this section
 
 ## Troubleshoot (if you have errors or problems)
 
-If you face any errors then please try asking at the __all__ of the available forums and websites online __first__. For example:
+If you face any errors, then please try asking at __all__ of the available forums and websites online __first__. For example:
 - [StackExchange](https://stackexchange.com/) and any of its sub-forums, such as [Data Science](https://datascience.stackexchange.com/)
 - [Reddit](https://www.reddit.com/) and any of its sub-forums, such as [Python](https://www.reddit.com/r/Python/)
 - any other website similar to the above
