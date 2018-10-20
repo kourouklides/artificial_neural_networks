@@ -1,1 +1,4 @@
-
+name: base
+dependencies:
+- pip:
+    - tensorflow==1.7.0
