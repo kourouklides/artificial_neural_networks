@@ -1,5 +1,6 @@
 name: base
 dependencies:
   - python=3.6.5
+  - pyyaml=3.13
   - pip:
     - tensorflow==1.7.0
