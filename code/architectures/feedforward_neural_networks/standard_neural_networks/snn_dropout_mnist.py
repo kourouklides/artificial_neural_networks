@@ -96,6 +96,7 @@ img_height = train_x.shape[2]
 
 n_train = train_x.shape[0] # number of training examples/samples
 n_test = test_x.shape[0] # number of test examples/samples
+
 n_in = img_width * img_height # number of features / dimensions
 n_out = np.unique(train_y).shape[0] # number of classes/labels
 

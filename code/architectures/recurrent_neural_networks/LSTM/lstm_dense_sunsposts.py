@@ -21,6 +21,9 @@ import numpy as np
 import tensorflow as tf
 import random as rn
 
+from keras.models import Sequential
+from keras.layers import Dense, LSTM
+
 import json, yaml
 
 import argparse
@@ -66,24 +69,29 @@ sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
 #%% 
 # Train-Test split
 
-def series_to_classification(dataset, look_back=1):
-	dataX, dataY = [], []
-	for i in range(len(dataset)-look_back-1):
-		a = dataset[i:(i+look_back), 0]
-		dataX.append(a)
-		dataY.append(dataset[i + look_back, 0])
-	return np.array(dataX), np.array(dataY)
+def series_to_classification (dataset, look_back = 1):
+    # Prepare the dataset (Time Series) to be used for Classification
+    
+	data_X, data_Y = [], []
+    
+	for i in range(len(dataset) - look_back):
+		a = dataset[i:(i + look_back)]
+		data_X.append(a)
+		data_Y.append(dataset[i + look_back])
+        
+	return np.array(data_X), np.array(data_Y)
 
 n_series = len(sunspots)
 
-n_train = int(n_series * 2/3) # number of training examples/samples
-n_test = n_series - n_train  # number of test examples/samples
+split_ratio = 2/3 # between zero and one
+n_split = int(n_series * split_ratio) # number of training examples/samples
 
-train_x = np.arange(n_train)
-test_x = np.arange(n_train, n_series) + 1
+train = sunspots[:n_split]
+test = sunspots[n_split:]
 
-train_y = sunspots[:n_train]
-test_y = sunspots[n_train:]
+look_back = 1
+train_x, train_y = series_to_classification(train,look_back)
+test_x, test_y = series_to_classification(test,look_back)
 
 #%% 
 # PREPROCESSING STEP
@@ -91,6 +99,37 @@ scaling_factor = args.scaling_factor
 translation = args.translation
 
 # Set up the model and the methods
+
+n_train = train_x.shape[0] # number of training examples/samples
+n_test = test_x.shape[0] # number of test examples/samples
+
+n_in = train_x.shape[1] # number of features / dimensions
+n_out = 1 # number of classes/labels
+
+# Reshape training and test sets
+train_x = train_x.reshape(n_train, n_in, 1)
+test_x = test_x.reshape(n_test, n_in, 1)
+
+# Apply preprocessing
+train_x = scaling_factor * (train_x - translation)
+test_x = scaling_factor * (test_x - translation)
+
+#%% 
+# Model hyperparameters
+
+model = Sequential()
+model.add(LSTM(4, input_shape=(look_back, 1)))
+model.add(Dense(1))
+model.compile(loss='mean_squared_error', optimizer='adam')
+
+#%% 
+# TRAINING PHASE
+
+model_history = model.fit(train_x, train_y, epochs=100, batch_size=1, verbose=2)
+
+
+
+
 
 
 
