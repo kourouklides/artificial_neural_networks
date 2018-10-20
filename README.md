@@ -16,7 +16,7 @@ If you like this repository or if you found it useful, feel fre to __Star, Fork,
 * This repository is intended to be friendly to beginners, but it is not limited just to them
 * Since TensorFlow is ideal for both __Research__ and __Production Development__, then so is this repository
 * In order to deploy the source code into Production, a few extensions will have to be made first
-* The [license](LICENSE) of this code essentially allows you to do whatever you want with the code
+* The [license](LICENSE) of this repository essentially allows you to do whatever you want with the code
 
 ## Downloading
 It is strongly recommended that you download the whole GitHub repository, but you can also try to download just the individual Python files and see if they work. However, there is no guarantee that individual files will work on their own.
