@@ -52,5 +52,5 @@ If you face any errors, then please try asking at __all__ of the available forum
 - [Reddit](https://www.reddit.com/) and any of its sub-forums, such as [Python](https://www.reddit.com/r/Python/)
 - any other website similar to the above
 
-If you have asked at __all__ of the available forums and websites online, then in that case, you can copy-paste the URL links of your questions in this repository and ask your question here. We will try our best to resolve the issue(s).
+If you have asked at __all__ of the available forums and websites online, then in that case, you can copy-paste the URL links of your questions in this repository and ask your question [here](https://github.com/kourouklides/artificial_neural_networks/issues). We will try our best to resolve the issue(s).
 
