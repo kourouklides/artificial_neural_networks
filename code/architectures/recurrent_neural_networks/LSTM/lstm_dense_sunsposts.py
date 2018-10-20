@@ -21,6 +21,9 @@ import numpy as np
 import tensorflow as tf
 import random as rn
 
+from math import sqrt
+from sklearn.metrics import mean_squared_error
+
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
 
@@ -29,6 +32,8 @@ import json, yaml
 import argparse
 
 import os
+
+import matplotlib.pyplot as plt
 
 # SETTINGS
 parser = argparse.ArgumentParser()
@@ -125,13 +130,27 @@ model.compile(loss='mean_squared_error', optimizer='adam')
 #%% 
 # TRAINING PHASE
 
-model_history = model.fit(train_x, train_y, epochs=100, batch_size=1, verbose=2)
+model_history = model.fit(train_x, train_y, epochs=20, batch_size=1, verbose=2)
 
+#%% 
+# TESTING PHASE
 
+train_y_predict = model.predict(train_x)
+test_y_predict = model.predict(test_x)
 
+train_score = sqrt(mean_squared_error(train_y, train_y_predict))
+print('Train RMSE: %.2f ' % (train_score))
+test_score = sqrt(mean_squared_error(test_y, test_y_predict))
+print('Test RMSE: %.2f ' % (test_score))
 
+#%% 
+# Data Visualization
 
+plt.plot(train_y)
+plt.plot(train_y_predict)
+plt.show()
 
-
-
+plt.plot(test_y)
+plt.plot(test_y_predict)
+plt.show()
 
