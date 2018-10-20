@@ -28,7 +28,7 @@ To download the whole repository, there are currently two mains options:
 You can choose the one which best suits your needs.
 
 ## Setup and Installation
-The code should run on any machine (i.e. Windows, macOS, Linux) that supports Python 3.
+The code should run on any machine (i.e. Windows, macOS, Linux) that supports __Python 3__.
 
 Guides and instructions on how to install the necessary libraries and how to setup your environment can be found [here](setup/README.md).
 
