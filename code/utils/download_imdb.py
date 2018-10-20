@@ -1,6 +1,6 @@
 """
 
-Utility to download the MNIST dataset
+Utility to download the IMDB dataset
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE

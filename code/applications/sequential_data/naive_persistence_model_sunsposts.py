@@ -1,8 +1,7 @@
 """
 
-Model: Long short-term memory (LSTM) with dense (i.e. fully connected) layers
-Mehtod: Truncated Backpropagation Through Time (TBPTT)
-Architecture: Recurrent Neural Network
+Model: Persistence Model
+Mehtod: Naive (i.e. copying the previous value)
 
 Dataset: Monthly sunspots
 Task: Time Series Forecasting
@@ -96,7 +95,7 @@ n_split = int(n_series * split_ratio)
 train = sunspots[:n_split]
 test = sunspots[n_split:]
 
-look_back = 3
+look_back = 1
 train_x, train_y = series_to_supervised(train,look_back)
 test_x, test_y = series_to_supervised(test,look_back)
 
@@ -120,38 +119,6 @@ test_x = test_x.reshape(n_test, n_in, 1)
 # Apply preprocessing
 train_x = scaling_factor * (train_x - translation)
 test_x = scaling_factor * (test_x - translation)
-
-#%% 
-# Model hyperparameters
-N = [n_in, 6, 6, n_out]
-
-# ANN Architecture
-L = len(N) - 1
-
-x = Input(shape = (n_in, 1)) #input layer
-h = x
-
-h = LSTM(units = 4)(h)
-
-for i in range(1,L):
-    h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
-
-out = Dense(units = n_out, activation = None)(h) # output layer
-
-model = Model(inputs = x, outputs = out)
-
-if (args.verbose > 0):
-    model.summary()
-
-loss_function = 'mean_squared_error'
-
-metrics = ['mean_absolute_error']
-
-optimizer = 'adam'
-
-model.compile(optimizer = optimizer, \
-              loss = loss_function, \
-              metrics = metrics)
 
 #%% 
 # TRAINING PHASE

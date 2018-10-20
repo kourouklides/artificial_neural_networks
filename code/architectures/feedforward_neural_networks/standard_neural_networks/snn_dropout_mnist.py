@@ -2,9 +2,10 @@
 
 Model: Standard Neural Network (SNN) with dropout layers
 Method: Backpropagation
-
 Architecture: Feedforward Neural Network
+
 Dataset: MNIST
+Task: Handwritten Digit Recognition
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
@@ -212,7 +213,7 @@ else:
 #%% 
 # TRAINING PHASE
 
-model_history = model.fit(x = train_x, y = train_y,
+model_history = model.fit(x = train_x, y = train_y, \
                           validation_data = (test_x, test_y), \
                           batch_size = args.batch_size, \
                           epochs = args.n_epochs, \

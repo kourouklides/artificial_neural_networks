@@ -2,9 +2,10 @@
 
 Model: Standard Neural Network (SNN) with dense (i.e. fully connected) layers
 Method: Backpropagation
-
 Architecture: Feedforward Neural Network
+
 Dataset: MNIST
+Task: Handwritten Digit Recognition
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
@@ -136,6 +137,7 @@ h = x
 
 for i in range(1,L):
     h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
+
 out = Dense(units = n_out, activation = 'softmax')(h) # output layer
 
 model = Model(inputs = x, outputs = out)
@@ -209,7 +211,7 @@ else:
 #%% 
 # TRAINING PHASE
 
-model_history = model.fit(x = train_x, y = train_y,
+model_history = model.fit(x = train_x, y = train_y, \
                           validation_data = (test_x, test_y), \
                           batch_size = args.batch_size, \
                           epochs = args.n_epochs, \

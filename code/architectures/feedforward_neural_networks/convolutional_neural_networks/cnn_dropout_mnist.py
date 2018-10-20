@@ -2,9 +2,10 @@
 
 Model: Convolutional Neural Network (CNN) with dropout layers
 Method: Backpropagation
-
 Architecture: Feedforward Neural Network
+
 Dataset: MNIST
+Task: Handwritten Digit Recognition
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
@@ -148,9 +149,9 @@ h = Dropout(rate = args.dropout_rate_conv)(h)
 h = Flatten()(h)
 
 for i in range(1,L):
-    h = Dense(N[i], activation = 'relu')(h) # hidden layer i
+    h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
     h = Dropout(rate = args.dropout_rate_hidden)(h)
-out = Dense(n_out, activation = 'softmax')(h) # output layer
+out = Dense(units = n_out, activation = 'softmax')(h) # output layer
 
 model = Model(inputs = x, outputs = out)
 
@@ -223,7 +224,7 @@ else:
 #%% 
 # TRAINING PHASE
 
-model_history = model.fit(x = train_x, y = train_y,
+model_history = model.fit(x = train_x, y = train_y, \
                           validation_data = (test_x, test_y), \
                           batch_size = args.batch_size, \
                           epochs = args.n_epochs, \

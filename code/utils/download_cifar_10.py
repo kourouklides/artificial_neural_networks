@@ -1,6 +1,6 @@
 """
 
-Utility to download the MNIST dataset
+Utility to download the CIFAR-10 dataset
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
