@@ -57,6 +57,7 @@ Various applications of the aforementioned Methods and Models are also included 
 - [Computer Vision](code/applications/computer_vision)
 - [Medical Imaging](code/applications/medical_imaging)
 - [Natural Language Processing](code/applications/natural_language_processing)
+- [Sequential Data](code/applications/sequential_data) (including Time Series)
 - [Speech Processing](code/applications/speech_processing)
 
 ## Theory
