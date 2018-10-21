@@ -88,8 +88,6 @@ mnist.close()
 scaling_factor = args.scaling_factor
 translation = args.translation
 
-# Set up the model and the methods
-
 img_width = train_x.shape[1]
 img_height = train_x.shape[2]
 
