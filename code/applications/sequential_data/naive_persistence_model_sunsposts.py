@@ -31,9 +31,12 @@ import matplotlib.pyplot as plt
 
 # SETTINGS
 parser = argparse.ArgumentParser()
+
+# General settings
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
+parser.add_argument('--plot', type = bool, default = False)
 
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--scaling_factor', type = float, default = (1/255) )
@@ -148,27 +151,31 @@ test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, i
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)
 train_r2 = r2_score(train_y, train_y_pred)
-print('Train RMSE: %.4f ' % (train_rmse))
-print('Train MAE: %.4f ' % (train_mae))
-print('Train R-squared: %.4f ' % (train_r2))
-
-print('')
 
 test_rmse = sqrt(mean_squared_error(test_y, test_y_pred))
 test_mae = mean_absolute_error(test_y, test_y_pred)
 test_r2 = r2_score(test_y, test_y_pred)
-print('Test RMSE: %.4f ' % (test_rmse))
-print('Test MAE: %.4f ' % (test_mae))
-print('Test R-squared: %.4f ' % (test_r2))
+
+if (args.verbose > 0):
+    print('Train RMSE: %.4f ' % (train_rmse))
+    print('Train MAE: %.4f ' % (train_mae))
+    print('Train (1- R_squared): %.4f ' % (1.0 - train_r2))
+    print('Train R_squared: %.4f ' % (train_r2))
+    print('')
+    print('Test RMSE: %.4f ' % (test_rmse))
+    print('Test MAE: %.4f ' % (test_mae))
+    print('Test (1- R_squared): %.4f ' % (1.0 - test_r2))
+    print('Test R_squared: %.4f ' % (test_r2))
 
 #%% 
 # Data Visualization
 
-plt.plot(train_y)
-plt.plot(train_y_pred)
-plt.show()
-
-plt.plot(test_y)
-plt.plot(test_y_pred)
-plt.show()
+if (args.plot):
+    plt.plot(train_y)
+    plt.plot(train_y_pred)
+    plt.show()
+    
+    plt.plot(test_y)
+    plt.plot(test_y_pred)
+    plt.show()
 

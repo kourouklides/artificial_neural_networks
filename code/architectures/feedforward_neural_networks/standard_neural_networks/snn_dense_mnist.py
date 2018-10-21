@@ -48,6 +48,8 @@ def none_or_float(value):
 
 # SETTINGS
 parser = argparse.ArgumentParser()
+
+# General settings
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
@@ -72,6 +74,7 @@ parser.add_argument('--save_last_model', type = bool, default = True)
 parser.add_argument('--save_models', type = bool, default = False)
 parser.add_argument('--save_weights_only', type = bool, default = False)
 parser.add_argument('--save_best', type = bool, default = False)
+
 args = parser.parse_args()
 
 if (args.verbose > 0):
