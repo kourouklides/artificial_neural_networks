@@ -57,7 +57,7 @@ if (args.reproducible):
 #%% 
 # Load the Montly sunspots dataset
 
-sunspots_path = r'../../../datasets/monthly-sunspots.csv'
+sunspots_path = r'../../../../datasets/monthly-sunspots.csv'
 sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
                         delimiter = ",", skip_header = 1, usecols = 1)
 
