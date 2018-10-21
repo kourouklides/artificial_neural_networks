@@ -112,10 +112,10 @@ def affine_transformation(data_in, scaling, translation, inverse = False):
     return data_out
 
 # Apply preprocessing
-train_x = affine_transformation(train_x, scaling_factor, translation)
-train_y = affine_transformation(train_y, scaling_factor, translation)
-test_x = affine_transformation(test_x, scaling_factor, translation)
-test_y = affine_transformation(test_y, scaling_factor, translation)
+train_x_ = affine_transformation(train_x, scaling_factor, translation)
+train_y_ = affine_transformation(train_y, scaling_factor, translation)
+test_x_ = affine_transformation(test_x, scaling_factor, translation)
+test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
 #%% 
 # TRAINING PHASE
@@ -137,16 +137,13 @@ def model_predict(x):
 #%% 
 # TESTING PHASE
 
-train_y_pred = model_predict(train_x)
-test_y_pred = model_predict(test_x)
+# Predict preprocessed values
+train_y_pred_ = model_predict(train_x)
+test_y_pred_ = model_predict(test_x)
 
 # Remove preprocessing
-train_x = affine_transformation(train_x, scaling_factor, translation, inverse = True)
-train_y = affine_transformation(train_y, scaling_factor, translation, inverse = True)
-test_x = affine_transformation(test_x, scaling_factor, translation, inverse = True)
-test_y = affine_transformation(test_y, scaling_factor, translation, inverse = True)
-train_y_pred = affine_transformation(train_y_pred, scaling_factor, translation, inverse = True)
-test_y_pred = affine_transformation(test_y_pred, scaling_factor, translation, inverse = True)
+train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse = True)
+test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse = True)
 
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)

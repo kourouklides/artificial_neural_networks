@@ -22,12 +22,13 @@ import numpy as np
 import tensorflow as tf
 import random as rn
 
-from math import sqrt
-from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
+from keras import optimizers
 from keras.layers import Input, Dense, LSTM
 from keras.models import Model
 from keras.callbacks import ModelCheckpoint
+
+from math import sqrt
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 import json, yaml
 
@@ -37,20 +38,33 @@ import os
 
 import matplotlib.pyplot as plt
 
+def none_or_int(value):
+    if value == 'None':
+        return None
+    else:
+        return int(value)
+    
+def none_or_float(value):
+    if value == 'None':
+        return None
+    else:
+        return float(value)
+
 # SETTINGS
 parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
+parser.add_argument('--plot', type = bool, default = False)
 
 # Settings for preprocessing and hyperparameters
-parser.add_argument('--scaling_factor', type = float, default = (1/355) )
-parser.add_argument('--translation', type = float, default = 123)
-parser.add_argument('--n_epochs', type = int, default = 8)
-parser.add_argument('--batch_size', type = int, default = 1)
-parser.add_argument('--optimizer', type = str, default = 'adam')
-parser.add_argument('--lrearning_rate', type = float, default = 1e0)
-parser.add_argument('--epsilon', type = float, default = None)
+parser.add_argument('--scaling_factor', type = float, default = (1/305) )
+parser.add_argument('--translation', type = float, default = 0)
+parser.add_argument('--n_epochs', type = int, default = 13)
+parser.add_argument('--batch_size', type = none_or_int, default = 1)
+parser.add_argument('--optimizer', type = str, default = 'Adam')
+parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
+parser.add_argument('--epsilon', type = none_or_float, default = None)
 
 # Settings for saving the model
 parser.add_argument('--save_architecture', type = bool, default = True)
@@ -58,7 +72,7 @@ parser.add_argument('--save_last_weights', type = bool, default = True)
 parser.add_argument('--save_last_model', type = bool, default = True)
 parser.add_argument('--save_models', type = bool, default = False)
 parser.add_argument('--save_weights_only', type = bool, default = False)
-parser.add_argument('--save_best_only', type = bool, default = False)
+parser.add_argument('--save_best', type = bool, default = False)
 args = parser.parse_args()
 
 if (args.verbose > 0):
@@ -160,7 +174,27 @@ loss_function = 'mean_squared_error'
 
 metrics = ['mean_absolute_error', 'mean_absolute_percentage_error']
 
-optimizer = 'adam'
+lr = args.lrearning_rate
+epsilon = args.epsilon
+optimizer_selection = {'Adadelta' : optimizers.Adadelta( \
+                               lr=lr, rho=0.95, epsilon=epsilon, decay=0.0), \
+                       'Adagrad' : optimizers.Adagrad( \
+                               lr=lr, epsilon=epsilon, decay=0.0), \
+                       'Adam' : optimizers.Adam( \
+                               lr=lr, beta_1=0.9, beta_2=0.999, \
+                               epsilon=epsilon, decay=0.0, amsgrad=False), \
+                       'Adamax' : optimizers.Adamax( \
+                               lr=lr, beta_1=0.9, beta_2=0.999, \
+                               epsilon=epsilon, decay=0.0), \
+                       'Nadam' : optimizers.Nadam( \
+                               lr=lr, beta_1=0.9, beta_2=0.999, \
+                               epsilon=epsilon, schedule_decay=0.004), \
+                       'RMSprop' : optimizers.RMSprop( \
+                               lr=lr, rho=0.9, epsilon=epsilon, decay=0.0), \
+                       'SGD' : optimizers.SGD( \
+                               lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
+
+optimizer = optimizer_selection[args.optimizer]
 
 model.compile(optimizer = optimizer, \
               loss = loss_function, \
@@ -169,11 +203,11 @@ model.compile(optimizer = optimizer, \
 #%% 
 # Save trained models for every epoch
 
-models_path = r'../../../trained_models/'
-model_name = 'lstm_dense_sunspots'
+models_path = r'../../../../trained_models/'
+model_name = 'sunspots_lstm_dense'
 weights_path = models_path + model_name + '_weights'
 model_path = models_path + model_name + '_model'
-file_suffix = '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
+file_suffix = '_{epoch:04d}_{val_loss:.4f}_{val_mean_absolute_error:.4f}'
 
 if (args.save_weights_only):
     file_path = weights_path
@@ -182,14 +216,13 @@ else:
 
 file_path += file_suffix
 
-# monitor = 'val_loss'
-monitor = 'val_acc'
+monitor = 'val_loss'
 
 if (args.save_models):
     checkpoint = ModelCheckpoint(file_path + '.h5', \
                                  monitor = monitor, \
                                  verbose = args.verbose, \
-                                 save_best_only = args.save_best_only, \
+                                 save_best_only = args.save_best, \
                                  mode='auto', \
                                  save_weights_only = args.save_weights_only)
     callbacks = [checkpoint]
@@ -220,30 +253,60 @@ test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, i
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)
 train_r2 = r2_score(train_y, train_y_pred)
-print('Train RMSE: %.4f ' % (train_rmse))
-print('Train MAE: %.4f ' % (train_mae))
-print('Train (1- R_squared): %.4f ' % (1.0 - train_r2))
-print('Train R_squared: %.4f ' % (train_r2))
-
-
-print('')
 
 test_rmse = sqrt(mean_squared_error(test_y, test_y_pred))
 test_mae = mean_absolute_error(test_y, test_y_pred)
 test_r2 = r2_score(test_y, test_y_pred)
-print('Test RMSE: %.4f ' % (test_rmse))
-print('Test MAE: %.4f ' % (test_mae))
-print('Test (1- R_squared): %.4f ' % (1.0 - test_r2))
-print('Test R_squared: %.4f ' % (test_r2))
+
+val_mse = mean_squared_error(test_y, test_y_pred)
+val_mae = test_mae
+
+if (args.verbose > 0):
+    print('Train RMSE: %.4f ' % (train_rmse))
+    print('Train MAE: %.4f ' % (train_mae))
+    print('Train (1- R_squared): %.4f ' % (1.0 - train_r2))
+    print('Train R_squared: %.4f ' % (train_r2))
+    print('')
+    print('Test RMSE: %.4f ' % (test_rmse))
+    print('Test MAE: %.4f ' % (test_mae))
+    print('Test (1- R_squared): %.4f ' % (1.0 - test_r2))
+    print('Test R_squared: %.4f ' % (test_r2))
 
 #%% 
 # Data Visualization
 
-plt.plot(train_y)
-plt.plot(train_y_pred)
-plt.show()
+if (args.plot):
+    plt.plot(train_y)
+    plt.plot(train_y_pred)
+    plt.show()
+    
+    plt.plot(test_y)
+    plt.plot(test_y_pred)
+    plt.show()
 
-plt.plot(test_y)
-plt.plot(test_y_pred)
-plt.show()
+#%% 
+# Save the architecture and the lastly trained model
+
+architecture_path = models_path + model_name + '_architecture'
+
+last_suffix = file_suffix.format(epoch = args.n_epochs, \
+                                 val_loss = val_mse, \
+                                 val_mean_absolute_error = val_mae)
+
+if (args.save_architecture):
+    # Save only the archtitecture (as a JSON file)
+    json_string = model.to_json()
+    json.dump(json.loads(json_string), open(architecture_path + '.json', "w"))
+    
+    # Save only the archtitecture (as a YAML file)
+    yaml_string = model.to_yaml()
+    yaml.dump(yaml.load(yaml_string), open(architecture_path + '.yml', "w"))
+
+# Save only the weights (as an HDF5 file)
+if (args.save_last_weights):
+    model.save_weights(weights_path + last_suffix + '.h5')
+
+# Save the whole model (as an HDF5 file)
+if (args.save_last_model):
+    model.save(model_path + last_suffix + '.h5')
 
