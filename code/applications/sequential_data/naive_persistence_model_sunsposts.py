@@ -4,7 +4,7 @@ Model: Persistence Model
 Mehtod: Naive (i.e. copying the last value)
 
 Dataset: Monthly sunspots
-Task: Time Series Forecasting
+Task: Time Series Forecasting (Univariate Regression)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
@@ -39,6 +39,7 @@ parser.add_argument('--seed', type = int, default = 0)
 parser.add_argument('--plot', type = bool, default = False)
 
 # Settings for preprocessing and hyperparameters
+parser.add_argument('--look_back', type = int, default = 1)
 parser.add_argument('--scaling_factor', type = float, default = (1/255) )
 parser.add_argument('--translation', type = float, default = 0)
 
@@ -80,7 +81,7 @@ n_series = len(sunspots)
 split_ratio = 2/3 # between zero and one
 n_split = int(n_series * split_ratio)
 
-look_back = 1
+look_back = args.look_back
 
 train = sunspots[:n_split + look_back]
 test = sunspots[n_split:]
@@ -141,8 +142,8 @@ def model_predict(x):
 # TESTING PHASE
 
 # Predict preprocessed values
-train_y_pred_ = model_predict(train_x)
-test_y_pred_ = model_predict(test_x)
+train_y_pred_ = model_predict(train_x_)
+test_y_pred_ = model_predict(test_x_)
 
 # Remove preprocessing
 train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse = True)

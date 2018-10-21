@@ -5,7 +5,7 @@ Method: Backpropagation
 Architecture: Feedforward Neural Network
 
 Dataset: MNIST
-Task: Handwritten Digit Recognition
+Task: Handwritten Digit Recognition (Multi-class Classification)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE

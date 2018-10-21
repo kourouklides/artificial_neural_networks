@@ -5,7 +5,7 @@ Mehtod: Truncated Backpropagation Through Time (TBPTT)
 Architecture: Recurrent Neural Network
 
 Dataset: Monthly sunspots
-Task: Time Series Forecasting
+Task: Time Series Forecasting (Univariate Regression)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
@@ -60,6 +60,7 @@ parser.add_argument('--seed', type = int, default = 0)
 parser.add_argument('--plot', type = bool, default = False)
 
 # Settings for preprocessing and hyperparameters
+parser.add_argument('--look_back', type = int, default = 3)
 parser.add_argument('--scaling_factor', type = float, default = (1/305) )
 parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--n_epochs', type = int, default = 13)
@@ -115,7 +116,7 @@ n_series = len(sunspots)
 split_ratio = 2/3 # between zero and one
 n_split = int(n_series * split_ratio)
 
-look_back = 3
+look_back = args.look_back
 
 train = sunspots[:n_split + look_back]
 test = sunspots[n_split:]
@@ -261,9 +262,6 @@ test_rmse = sqrt(mean_squared_error(test_y, test_y_pred))
 test_mae = mean_absolute_error(test_y, test_y_pred)
 test_r2 = r2_score(test_y, test_y_pred)
 
-val_mse = mean_squared_error(test_y, test_y_pred)
-val_mae = test_mae
-
 if (args.verbose > 0):
     print('Train RMSE: %.4f ' % (train_rmse))
     print('Train MAE: %.4f ' % (train_mae))
@@ -293,8 +291,8 @@ if (args.plot):
 architecture_path = models_path + model_name + '_architecture'
 
 last_suffix = file_suffix.format(epoch = args.n_epochs, \
-                                 val_loss = val_mse, \
-                                 val_mean_absolute_error = val_mae)
+                                 val_loss = test_rmse, \
+                                 val_mean_absolute_error = test_mae)
 
 if (args.save_architecture):
     # Save only the archtitecture (as a JSON file)
