@@ -8,16 +8,16 @@ So it is left intentionally (almost) empty.
 
 ## CIFAR-10
 - URL: https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
-- Code:
+- Code: [download_cifar_10.py](../code/utils/download_cifar_10.py)
 
 ## CIFAR-100
 - URL: https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz
-- Code:
+- Code: [download_cifar_100.py](../code/utils/download_cifar_100.py)
 
 ## IMDB
 - URL: https://s3.amazonaws.com/text-datasets/imdb.npz
-- Code:
+- Code: [download_imdb.py](../code/utils/download_imdb.py)
 
 ## Monthly sunspots
 - URL: https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-sunspots.csv
-- Code:
+- Code: [download_monthly_sunspots.py](../code/utils/download_monthly_sunspots.py)
