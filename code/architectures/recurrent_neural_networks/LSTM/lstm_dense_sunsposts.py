@@ -61,7 +61,7 @@ parser.add_argument('--plot', type = bool, default = False)
 
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--look_back', type = int, default = 3)
-parser.add_argument('--scaling_factor', type = float, default = (1/305) )
+parser.add_argument('--scaling_factor', type = float, default = (1/780) )
 parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--n_epochs', type = int, default = 13)
 parser.add_argument('--batch_size', type = none_or_int, default = 1)
@@ -251,8 +251,10 @@ train_y_pred_ = model.predict(train_x_)
 test_y_pred_ = model.predict(test_x_)
 
 # Remove preprocessing
-train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse = True)
-test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse = True)
+train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, \
+                                     inverse = True)
+test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, \
+                                    inverse = True)
 
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)
