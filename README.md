@@ -41,7 +41,7 @@ This repository includes the following architectures:
   - [Standard Neural Networks](code/architectures/feedforward_neural_networks/standard_neural_networks)
 - [Recurrent Neural Network](code/architectures/recurrent_neural_networks)
   - GRU
-  - [LSTM](code/architectures/recurrent_neural_networks/LSTM/lstm_dense_sunsposts.py)
+  - [LSTM](code/architectures/recurrent_neural_networks/LSTM/)
   - Vanilla RNN
 
 Some advanced Methods of Machine Learning are also included:
