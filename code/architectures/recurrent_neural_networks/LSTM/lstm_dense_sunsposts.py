@@ -57,10 +57,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
-parser.add_argument('--plot', type = bool, default = False)
+parser.add_argument('--plot', type = bool, default = True)
 
 # Settings for preprocessing and hyperparameters
-parser.add_argument('--look_back', type = int, default = 3)
+parser.add_argument('--look_back', type = int, default = 1)
 parser.add_argument('--scaling_factor', type = float, default = (1/780) )
 parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--n_epochs', type = int, default = 13)
@@ -124,21 +124,31 @@ test = sunspots[n_split:]
 train_x, train_y = series_to_supervised(train,look_back)
 test_x, test_y = series_to_supervised(test,look_back)
 
+# Apply diferencing for Seasonality Adjustment to make the it stationary
+train_d = train[1:] - train[:-1]
+test_d = test[1:] - test[:-1]
+
+train_first = train[0]
+test_first = test[0]
+
+train_d_x, train_d_y = series_to_supervised(train_d,look_back)
+test_d_x, test_d_y = series_to_supervised(test_d,look_back)
+
 #%% 
 # PREPROCESSING STEP
 
 scaling_factor = args.scaling_factor
 translation = args.translation
 
-n_train = train_x.shape[0] # number of training examples/samples
-n_test = test_x.shape[0] # number of test examples/samples
+n_train = train_d_x.shape[0] # number of training examples/samples
+n_test = test_d_x.shape[0] # number of test examples/samples
 
-n_in = train_x.shape[1] # number of features / dimensions
+n_in = train_d_x.shape[1] # number of features / dimensions
 n_out = 1 # number of classes/labels
 
 # Reshape training and test sets
-train_x = train_x.reshape(n_train, n_in, 1)
-test_x = test_x.reshape(n_test, n_in, 1)
+train_d_x = train_d_x.reshape(n_train, n_in, 1)
+test_d_x = test_d_x.reshape(n_test, n_in, 1)
 
 def affine_transformation(data_in, scaling, translation, inverse = False):
     # Apply affine trasnforamtion to the data
@@ -152,10 +162,10 @@ def affine_transformation(data_in, scaling, translation, inverse = False):
     return data_out
 
 # Apply preprocessing
-train_x_ = affine_transformation(train_x, scaling_factor, translation)
-train_y_ = affine_transformation(train_y, scaling_factor, translation)
-test_x_ = affine_transformation(test_x, scaling_factor, translation)
-test_y_ = affine_transformation(test_y, scaling_factor, translation)
+train_x_ = affine_transformation(train_d_x, scaling_factor, translation)
+train_y_ = affine_transformation(train_d_y, scaling_factor, translation)
+test_x_ = affine_transformation(test_d_x, scaling_factor, translation)
+test_y_ = affine_transformation(test_d_y, scaling_factor, translation)
 
 #%% 
 # Model hyperparameters
@@ -246,15 +256,19 @@ model_history = model.fit(x = train_x_, y = train_y_, \
 #%% 
 # TESTING PHASE
 
-# Predict preprocessed values
-train_y_pred_ = model.predict(train_x_)
-test_y_pred_ = model.predict(test_x_)
+# Predict values (with preprocessing and differencing)
+train_d_y_pred_ = model.predict(train_x_)
+test_d_y_pred_ = model.predict(test_x_)
 
 # Remove preprocessing
-train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, \
+train_d_y_pred = affine_transformation(train_d_y_pred_, scaling_factor, translation, \
                                      inverse = True)
-test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, \
+test_d_y_pred = affine_transformation(test_d_y_pred_, scaling_factor, translation, \
                                     inverse = True)
+
+# Remove differencing
+train_y_pred = np.cumsum(np.insert(train_d_y_pred, 0, train_first))
+test_y_pred = np.cumsum(np.insert(test_d_y_pred, 0, test_first))
 
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)
