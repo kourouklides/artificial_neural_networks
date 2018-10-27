@@ -1,4 +1,7 @@
 # artificial_neural_networks
+[![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://raw.githubusercontent.com/tesseract-ocr/tesseract/master/LICENSE)
+
+# About
 This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networks.
 
 The code implementation is in Python (using [TensorFlow](https://www.tensorflow.org/) and [Keras](https://keras.io/) libraries).
