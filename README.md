@@ -1,5 +1,5 @@
 # artificial_neural_networks
-[![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://raw.githubusercontent.com/tesseract-ocr/tesseract/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://raw.githubusercontent.com/kourouklides/artificial_neural_networks/master/LICENSE)
 
 # About
 This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networks.
