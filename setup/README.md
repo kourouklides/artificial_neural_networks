@@ -53,7 +53,7 @@ You need to download the necessary data for each corresponding code example, as 
 
 If you want to use __Docker__ containers, then you should follow __all__ the steps below. __Docker__ containers are especially useful for __Data Science__ and __Research__ code.
 
-This installation process employs best practises and follows industry standards. So, it is highly recommended.
+This installation process employs best practises and follows industry standards. So, it is highly __recommended__.
 
 
 TODO: write this section
