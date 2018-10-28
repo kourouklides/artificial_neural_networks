@@ -14,7 +14,9 @@ __Note:__ It is possible that the code might work with Python 2, either as is or
 
 ## Quick installation
 
-If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow __all__ the steps below.
+If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you should follow __all__ the steps below.
+
+This installation process requires the minimum knowledge of software tools. It cannot get any easier than this.
 
 ### 1. Install Python 3
 
@@ -49,8 +51,9 @@ You need to download the necessary data for each corresponding code example, as 
 
 ## Recommended installation
 
-If you want to employ best practises and follow industry standards, then you should use Docker containers, especially for __Data Science__ and __Research__ code.
+If you want to use __Docker__ containers, then you should follow __all__ the steps below. __Docker__ is especially useful for __Data Science__ and __Research__ code.
 
+This installation process employs best practises and follows industry standards.
 
 
 TODO: write this section
