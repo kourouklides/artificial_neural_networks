@@ -10,7 +10,7 @@ __Note:__ It is possible that the code might work with Python 2, either as is or
 
 1. [Quick installation](#quick-installation)
 1. [Recommended installation](#recommended-installation)
-1. [Troubleshoot (if you have errors or problems)](troubleshoot-if-you-have-errors-or-problems)
+1. [Troubleshoot (if you have errors or problems)](#troubleshoot-if-you-have-errors-or-problems)
 
 ## Quick installation
 
