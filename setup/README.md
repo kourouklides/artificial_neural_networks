@@ -55,6 +55,8 @@ If you want to use __Docker__ containers, then you should follow __all__ the ste
 
 This installation process employs best practises and follows industry standards. So, it is highly __recommended__.
 
+__Note:__ Docker uses containers to create _virtual environments_, so is __cannot__ be used with venv or virtualenv.
+
 ### 1. Install Docker
 
 Docker is a very powerful tool. You can read online about [What Docker is](https://opensource.com/resources/what-docker) and [Why to use Docker](https://www.linode.com/docs/applications/containers/when-and-why-to-use-docker/).
