@@ -23,7 +23,7 @@ This installation process requires the __minimum__ knowledge of software tools. 
 In order to save a lot of trouble, download the [Anaconda Distribution](https://www.anaconda.com/distribution/), which is actively supported by the Data Science community.
 
 1. Go to the [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
-2. Choose __Python 3.6__ or later.
+1. Choose __Python 3.6__ or later.
 
 The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
 
@@ -59,7 +59,19 @@ This installation process employs best practises and follows industry standards.
 
 Docker is a very powerful tool. You can read online about [What Docker is](https://opensource.com/resources/what-docker) and [Why to use Docker](https://www.linode.com/docs/applications/containers/when-and-why-to-use-docker/).
 
+Either:
+1. Go to the [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
+1. Choose __Python 3.6__ or later.
+or:
+1. 
+
+### 2. Anaconda environment
+
+
+
 TODO: write this section
+
+
 
 ## Troubleshoot (if you have errors or problems)
 
