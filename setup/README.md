@@ -32,7 +32,7 @@ The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/
 The code examples require several Python packages to be installed. These packages are listed in the 
 [requirements.txt](requirements.txt) file of this folder. You do not need to edit the file for the quick installation.
 
-You first have to change to the directory to the current one, by replacing \<your directory path> accordingly:
+You first have to change the directory to the current one, by replacing \<your directory path> accordingly:
 
     cd <your directory path>/setup
 
