@@ -43,6 +43,10 @@ You need to download the necessary data for each corresponding code example, as 
 
 ## Recommended installation
 
+If you want to employ best practises and follow industry standards, then you should use Docker containers, especially for __Data Science__ and __Research__ code.
+
+
+
 TODO: write this section
 
 ## Troubleshoot (if you have errors or problems)
