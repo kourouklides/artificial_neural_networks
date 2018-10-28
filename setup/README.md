@@ -64,6 +64,7 @@ Either:
 1. Choose __Python 3.6__ or later.
 
 or:
+
 1. 
 
 ### 2. Anaconda environment
