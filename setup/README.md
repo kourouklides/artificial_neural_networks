@@ -16,7 +16,7 @@ __Note:__ It is possible that the code might work with Python 2, either as is or
 
 If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you should follow __all__ the steps below.
 
-This installation process requires the minimum knowledge of software tools. It cannot get any easier than this.
+This installation process requires the __minimum__ knowledge of software tools. It cannot get any easier than this.
 
 ### 1. Install Python 3
 
