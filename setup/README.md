@@ -6,6 +6,12 @@ The code should run on any machine (i.e. Windows, macOS, Linux) that supports __
 
 __Note:__ It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does not support Python 2. Also, there is no guarantee that individual files will work on their own.
 
+## Table of Contents
+
+1. [Quick installation](#quick-installation)
+1. [Recommended installation](#recommended-installation)
+1. [Troubleshoot (if you have errors or problems)](troubleshoot-if-you-have-errors-or-problems)
+
 ## Quick installation
 
 If, for any reason, you want to spend the minimum amount of time for setting up your environment, then you can follow __all__ the steps below.
