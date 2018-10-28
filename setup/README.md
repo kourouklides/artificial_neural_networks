@@ -55,6 +55,9 @@ If you want to use __Docker__ containers, then you should follow __all__ the ste
 
 This installation process employs best practises and follows industry standards. So, it is highly __recommended__.
 
+### 1. Install Docker
+
+Docker is a very powerful tool. You can read online about [What Docker is](https://opensource.com/resources/what-docker) and [Why to use Docker](https://www.linode.com/docs/applications/containers/when-and-why-to-use-docker/).
 
 TODO: write this section
 
