@@ -62,6 +62,7 @@ Docker is a very powerful tool. You can read online about [What Docker is](https
 Either:
 1. Go to the [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
 1. Choose __Python 3.6__ or later.
+
 or:
 1. 
 
