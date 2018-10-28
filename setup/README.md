@@ -59,13 +59,15 @@ This installation process employs best practises and follows industry standards.
 
 Docker is a very powerful tool. You can read online about [What Docker is](https://opensource.com/resources/what-docker) and [Why to use Docker](https://www.linode.com/docs/applications/containers/when-and-why-to-use-docker/).
 
-Either:
-1. Go to [Docker Community Edition (CE)](https://docs.docker.com/install/) page and choose the installation for either [Windows](https://docs.docker.com/docker-for-windows/install/), [macOS](https://docs.docker.com/docker-for-mac/install/) or Linux (e.g. [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#uninstall-docker-ce) ) accordingly.
-1. Choose __Python 3.6__ or later.
+For Windows or Mac:
 
-or:
+1. Go to [Docker Desktop](https://www.docker.com/products/docker-desktop) page and choose the installation for either [Windows](https://store.docker.com/editions/community/docker-ce-desktop-windows) or [macOS](https://store.docker.com/editions/community/docker-ce-desktop-mac) accordingly.
+1. Follow the instructions in the page above.
 
-1. 
+For Linux:
+
+1. Go to [Docker Community Edition (CE)](https://docs.docker.com/install/) page and choose the installation for your Linux distribution (e.g. [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#uninstall-docker-ce)).
+1. Follow the instructions in the page above.
 
 ### 2. Anaconda environment
 
