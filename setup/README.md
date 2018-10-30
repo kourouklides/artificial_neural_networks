@@ -41,7 +41,7 @@ Then, to install the required Python packages and dependencies you have to run t
     pip install -r requirements.txt
     conda install PyYAML==3.13 -y
     
-__Note:__ For Windows, you should run all of the commands, including the above, at __Anaconda Prompt__ instead of the Terminal.
+__Note:__ For Windows, you should run all of the commands, including the above, at the __Anaconda Prompt__ instead of the Terminal.
 
 ### 3. Download the datasets
 
