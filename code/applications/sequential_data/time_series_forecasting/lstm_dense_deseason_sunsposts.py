@@ -61,7 +61,7 @@ parser.add_argument('--plot', type = bool, default = True)
 
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--look_back', type = int, default = 1)
-parser.add_argument('--scaling_factor', type = float, default = (1/780) )
+parser.add_argument('--scaling_factor', type = float, default = (1/1) )
 parser.add_argument('--translation', type = float, default = 0)
 parser.add_argument('--n_epochs', type = int, default = 13)
 parser.add_argument('--batch_size', type = none_or_int, default = 1)
@@ -128,8 +128,8 @@ test_x, test_y = series_to_supervised(test,look_back)
 train_d = train[1:] - train[:-1]
 test_d = test[1:] - test[:-1]
 
-train_first = train[0]
-test_first = test[0]
+train_first = train[look_back]
+test_first = test[look_back]
 
 train_d_x, train_d_y = series_to_supervised(train_d,look_back)
 test_d_x, test_d_y = series_to_supervised(test_d,look_back)
@@ -293,12 +293,12 @@ if (args.verbose > 0):
 # Data Visualization
 
 if (args.plot):
-    plt.plot(train_y)
-    plt.plot(train_y_pred)
+    plt.plot(train_y_)
+    plt.plot(train_d_y_pred_)
     plt.show()
     
-    plt.plot(test_y)
-    plt.plot(test_y_pred)
+    plt.plot(test_y_)
+    plt.plot(test_d_y_pred_)
     plt.show()
 
 #%% 
