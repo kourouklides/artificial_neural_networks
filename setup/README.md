@@ -23,7 +23,7 @@ This installation process requires the __minimum__ knowledge of software tools. 
 In order to save a lot of trouble, download the [Anaconda Distribution](https://www.anaconda.com/distribution/), which is actively supported by the Data Science community.
 
 1. Go to [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
-1. Choose __Python 3.6__ or later.
+1. Choose __Python 3.6__ (but not later, since there are [known issues](https://github.com/tensorflow/tensorflow/issues/20444)).
 
 The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
 
@@ -38,8 +38,9 @@ You first have to change the directory to the current one, by __replacing__ \<yo
 
 Then, to install the required Python packages and dependencies you have to run the following commands in a terminal:
 
-    pip install -r requirements.txt
+    conda install python=3.6.5 -y
     conda install PyYAML==3.13 -y
+    pip install -r requirements.txt
     
 __Note:__ For Windows, you should run all of the commands, including the above, at the __Anaconda Prompt__ instead of the Terminal.
 
