@@ -63,6 +63,7 @@ parser.add_argument('--plot', type = bool, default = False)
 parser.add_argument('--look_back', type = int, default = 3)
 parser.add_argument('--scaling_factor', type = float, default = (1/780) )
 parser.add_argument('--translation', type = float, default = 0)
+parser.add_argument('--layer_size', type = int, default = 4)
 parser.add_argument('--n_epochs', type = int, default = 13)
 parser.add_argument('--batch_size', type = none_or_int, default = 1)
 parser.add_argument('--optimizer', type = str, default = 'Adam')
@@ -162,10 +163,10 @@ test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
 # ANN Architecture
 
-x = Input(shape = (n_in, 1)) #input layer
+x = Input(shape = (n_in,)) #input layer
 h = x
 
-h = LSTM(units = 4)(h)
+h = LSTM(units = args.layer_size)(h)
 
 out = Dense(units = n_out, activation = None)(h) # output layer
 
