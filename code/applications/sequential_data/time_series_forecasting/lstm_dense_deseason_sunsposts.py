@@ -60,10 +60,11 @@ parser.add_argument('--seed', type = int, default = 0)
 parser.add_argument('--plot', type = bool, default = True)
 
 # Settings for preprocessing and hyperparameters
-parser.add_argument('--look_back', type = int, default = 1)
-parser.add_argument('--scaling_factor', type = float, default = (1/1) )
+parser.add_argument('--look_back', type = int, default = 10)
+parser.add_argument('--scaling_factor', type = float, default = (1/780) )
 parser.add_argument('--translation', type = float, default = 0)
-parser.add_argument('--n_epochs', type = int, default = 13)
+parser.add_argument('--layer_size', type = int, default = 4)
+parser.add_argument('--n_epochs', type = int, default = 7)
 parser.add_argument('--batch_size', type = none_or_int, default = 1)
 parser.add_argument('--optimizer', type = str, default = 'Adam')
 parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
@@ -125,14 +126,14 @@ train_x, train_y = series_to_supervised(train,look_back)
 test_x, test_y = series_to_supervised(test,look_back)
 
 # Apply diferencing for Seasonality Adjustment to make the it stationary
-train_d = train[1:] - train[:-1]
-test_d = test[1:] - test[:-1]
+d_train = train[1:] - train[:-1]
+d_test = test[1:] - test[:-1]
 
 train_first = train[look_back]
 test_first = test[look_back]
 
-train_d_x, train_d_y = series_to_supervised(train_d,look_back)
-test_d_x, test_d_y = series_to_supervised(test_d,look_back)
+d_train_x, d_train_y = series_to_supervised(d_train, look_back)
+d_test_x, d_test_y = series_to_supervised(d_test, look_back)
 
 #%% 
 # PREPROCESSING STEP
@@ -140,15 +141,15 @@ test_d_x, test_d_y = series_to_supervised(test_d,look_back)
 scaling_factor = args.scaling_factor
 translation = args.translation
 
-n_train = train_d_x.shape[0] # number of training examples/samples
-n_test = test_d_x.shape[0] # number of test examples/samples
+n_train = d_train_x.shape[0] # number of training examples/samples
+n_test = d_test_x.shape[0] # number of test examples/samples
 
-n_in = train_d_x.shape[1] # number of features / dimensions
+n_in = d_train_x.shape[1] # number of features / dimensions
 n_out = 1 # number of classes/labels
 
 # Reshape training and test sets
-train_d_x = train_d_x.reshape(n_train, n_in, 1)
-test_d_x = test_d_x.reshape(n_test, n_in, 1)
+d_train_x = d_train_x.reshape(n_train, n_in, 1)
+d_test_x = d_test_x.reshape(n_test, n_in, 1)
 
 def affine_transformation(data_in, scaling, translation, inverse = False):
     # Apply affine trasnforamtion to the data
@@ -162,10 +163,10 @@ def affine_transformation(data_in, scaling, translation, inverse = False):
     return data_out
 
 # Apply preprocessing
-train_x_ = affine_transformation(train_d_x, scaling_factor, translation)
-train_y_ = affine_transformation(train_d_y, scaling_factor, translation)
-test_x_ = affine_transformation(test_d_x, scaling_factor, translation)
-test_y_ = affine_transformation(test_d_y, scaling_factor, translation)
+d_train_x_ = affine_transformation(d_train_x, scaling_factor, translation)
+d_train_y_ = affine_transformation(d_train_y, scaling_factor, translation)
+d_test_x_ = affine_transformation(d_test_x, scaling_factor, translation)
+d_test_y_ = affine_transformation(d_test_y, scaling_factor, translation)
 
 #%% 
 # Model hyperparameters
@@ -175,7 +176,7 @@ test_y_ = affine_transformation(test_d_y, scaling_factor, translation)
 x = Input(shape = (n_in, 1)) #input layer
 h = x
 
-h = LSTM(units = 4)(h)
+h = LSTM(units = args.layer_size)(h)
 
 out = Dense(units = n_out, activation = None)(h) # output layer
 
@@ -246,8 +247,8 @@ else:
 #%% 
 # TRAINING PHASE
 
-model_history = model.fit(x = train_x_, y = train_y_, \
-                          validation_data = (test_x_, test_y_), \
+model_history = model.fit(x = d_train_x_, y = d_train_y_, \
+                          validation_data = (d_test_x_, d_test_y_), \
                           batch_size = args.batch_size, \
                           epochs = args.n_epochs, \
                           verbose = args.verbose, \
@@ -257,18 +258,26 @@ model_history = model.fit(x = train_x_, y = train_y_, \
 # TESTING PHASE
 
 # Predict values (with preprocessing and differencing)
-train_d_y_pred_ = model.predict(train_x_)
-test_d_y_pred_ = model.predict(test_x_)
+d_train_y_pred_ = model.predict(d_train_x_)
+d_test_y_pred_ = model.predict(d_test_x_)
 
 # Remove preprocessing
-train_d_y_pred = affine_transformation(train_d_y_pred_, scaling_factor, translation, \
+d_train_y_pred = affine_transformation(d_train_y_pred_, scaling_factor, translation, \
                                      inverse = True)
-test_d_y_pred = affine_transformation(test_d_y_pred_, scaling_factor, translation, \
+d_test_y_pred = affine_transformation(d_test_y_pred_, scaling_factor, translation, \
                                     inverse = True)
 
 # Remove differencing
-train_y_pred = np.cumsum(np.insert(train_d_y_pred, 0, train_first))
-test_y_pred = np.cumsum(np.insert(test_d_y_pred, 0, test_first))
+train_y_pred = np.cumsum(np.insert(d_train_y_pred, 0, train_first))
+test_y_pred = np.cumsum(np.insert(d_test_y_pred, 0, test_first))
+
+
+"""
+
+train_y_pred, test_y_pred = d_train_y_pred, d_test_y_pred
+train_y, test_y = d_train_y, d_test_y
+
+"""
 
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)
@@ -293,12 +302,12 @@ if (args.verbose > 0):
 # Data Visualization
 
 if (args.plot):
-    plt.plot(train_y_)
-    plt.plot(train_d_y_pred_)
+    plt.plot(train_y)
+    plt.plot(train_y_pred)
     plt.show()
     
-    plt.plot(test_y_)
-    plt.plot(test_d_y_pred_)
+    plt.plot(test_y)
+    plt.plot(test_y_pred)
     plt.show()
 
 #%% 
