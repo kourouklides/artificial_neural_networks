@@ -91,7 +91,7 @@ if (args.reproducible):
     tf.set_random_seed(args.seed)
     
 #%% 
-# Load the Montly sunspots dataset
+# Load the Monthly sunspots dataset
 
 sunspots_path = r'../../../../datasets/monthly-sunspots.csv'
 sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
