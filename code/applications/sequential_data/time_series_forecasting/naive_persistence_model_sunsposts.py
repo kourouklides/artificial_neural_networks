@@ -113,6 +113,7 @@ def affine_transformation(data_in, scaling, translation, inverse = False):
     else:
         # Direct Transformation
         data_out = scaling * (data_in - translation)
+    
     return data_out
 
 # Apply preprocessing

@@ -23,7 +23,7 @@ import tensorflow as tf
 import random as rn
 
 from keras import optimizers
-from keras.layers import Input, Dense, LSTM
+from keras.layers import Input, Dense
 from keras.models import Model
 from keras.callbacks import ModelCheckpoint
 
@@ -63,7 +63,10 @@ parser.add_argument('--plot', type = bool, default = True)
 parser.add_argument('--look_back', type = int, default = 10)
 parser.add_argument('--scaling_factor', type = float, default = (1/780) )
 parser.add_argument('--translation', type = float, default = 0)
-parser.add_argument('--layer_size', type = int, default = 4)
+parser.add_argument('--same_size', type = bool, default = False)
+parser.add_argument('--n_layers', type = int, default = 2)
+parser.add_argument('--layer_size', type = int, default = 128)
+parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default = [128, 128])
 parser.add_argument('--n_epochs', type = int, default = 7)
 parser.add_argument('--batch_size', type = none_or_int, default = 1)
 parser.add_argument('--optimizer', type = str, default = 'Adam')
@@ -147,10 +150,6 @@ n_test = d_test_x.shape[0] # number of test examples/samples
 n_in = d_train_x.shape[1] # number of features / dimensions
 n_out = 1 # number of classes/labels
 
-# Reshape training and test sets
-d_train_x = d_train_x.reshape(n_train, n_in, 1)
-d_test_x = d_test_x.reshape(n_test, n_in, 1)
-
 def affine_transformation(data_in, scaling, translation, inverse = False):
     # Apply affine trasnforamtion to the data
     
@@ -160,7 +159,6 @@ def affine_transformation(data_in, scaling, translation, inverse = False):
     else:
         # Direct Transformation
         data_out = scaling * (data_in - translation)
-    
     return data_out
 
 # Apply preprocessing
@@ -172,12 +170,27 @@ d_test_y_ = affine_transformation(d_test_y, scaling_factor, translation)
 #%% 
 # Model hyperparameters
 
+N = []
+N.append(n_in) #input layer
+if (args.same_size):
+    n_layers = args.n_layers
+    for i in range(n_layers):
+        N.append(args.layer_size) # hidden layer i
+else:
+    n_layers = len(args.explicit_layer_sizes)
+    for i in range(n_layers):
+        N.append(args.explicit_layer_sizes[i]) # hidden layer i
+N.append(n_out) # output layer
+
 # ANN Architecture
 
-x = Input(shape = (n_in, 1)) #input layer
+L = len(N) - 1
+
+x = Input(shape = (n_in,)) #input layer
 h = x
 
-h = LSTM(units = args.layer_size)(h) # hidden layer
+for i in range(1,L):
+    h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
 
 out = Dense(units = n_out, activation = None)(h) # output layer
 
@@ -185,8 +198,6 @@ model = Model(inputs = x, outputs = out)
 
 if (args.verbose > 0):
     model.summary()
-
-# TODO: RMSE 
 
 loss_function = 'mean_squared_error'
 
@@ -269,7 +280,7 @@ d_train_y_pred = affine_transformation(d_train_y_pred_, scaling_factor, translat
                                      inverse = True)
 d_test_y_pred = affine_transformation(d_test_y_pred_, scaling_factor, translation, \
                                     inverse = True)
-"""
+
 # Remove differencing
 train_y_pred = np.cumsum(np.insert(d_train_y_pred, 0, train_first))
 test_y_pred = np.cumsum(np.insert(d_test_y_pred, 0, test_first))
@@ -280,7 +291,7 @@ test_y_pred = np.cumsum(np.insert(d_test_y_pred, 0, test_first))
 train_y_pred, test_y_pred = d_train_y_pred, d_test_y_pred
 train_y, test_y = d_train_y, d_test_y
 
-
+"""
 
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)
