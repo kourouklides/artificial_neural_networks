@@ -26,6 +26,7 @@ from keras import optimizers
 from keras.layers import Input, Dense
 from keras.models import Model
 from keras.callbacks import ModelCheckpoint
+from keras import backend as K
 
 from math import sqrt
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -128,15 +129,8 @@ test = sunspots[n_split:]
 train_x, train_y = series_to_supervised(train,look_back)
 test_x, test_y = series_to_supervised(test,look_back)
 
-# Apply diferencing for Seasonality Adjustment to make the it stationary
-d_train = train[1:] - train[:-1]
-d_test = test[1:] - test[:-1]
-
 train_first = train[look_back]
 test_first = test[look_back]
-
-d_train_x, d_train_y = series_to_supervised(d_train, look_back)
-d_test_x, d_test_y = series_to_supervised(d_test, look_back)
 
 #%% 
 # PREPROCESSING STEP
@@ -144,10 +138,10 @@ d_test_x, d_test_y = series_to_supervised(d_test, look_back)
 scaling_factor = args.scaling_factor
 translation = args.translation
 
-n_train = d_train_x.shape[0] # number of training examples/samples
-n_test = d_test_x.shape[0] # number of test examples/samples
+n_train = train_x.shape[0] # number of training examples/samples
+n_test = test_x.shape[0] # number of test examples/samples
 
-n_in = d_train_x.shape[1] # number of features / dimensions
+n_in = train_x.shape[1] # number of features / dimensions
 n_out = 1 # number of classes/labels
 
 def affine_transformation(data_in, scaling, translation, inverse = False):
@@ -162,10 +156,10 @@ def affine_transformation(data_in, scaling, translation, inverse = False):
     return data_out
 
 # Apply preprocessing
-d_train_x_ = affine_transformation(d_train_x, scaling_factor, translation)
-d_train_y_ = affine_transformation(d_train_y, scaling_factor, translation)
-d_test_x_ = affine_transformation(d_test_x, scaling_factor, translation)
-d_test_y_ = affine_transformation(d_test_y, scaling_factor, translation)
+train_x_ = affine_transformation(train_x, scaling_factor, translation)
+train_y_ = affine_transformation(train_y, scaling_factor, translation)
+test_x_ = affine_transformation(test_x, scaling_factor, translation)
+test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
 #%% 
 # Model hyperparameters
@@ -199,7 +193,10 @@ model = Model(inputs = x, outputs = out)
 if (args.verbose > 0):
     model.summary()
 
-loss_function = 'mean_squared_error'
+def root_mean_squared_error(y_true, y_pred):
+        return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1)) 
+
+loss_function = root_mean_squared_error
 
 metrics = ['mean_absolute_error', 'mean_absolute_percentage_error']
 
@@ -233,7 +230,7 @@ model.compile(optimizer = optimizer, \
 # Save trained models for every epoch
 
 models_path = r'../../../../trained_models/'
-model_name = 'sunspots_lstm_dense'
+model_name = 'sunspots_snn_dense'
 weights_path = models_path + model_name + '_weights'
 model_path = models_path + model_name + '_model'
 file_suffix = '_{epoch:04d}_{val_loss:.4f}_{val_mean_absolute_error:.4f}'
@@ -261,8 +258,8 @@ else:
 #%% 
 # TRAINING PHASE
 
-model_history = model.fit(x = d_train_x_, y = d_train_y_, \
-                          validation_data = (d_test_x_, d_test_y_), \
+model_history = model.fit(x = train_x_, y = train_y_, \
+                          validation_data = (test_x_, test_y_), \
                           batch_size = args.batch_size, \
                           epochs = args.n_epochs, \
                           verbose = args.verbose, \
@@ -271,27 +268,15 @@ model_history = model.fit(x = d_train_x_, y = d_train_y_, \
 #%% 
 # TESTING PHASE
 
-# Predict values (with preprocessing and differencing)
-d_train_y_pred_ = model.predict(d_train_x_)
-d_test_y_pred_ = model.predict(d_test_x_)
+# Predict preprocessed values
+train_y_pred_ = model.predict(train_x_)
+test_y_pred_ = model.predict(test_x_)
 
 # Remove preprocessing
-d_train_y_pred = affine_transformation(d_train_y_pred_, scaling_factor, translation, \
+train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, \
                                      inverse = True)
-d_test_y_pred = affine_transformation(d_test_y_pred_, scaling_factor, translation, \
+test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, \
                                     inverse = True)
-
-# Remove differencing
-train_y_pred = np.cumsum(np.insert(d_train_y_pred, 0, train_first))
-test_y_pred = np.cumsum(np.insert(d_test_y_pred, 0, test_first))
-
-
-"""
-
-train_y_pred, test_y_pred = d_train_y_pred, d_test_y_pred
-train_y, test_y = d_train_y, d_test_y
-
-"""
 
 train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
 train_mae = mean_absolute_error(train_y, train_y_pred)

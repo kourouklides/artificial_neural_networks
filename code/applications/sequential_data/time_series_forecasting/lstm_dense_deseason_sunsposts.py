@@ -26,6 +26,7 @@ from keras import optimizers
 from keras.layers import Input, Dense, LSTM
 from keras.models import Model
 from keras.callbacks import ModelCheckpoint
+from keras import backend as K
 
 from math import sqrt
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -186,9 +187,10 @@ model = Model(inputs = x, outputs = out)
 if (args.verbose > 0):
     model.summary()
 
-# TODO: RMSE 
+def root_mean_squared_error(y_true, y_pred):
+        return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1)) 
 
-loss_function = 'mean_squared_error'
+loss_function = root_mean_squared_error
 
 metrics = ['mean_absolute_error', 'mean_absolute_percentage_error']
 
