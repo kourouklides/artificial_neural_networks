@@ -58,7 +58,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
-parser.add_argument('--plot', type = bool, default = False)
+parser.add_argument('--plot', type = bool, default = True)
 
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--look_back', type = int, default = 3)
@@ -273,12 +273,12 @@ test_r2 = r2_score(test_y, test_y_pred)
 if (args.verbose > 0):
     print('Train RMSE: %.4f ' % (train_rmse))
     print('Train MAE: %.4f ' % (train_mae))
-    print('Train (1- R_squared): %.4f ' % (1.0 - train_r2))
+    print('Train (1 - R_squared): %.4f ' % (1.0 - train_r2))
     print('Train R_squared: %.4f ' % (train_r2))
     print('')
     print('Test RMSE: %.4f ' % (test_rmse))
     print('Test MAE: %.4f ' % (test_mae))
-    print('Test (1- R_squared): %.4f ' % (1.0 - test_r2))
+    print('Test (1 - R_squared): %.4f ' % (1.0 - test_r2))
     print('Test R_squared: %.4f ' % (test_r2))
 
 #%% 

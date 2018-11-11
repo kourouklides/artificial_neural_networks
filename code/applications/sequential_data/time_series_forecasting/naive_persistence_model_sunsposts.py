@@ -161,12 +161,12 @@ test_r2 = r2_score(test_y, test_y_pred)
 if (args.verbose > 0):
     print('Train RMSE: %.4f ' % (train_rmse))
     print('Train MAE: %.4f ' % (train_mae))
-    print('Train (1- R_squared): %.4f ' % (1.0 - train_r2))
+    print('Train (1 - R_squared): %.4f ' % (1.0 - train_r2))
     print('Train R_squared: %.4f ' % (train_r2))
     print('')
     print('Test RMSE: %.4f ' % (test_rmse))
     print('Test MAE: %.4f ' % (test_mae))
-    print('Test (1- R_squared): %.4f ' % (1.0 - test_r2))
+    print('Test (1 - R_squared): %.4f ' % (1.0 - test_r2))
     print('Test R_squared: %.4f ' % (test_r2))
 
 #%% 

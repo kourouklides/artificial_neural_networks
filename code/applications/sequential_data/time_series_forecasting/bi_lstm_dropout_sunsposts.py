@@ -1,6 +1,6 @@
 """
 
-Model: Long short-term memory (LSTM) with dense (i.e. fully connected) layers
+Model: Bidirectional Long short-term memory (LSTM) with dense (i.e. fully connected) layers
 Mehtod: Truncated Backpropagation Through Time (TBPTT)
 Architecture: Recurrent Neural Network
 
@@ -23,10 +23,9 @@ import tensorflow as tf
 import random as rn
 
 from keras import optimizers
-from keras.layers import Input, Dense, LSTM
+from keras.layers import Input, Dense, LSTM, Bidirectional, Dropout
 from keras.models import Model
 from keras.callbacks import ModelCheckpoint
-from keras import backend as K
 
 from math import sqrt
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
@@ -58,7 +57,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
-parser.add_argument('--plot', type = bool, default = False)
+parser.add_argument('--plot', type = bool, default = True)
 
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--look_back', type = int, default = 3)
@@ -70,6 +69,8 @@ parser.add_argument('--batch_size', type = none_or_int, default = 1)
 parser.add_argument('--optimizer', type = str, default = 'Adam')
 parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
 parser.add_argument('--epsilon', type = none_or_float, default = None)
+parser.add_argument('--dropout_rate_input', type = int, default = 0.01)
+parser.add_argument('--dropout_rate_hidden', type = int, default = 0.01)
 
 # Settings for saving the model
 parser.add_argument('--save_architecture', type = bool, default = True)
@@ -166,9 +167,10 @@ test_y_ = affine_transformation(test_y, scaling_factor, translation)
 # ANN Architecture
 
 x = Input(shape = (n_in,1)) #input layer
-h = x
+h = Dropout(rate = args.dropout_rate_input)(x)
 
-h = LSTM(units = args.layer_size)(h) # hidden layer
+h = Bidirectional(LSTM(units = args.layer_size))(h) # hidden layer
+h = Dropout(rate = args.dropout_rate_hidden)(h)
 
 out = Dense(units = n_out, activation = None)(h) # output layer
 
@@ -178,7 +180,9 @@ if (args.verbose > 0):
     model.summary()
 
 def root_mean_squared_error(y_true, y_pred):
-        return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1)) 
+    from keras import backend as K
+    
+    return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1)) 
 
 loss_function = root_mean_squared_error
 
@@ -214,7 +218,7 @@ model.compile(optimizer = optimizer, \
 # Save trained models for every epoch
 
 models_path = r'../../../../trained_models/'
-model_name = 'sunspots_lstm_dense'
+model_name = 'sunspots_bi_lstm_dropout'
 weights_path = models_path + model_name + '_weights'
 model_path = models_path + model_name + '_model'
 file_suffix = '_{epoch:04d}_{val_loss:.4f}_{val_mean_absolute_error:.4f}'
