@@ -28,11 +28,18 @@ from keras.models import Model
 from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
 
+from sklearn.metrics import confusion_matrix
+import itertools
+
+
 import json, yaml
 
 import argparse
 
 import os
+
+import matplotlib.pyplot as plt
+
 
 def none_or_int(value):
     if value == 'None':
@@ -247,12 +254,57 @@ model_history = model.fit(x = train_x, y = train_y, \
 #%% 
 # TESTING PHASE
 
-score = model.evaluate(x = test_x, y = test_y, verbose = args.verbose)
-score_dict = {'val_loss' : score[0], 'val_acc' : score[1]}
+train_y_pred = np.argmax(model.predict(train_x), axis=1)
+test_y_pred = np.argmax(model.predict(test_x), axis=1)
+
+train_score = model.evaluate(x = test_x, y = test_y, verbose = args.verbose)
+train_dict = {'val_loss' : train_score[0], 'val_acc' : train_score[1]}
+
+test_score = model.evaluate(x = test_x, y = test_y, verbose = args.verbose)
+test_dict = {'val_loss' : test_score[0], 'val_acc' : test_score[1]}
 
 if (args.verbose > 0):
-    print('Test loss:', score_dict['val_loss'])
-    print('Test accuracy:', score_dict['val_acc'])
+    print('Train loss:', train_dict['val_loss'])
+    print('Train accuracy:', train_dict['val_acc'])
+    
+    print('Test loss:', test_dict['val_loss'])
+    print('Test accuracy:', test_dict['val_acc'])
+
+#%% 
+# Data Visualization
+
+def plot_confusion_matrix(cm, classes, title='Confusion matrix', 
+                          cmap = plt.cm.Blues):
+    
+    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    plt.title(title)
+    plt.colorbar()
+    tick_marks = np.arange(len(classes))
+    plt.xticks(tick_marks, classes)
+    plt.yticks(tick_marks, classes)
+
+    fmt = 'd'
+    thresh = cm.max() / 2.
+    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+        plt.text(j, i, format(cm[i, j], fmt),
+                 horizontalalignment="center",
+                 color="white" if cm[i, j] > thresh else "black")
+
+    plt.ylabel('Actual label')
+    plt.xlabel('Predicted label')
+    plt.tight_layout()
+    plt.show()
+
+if (args.plot):
+    train_cm = confusion_matrix(train_y, train_y_pred)    
+    test_cm = confusion_matrix(test_y, test_y_pred)
+    
+    classes = list(range(n_out))
+    
+    plot_confusion_matrix(train_cm, classes = classes, 
+                          title='Confusion matrix for training set')
+    plot_confusion_matrix(test_cm, classes = classes, 
+                         title='Confusion matrix for test set')
 
 #%% 
 # Save the architecture and the lastly trained model
@@ -260,8 +312,8 @@ if (args.verbose > 0):
 architecture_path = models_path + model_name + '_architecture'
 
 last_suffix = file_suffix.format(epoch = args.n_epochs, \
-                                 val_acc = score_dict['val_acc'], \
-                                 val_loss = score_dict['val_loss'])
+                                 val_acc = test_dict['val_acc'], \
+                                 val_loss = test_dict['val_loss'])
 
 if (args.save_architecture):
     # Save only the archtitecture (as a JSON file)
