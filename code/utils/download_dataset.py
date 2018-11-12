@@ -18,6 +18,7 @@ from six.moves.urllib.request import urlretrieve
 import os
 
 def download(file_url, file_name):
+    print(os.path.dirname(os.path.abspath(__file__)))
     file_path = '../../datasets/' + file_name
     exists = os.path.isfile(file_path)
     
