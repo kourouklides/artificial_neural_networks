@@ -39,6 +39,10 @@ import os
 
 import matplotlib.pyplot as plt
 
+initial_dir = os.getcwd()
+os.chdir( '../../../../../' )
+from artificial_neural_networks.code.utils.download_mnist import download_mnist
+
 #%% 
 def none_or_int(value):
     if value == 'None':
@@ -68,7 +72,7 @@ parser.add_argument('--same_size', type = bool, default = True)
 parser.add_argument('--n_layers', type = int, default = 2)
 parser.add_argument('--layer_size', type = int, default = 128)
 parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default = [128, 128])
-parser.add_argument('--n_epochs', type = int, default = 10)
+parser.add_argument('--n_epochs', type = int, default = 50)
 parser.add_argument('--batch_size', type = none_or_int, default = 512)
 parser.add_argument('--optimizer', type = str, default = 'RMSprop')
 parser.add_argument('--lrearning_rate', type = float, default = 1e-2)
@@ -99,8 +103,8 @@ def snn_dense_mnist(args):
     
     #%% 
     # Load the MNIST dataset
-        
-    mnist_path = r'../../../../datasets/mnist.npz'
+    
+    mnist_path = download_mnist()
     mnist = np.load(mnist_path)
     train_x = mnist['x_train'].astype(np.float32)
     train_y = mnist['y_train'].astype(np.int32)
@@ -205,7 +209,7 @@ def snn_dense_mnist(args):
     #%% 
     # Save trained models for every epoch
     
-    models_path = r'../../../../trained_models/'
+    models_path = r'artificial_neural_networks/trained_models/'
     model_name = 'mnist_snn_dense'
     weights_path = models_path + model_name + '_weights'
     model_path = models_path + model_name + '_model'
@@ -248,7 +252,7 @@ def snn_dense_mnist(args):
     train_y_pred = np.argmax(model.predict(train_x), axis=1)
     test_y_pred = np.argmax(model.predict(test_x), axis=1)
     
-    train_score = model.evaluate(x = test_x, y = test_y, verbose = args.verbose)
+    train_score = model.evaluate(x = train_x, y = train_y, verbose = args.verbose)
     train_dict = {'val_loss' : train_score[0], 'val_acc' : train_score[1]}
     
     test_score = model.evaluate(x = test_x, y = test_y, verbose = args.verbose)
@@ -266,7 +270,7 @@ def snn_dense_mnist(args):
     
     def plot_confusion_matrix(cm, classes, title='Confusion matrix', 
                               cmap = plt.cm.Blues):
-        
+        plt.figure()
         plt.imshow(cm, interpolation='nearest', cmap=cmap)
         plt.title(title)
         plt.colorbar()
@@ -323,6 +327,8 @@ def snn_dense_mnist(args):
     if (args.save_last_model):
         model.save(model_path + last_suffix + '.h5')
 
+    return model
+
 #%% 
 if __name__ == '__main__':
-    snn_dense_mnist(args = arguments)
+    model = snn_dense_mnist(args = arguments)

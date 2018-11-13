@@ -17,14 +17,17 @@ from six.moves.urllib.request import urlretrieve
 
 import os
 
-def download(file_url, file_name):
-    print(os.path.dirname(os.path.abspath(__file__)))
-    file_path = '../../datasets/' + file_name
-    exists = os.path.isfile(file_path)
+def download_dataset(file_url, file_name):
+    # print(os.path.dirname(os.path.abspath(__file__)))
+    # print(os.getcwd())
     
+    file_path = r'artificial_neural_networks/datasets/' + file_name
+    exists = os.path.isfile(file_path)
     if exists:
         print(file_name + ' already exists.')
         print('You have to delete it first, if you want to re-download it.')
     else:
         urlretrieve(file_url, file_path)
         print(file_name + ' was downloaded succesfully.')
+    
+    return file_path

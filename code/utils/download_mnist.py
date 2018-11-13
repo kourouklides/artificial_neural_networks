@@ -12,9 +12,22 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from artificial_neural_networks.code.utils.download_dataset import download
+import os
 
-file_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
-file_name = 'mnist.npz'
+initial_dir = os.getcwd()
+os.chdir( '../../../' )
+from artificial_neural_networks.code.utils.download_dataset import download_dataset
+os.chdir(initial_dir)
 
-download(file_url,file_name)
+#%% 
+def download_mnist():
+    file_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
+    file_name = 'mnist.npz'
+    
+    file_path = download_dataset(file_url, file_name)
+    
+    return file_path
+
+if __name__ == '__main__':
+    file_path = download_mnist()
+
