@@ -271,7 +271,7 @@ def snn_dense_mnist(args):
     def plot_confusion_matrix(cm, classes, title='Confusion matrix', 
                               cmap = plt.cm.Blues):
         plt.figure()
-        plt.imshow(cm, interpolation='nearest', cmap=cmap)
+        plt.imshow(cm, interpolation = 'nearest', cmap=cmap)
         plt.title(title)
         plt.colorbar()
         tick_marks = np.arange(len(classes))
@@ -282,8 +282,8 @@ def snn_dense_mnist(args):
         thresh = cm.max() / 2.
         for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
             plt.text(j, i, format(cm[i, j], fmt),
-                     horizontalalignment="center",
-                     color="white" if cm[i, j] > thresh else "black")
+                     horizontalalignment = 'center',
+                     color = 'white' if cm[i, j] > thresh else 'black')
     
         plt.ylabel('Actual label')
         plt.xlabel('Predicted label')
