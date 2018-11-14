@@ -25,8 +25,8 @@ import random as rn
 from keras import optimizers
 from keras.layers import Input, Dense
 from keras.models import Model
-from keras.utils import to_categorical
 from keras.callbacks import ModelCheckpoint
+from keras.utils import to_categorical
 
 from sklearn.metrics import confusion_matrix
 import itertools
@@ -39,8 +39,8 @@ import os
 
 import matplotlib.pyplot as plt
 
-initial_dir = os.getcwd()
 os.chdir( '../../../../../' )
+
 from artificial_neural_networks.code.utils.download_mnist import download_mnist
 
 #%% 
@@ -63,7 +63,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--verbose', type = int, default = 1)
 parser.add_argument('--reproducible', type = bool, default = True)
 parser.add_argument('--seed', type = int, default = 0)
-parser.add_argument('--plot', type = bool, default = True)
+parser.add_argument('--plot', type = bool, default = False)
 
 # Settings for preprocessing and hyperparameters
 parser.add_argument('--scaling_factor', type = float, default = (255/255) )

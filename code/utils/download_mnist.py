@@ -14,13 +14,13 @@ from __future__ import print_function
 
 import os
 
-initial_dir = os.getcwd()
-os.chdir( '../../../' )
-from artificial_neural_networks.code.utils.download_dataset import download_dataset
-os.chdir(initial_dir)
-
 #%% 
-def download_mnist():
+def download_mnist(new_dir = os.getcwd()):
+    
+    os.chdir(new_dir)
+    
+    from artificial_neural_networks.code.utils.download_dataset import download_dataset
+    
     file_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
     file_name = 'mnist.npz'
     
@@ -29,5 +29,5 @@ def download_mnist():
     return file_path
 
 if __name__ == '__main__':
-    file_path = download_mnist()
+    file_path = download_mnist('../../../')
 
