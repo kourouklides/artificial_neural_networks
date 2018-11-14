@@ -65,29 +65,29 @@ def none_or_float(value):
 parser = argparse.ArgumentParser()
 
 # General settings
-parser.add_argument('--verbose', type = int, default = 1)
-parser.add_argument('--reproducible', type = bool, default = True)
-parser.add_argument('--seed', type = int, default = 0)
-parser.add_argument('--plot', type = bool, default = True)
+parser.add_argument('--verbose', type=int, default=1)
+parser.add_argument('--reproducible', type=bool, default=True)
+parser.add_argument('--seed', type=int, default=0)
+parser.add_argument('--plot', type=bool, default=False)
 
 # Settings for preprocessing and hyperparameters
-parser.add_argument('--look_back', type = int, default = 3)
-parser.add_argument('--scaling_factor', type = float, default = (1/780) )
-parser.add_argument('--translation', type = float, default = 0)
-parser.add_argument('--layer_size', type = int, default = 4)
-parser.add_argument('--n_epochs', type = int, default = 13)
-parser.add_argument('--batch_size', type = none_or_int, default = 1)
-parser.add_argument('--optimizer', type = str, default = 'Adam')
-parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
-parser.add_argument('--epsilon', type = none_or_float, default = None)
+parser.add_argument('--look_back', type=int, default=3)
+parser.add_argument('--scaling_factor', type=float, default=(1/780))
+parser.add_argument('--translation', type=float, default=0)
+parser.add_argument('--layer_size', type=int, default=4)
+parser.add_argument('--n_epochs', type=int, default=13)
+parser.add_argument('--batch_size', type=none_or_int, default=1)
+parser.add_argument('--optimizer', type=str, default='Adam')
+parser.add_argument('--lrearning_rate', type=float, default=1e-3)
+parser.add_argument('--epsilon', type=none_or_float, default=None)
 
 # Settings for saving the model
-parser.add_argument('--save_architecture', type = bool, default = True)
-parser.add_argument('--save_last_weights', type = bool, default = True)
-parser.add_argument('--save_last_model', type = bool, default = True)
-parser.add_argument('--save_models', type = bool, default = False)
-parser.add_argument('--save_weights_only', type = bool, default = False)
-parser.add_argument('--save_best', type = bool, default = False)
+parser.add_argument('--save_architecture', type=bool, default=True)
+parser.add_argument('--save_last_weights', type=bool, default=True)
+parser.add_argument('--save_last_model', type=bool, default=True)
+parser.add_argument('--save_models', type=bool, default=False)
+parser.add_argument('--save_weights_only', type=bool, default=False)
+parser.add_argument('--save_best', type=bool, default=False)
 
 arguments = parser.parse_args()
 
@@ -200,22 +200,22 @@ def lstm_dense_sunsposts(args):
 
     lr = args.lrearning_rate
     epsilon = args.epsilon
-    optimizer_selection = {'Adadelta': optimizers.Adadelta(
+    optimizer_selection = {'Adadelta':  optimizers.Adadelta(
                                    lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
-                           'Adagrad': optimizers.Adagrad(
+                           'Adagrad':   optimizers.Adagrad(
                                    lr=lr, epsilon=epsilon, decay=0.0),
-                           'Adam': optimizers.Adam(
+                           'Adam':      optimizers.Adam(
                                    lr=lr, beta_1=0.9, beta_2=0.999,
                                    epsilon=epsilon, decay=0.0, amsgrad=False),
-                           'Adamax': optimizers.Adamax(
+                           'Adamax':    optimizers.Adamax(
                                    lr=lr, beta_1=0.9, beta_2=0.999,
                                    epsilon=epsilon, decay=0.0),
-                           'Nadam': optimizers.Nadam(
+                           'Nadam':     optimizers.Nadam(
                                    lr=lr, beta_1=0.9, beta_2=0.999,
                                    epsilon=epsilon, schedule_decay=0.004),
-                           'RMSprop': optimizers.RMSprop(
+                           'RMSprop':   optimizers.RMSprop(
                                    lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
-                           'SGD': optimizers.SGD(
+                           'SGD':       optimizers.SGD(
                                    lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
 
     optimizer = optimizer_selection[args.optimizer]
@@ -227,7 +227,7 @@ def lstm_dense_sunsposts(args):
     # %%
     # Save trained models for every epoch
 
-    models_path = r'../../../../trained_models/'
+    models_path = r'artificial_neural_networks/trained_models/'
     model_name = 'sunspots_lstm_dense'
     weights_path = models_path + model_name + '_weights'
     model_path = models_path + model_name + '_model'
@@ -299,41 +299,49 @@ def lstm_dense_sunsposts(args):
     # Data Visualization
 
     if (args.plot):
+        plt.figure()
         plt.plot(train_y)
         plt.plot(train_y_pred)
         plt.title('Time Series of the training set')
         plt.show()
 
+        plt.figure()
         plt.plot(test_y)
         plt.plot(test_y_pred)
         plt.title('Time Series of the test set')
         plt.show()
 
+        plt.figure()
         train_errors = train_y - train_y_pred
         plt.hist(train_errors, bins='auto')
         plt.title('Histogram of training errors')
         plt.show()
 
+        plt.figure()
         test_errors = test_y - test_y_pred
         plt.hist(test_errors, bins='auto')
         plt.title('Histogram of test errors')
         plt.show()
 
+        plt.figure()
         plt.scatter(x=train_y, y=train_y_pred, edgecolors=(0, 0, 0))
         plt.plot([train_y.min(), train_y.max()], [train_y.min(), train_y.max()], 'k--', lw=4)
         plt.title('Predicted vs Actual for training set')
         plt.show()
 
+        plt.figure()
         plt.scatter(x=test_y, y=test_y_pred, edgecolors=(0, 0, 0))
         plt.plot([test_y.min(), test_y.max()], [test_y.min(), test_y.max()], 'k--', lw=4)
         plt.title('Predicted vs Actual for test set')
         plt.show()
 
+        plt.figure()
         plt.scatter(x=train_y_pred, y=train_errors, edgecolors=(0, 0, 0))
         plt.plot([train_y.min(), train_y.max()], [0, 0], 'k--', lw=4)
         plt.title('Residuals vs Predicted for training set')
         plt.show()
 
+        plt.figure()
         plt.scatter(x=test_y_pred, y=test_errors, edgecolors=(0, 0, 0))
         plt.plot([test_y.min(), test_y.max()], [0, 0], 'k--', lw=4)
         plt.title('Residuals vs Predicted for test set')
