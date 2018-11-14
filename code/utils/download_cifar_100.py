@@ -14,13 +14,13 @@ from __future__ import print_function
 
 import os
 
-initial_dir = os.getcwd()
-os.chdir( '../../../' )
-from artificial_neural_networks.code.utils.download_dataset import download_dataset
-os.chdir(initial_dir)
-
 #%% 
-def download_cifar_100():
+def download_cifar_100(new_dir = os.getcwd()):
+    
+    os.chdir(new_dir)
+    
+    from artificial_neural_networks.code.utils.download_dataset import download_dataset
+    
     file_url = 'https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz'
     file_name = 'cifar-100-python.tar.gz'
     
@@ -29,5 +29,5 @@ def download_cifar_100():
     return file_path
 
 if __name__ == '__main__':
-    file_path = download_cifar_100()
+    file_path = download_cifar_100('../../../')
 

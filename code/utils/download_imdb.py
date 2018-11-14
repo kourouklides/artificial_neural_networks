@@ -14,13 +14,13 @@ from __future__ import print_function
 
 import os
 
-initial_dir = os.getcwd()
-os.chdir( '../../../' )
-from artificial_neural_networks.code.utils.download_dataset import download_dataset
-os.chdir(initial_dir)
-
 #%% 
-def download_imdb():
+def download_imdb(new_dir = os.getcwd()):
+    
+    os.chdir(new_dir)
+    
+    from artificial_neural_networks.code.utils.download_dataset import download_dataset
+    
     file_url = 'https://s3.amazonaws.com/text-datasets/imdb.npz'
     file_name = 'imdb.npz'
     
@@ -29,5 +29,5 @@ def download_imdb():
     return file_path
 
 if __name__ == '__main__':
-    file_path = download_imdb()
+    file_path = download_imdb('../../../')
 

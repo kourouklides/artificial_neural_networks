@@ -14,13 +14,13 @@ from __future__ import print_function
 
 import os
 
-initial_dir = os.getcwd()
-os.chdir( '../../../' )
-from artificial_neural_networks.code.utils.download_dataset import download_dataset
-os.chdir(initial_dir)
-
 #%% 
-def download_monthly_sunspots():
+def download_monthly_sunspots(new_dir = os.getcwd()):
+    
+    os.chdir(new_dir)
+    
+    from artificial_neural_networks.code.utils.download_dataset import download_dataset
+    
     file_url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-sunspots.csv'
     file_name = 'monthly-sunspots.csv'
     
@@ -29,5 +29,5 @@ def download_monthly_sunspots():
     return file_path
 
 if __name__ == '__main__':
-    file_path = download_monthly_sunspots()
+    file_path = download_monthly_sunspots('../../../')
 
