@@ -19,7 +19,7 @@ def download_monthly_sunspots(new_dir = os.getcwd()):
     
     os.chdir(new_dir)
     
-    from artificial_neural_networks.code.utils.download_dataset import download_dataset
+    from artificial_neural_networks.code.utils.data_utils import download_dataset
     
     file_url = 'https://raw.githubusercontent.com/jbrownlee/Datasets/master/monthly-sunspots.csv'
     file_name = 'monthly-sunspots.csv'

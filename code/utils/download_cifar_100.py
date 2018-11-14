@@ -19,7 +19,7 @@ def download_cifar_100(new_dir = os.getcwd()):
     
     os.chdir(new_dir)
     
-    from artificial_neural_networks.code.utils.download_dataset import download_dataset
+    from artificial_neural_networks.code.utils.data_utils import download_dataset
     
     file_url = 'https://www.cs.toronto.edu/~kriz/cifar-100-python.tar.gz'
     file_name = 'cifar-100-python.tar.gz'
