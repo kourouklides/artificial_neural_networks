@@ -40,9 +40,6 @@ import os
 
 import matplotlib.pyplot as plt
 
-os.chdir('../../../../../')
-
-from artificial_neural_networks.code.utils.download_mnist import download_mnist
 
 # %%
 
@@ -61,42 +58,43 @@ def none_or_float(value):
         return float(value)
 
 
-# SETTINGS
-parser = argparse.ArgumentParser()
+def snn_dense_mnist(new_dir=os.getcwd()):
 
-# General settings
-parser.add_argument('--verbose', type=int, default=1)
-parser.add_argument('--reproducible', type=bool, default=True)
-parser.add_argument('--seed', type=int, default=0)
-parser.add_argument('--plot', type=bool, default=False)
+    os.chdir(new_dir)
 
-# Settings for preprocessing and hyperparameters
-parser.add_argument('--scaling_factor', type=float, default=(255/255))
-parser.add_argument('--translation', type=float, default=0)
-parser.add_argument('--same_size', type=bool, default=True)
-parser.add_argument('--n_layers', type=int, default=2)
-parser.add_argument('--layer_size', type=int, default=128)
-parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[128, 128])
-parser.add_argument('--n_epochs', type=int, default=50)
-parser.add_argument('--batch_size', type=none_or_int, default=512)
-parser.add_argument('--optimizer', type=str, default='RMSprop')
-parser.add_argument('--lrearning_rate', type=float, default=1e-2)
-parser.add_argument('--epsilon', type=none_or_float, default=1e0)
+    from artificial_neural_networks.code.utils.download_mnist import download_mnist
 
-# Settings for saving the model
-parser.add_argument('--save_architecture', type=bool, default=True)
-parser.add_argument('--save_last_weights', type=bool, default=True)
-parser.add_argument('--save_last_model', type=bool, default=True)
-parser.add_argument('--save_models', type=bool, default=False)
-parser.add_argument('--save_weights_only', type=bool, default=False)
-parser.add_argument('--save_best', type=bool, default=False)
+    # SETTINGS
+    parser = argparse.ArgumentParser()
 
-arguments = parser.parse_args()
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--plot', type=bool, default=False)
 
-# %%
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--scaling_factor', type=float, default=(255/255))
+    parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--same_size', type=bool, default=True)
+    parser.add_argument('--n_layers', type=int, default=2)
+    parser.add_argument('--layer_size', type=int, default=128)
+    parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[128, 128])
+    parser.add_argument('--n_epochs', type=int, default=50)
+    parser.add_argument('--batch_size', type=none_or_int, default=512)
+    parser.add_argument('--optimizer', type=str, default='RMSprop')
+    parser.add_argument('--lrearning_rate', type=float, default=1e-2)
+    parser.add_argument('--epsilon', type=none_or_float, default=1e0)
 
+    # Settings for saving the model
+    parser.add_argument('--save_architecture', type=bool, default=True)
+    parser.add_argument('--save_last_weights', type=bool, default=True)
+    parser.add_argument('--save_last_model', type=bool, default=True)
+    parser.add_argument('--save_models', type=bool, default=False)
+    parser.add_argument('--save_weights_only', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=False)
 
-def snn_dense_mnist(args):
+    args = parser.parse_args()
 
     if (args.verbose > 0):
         print(args)
@@ -340,4 +338,4 @@ def snn_dense_mnist(args):
 
 
 if __name__ == '__main__':
-    model = snn_dense_mnist(args=arguments)
+    model = snn_dense_mnist('../../../../../')

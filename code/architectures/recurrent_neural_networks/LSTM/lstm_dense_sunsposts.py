@@ -94,8 +94,6 @@ def lstm_dense_sunsposts(new_dir=os.getcwd()):
 
     args = parser.parse_args()
 
-# %%
-
     if (args.verbose > 0):
         print(args)
 
