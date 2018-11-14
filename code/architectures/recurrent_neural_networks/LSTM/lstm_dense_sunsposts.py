@@ -31,18 +31,14 @@ from keras import backend as K
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from math import sqrt
 
-import json, yaml
+import json
+import yaml
 
 import argparse
 
 import os
 
 import matplotlib.pyplot as plt
-
-os.chdir('../../../../../')
-
-from artificial_neural_networks.code.utils.download_monthly_sunspots \
-    import download_monthly_sunspots
 
 # %%
 
@@ -61,40 +57,45 @@ def none_or_float(value):
         return float(value)
 
 
-# SETTINGS
-parser = argparse.ArgumentParser()
+def lstm_dense_sunsposts(new_dir=os.getcwd()):
 
-# General settings
-parser.add_argument('--verbose', type=int, default=1)
-parser.add_argument('--reproducible', type=bool, default=True)
-parser.add_argument('--seed', type=int, default=0)
-parser.add_argument('--plot', type=bool, default=False)
+    os.chdir(new_dir)
 
-# Settings for preprocessing and hyperparameters
-parser.add_argument('--look_back', type=int, default=3)
-parser.add_argument('--scaling_factor', type=float, default=(1/780))
-parser.add_argument('--translation', type=float, default=0)
-parser.add_argument('--layer_size', type=int, default=4)
-parser.add_argument('--n_epochs', type=int, default=13)
-parser.add_argument('--batch_size', type=none_or_int, default=1)
-parser.add_argument('--optimizer', type=str, default='Adam')
-parser.add_argument('--lrearning_rate', type=float, default=1e-3)
-parser.add_argument('--epsilon', type=none_or_float, default=None)
+    from artificial_neural_networks.code.utils.download_monthly_sunspots \
+        import download_monthly_sunspots
 
-# Settings for saving the model
-parser.add_argument('--save_architecture', type=bool, default=True)
-parser.add_argument('--save_last_weights', type=bool, default=True)
-parser.add_argument('--save_last_model', type=bool, default=True)
-parser.add_argument('--save_models', type=bool, default=False)
-parser.add_argument('--save_weights_only', type=bool, default=False)
-parser.add_argument('--save_best', type=bool, default=False)
+    # SETTINGS
+    parser = argparse.ArgumentParser()
 
-arguments = parser.parse_args()
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--plot', type=bool, default=False)
+
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--look_back', type=int, default=3)
+    parser.add_argument('--scaling_factor', type=float, default=(1/780))
+    parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--layer_size', type=int, default=4)
+    parser.add_argument('--n_epochs', type=int, default=13)
+    parser.add_argument('--batch_size', type=none_or_int, default=1)
+    parser.add_argument('--optimizer', type=str, default='Adam')
+    parser.add_argument('--lrearning_rate', type=float, default=1e-3)
+    parser.add_argument('--epsilon', type=none_or_float, default=None)
+
+    # Settings for saving the model
+    parser.add_argument('--save_architecture', type=bool, default=True)
+    parser.add_argument('--save_last_weights', type=bool, default=True)
+    parser.add_argument('--save_last_model', type=bool, default=True)
+    parser.add_argument('--save_models', type=bool, default=False)
+    parser.add_argument('--save_weights_only', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=False)
+
+    args = parser.parse_args()
 
 # %%
 
-
-def lstm_dense_sunsposts(args):
     if (args.verbose > 0):
         print(args)
 
@@ -379,4 +380,4 @@ def lstm_dense_sunsposts(args):
 
 
 if __name__ == '__main__':
-    model = lstm_dense_sunsposts(args=arguments)
+    model = lstm_dense_sunsposts('../../../../../')

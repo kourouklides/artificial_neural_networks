@@ -31,7 +31,8 @@ from keras.utils import to_categorical
 from sklearn.metrics import confusion_matrix
 import itertools
 
-import json, yaml
+import json
+import yaml
 
 import argparse
 
