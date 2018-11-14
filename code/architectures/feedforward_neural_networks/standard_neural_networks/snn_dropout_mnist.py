@@ -120,34 +120,34 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     # %%
     # PREPROCESSING STEP
-    
-    scaling_factor=args.scaling_factor
-    translation=args.translation
-    
-    img_width=train_x.shape[1]
-    img_height=train_x.shape[2]
-    
-    n_train=train_x.shape[0] # number of training examples/samples
-    n_test=test_x.shape[0] # number of test examples/samples
-    
-    n_in=img_width * img_height # number of features / dimensions
-    n_out=np.unique(train_y).shape[0] # number of classes/labels
-    
+
+    scaling_factor = args.scaling_factor
+    translation = args.translation
+
+    img_width = train_x.shape[1]
+    img_height = train_x.shape[2]
+
+    n_train = train_x.shape[0]  # number of training examples/samples
+    n_test = test_x.shape[0]  # number of test examples/samples
+
+    n_in = img_width * img_height  # number of features / dimensions
+    n_out = np.unique(train_y).shape[0]  # number of classes/labels
+
     # Reshape training and test sets
-    train_x=train_x.reshape(n_train, n_in)
-    test_x=test_x.reshape(n_test, n_in)
-    
+    train_x = train_x.reshape(n_train, n_in)
+    test_x = test_x.reshape(n_test, n_in)
+
     # Apply preprocessing
-    train_x=scaling_factor * (train_x - translation)
-    test_x=scaling_factor * (test_x - translation)
-    
-    one_hot=False # It works exactly the same for both True and False
-    
+    train_x = scaling_factor * (train_x - translation)
+    test_x = scaling_factor * (test_x - translation)
+
+    one_hot = False  # It works exactly the same for both True and False
+
     # Convert class vectors to binary class matrices (i.e. One hot encoding)
     if (one_hot):
-        train_y=to_categorical(train_y, n_out)
-        test_y=to_categorical(test_y, n_out)
-    
+        train_y = to_categorical(train_y, n_out)
+        test_y = to_categorical(test_y, n_out)
+
     # %%
     # Model hyperparameters
     
