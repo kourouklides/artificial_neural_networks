@@ -149,163 +149,163 @@ def snn_dense_mnist(new_dir=os.getcwd()):
 
     # %%
     # Model hyperparameters
-    
-    N=[]
-    N.append(n_in) #input layer
+
+    N = []
+    N.append(n_in)  # input layer
     if (args.same_size):
-        n_layers=args.n_layers
+        n_layers = args.n_layers
         for i in range(n_layers):
-            N.append(args.layer_size) # hidden layer i
+            N.append(args.layer_size)  # hidden layer i
     else:
-        n_layers=len(args.explicit_layer_sizes)
+        n_layers = len(args.explicit_layer_sizes)
         for i in range(n_layers):
-            N.append(args.explicit_layer_sizes[i]) # hidden layer i
-    N.append(n_out) # output layer
-    
+            N.append(args.explicit_layer_sizes[i])  # hidden layer i
+    N.append(n_out)  # output layer
+
     # ANN Architecture
-    L=len(N) - 1
-    
-    x=Input(shape=(n_in,)) #input layer
-    h=x
-    
-    for i in range(1,L):
-        h=Dense(units=N[i], activation='relu')(h) # hidden layer i
-    
-    out=Dense(units=n_out, activation='softmax')(h) # output layer
-    
-    model=Model(inputs=x, outputs=out)
-    
+    L = len(N) - 1
+
+    x = Input(shape=(n_in,))  # input layer
+    h = x
+
+    for i in range(1, L):
+        h = Dense(units=N[i], activation='relu')(h)  # hidden layer i
+
+    out = Dense(units=n_out, activation='softmax')(h)  # output layer
+
+    model = Model(inputs=x, outputs=out)
+
     if (args.verbose > 0):
         model.summary()
-    
+
     if (one_hot):
-        loss_function='categorical_crossentropy'
+        loss_function = 'categorical_crossentropy'
     else:
-        loss_function='sparse_categorical_crossentropy'
-    
-    metrics=['accuracy']
-    
-    lr=args.lrearning_rate
-    epsilon=args.epsilon
-    optimizer_selection={'Adadelta' : optimizers.Adadelta(
+        loss_function = 'sparse_categorical_crossentropy'
+
+    metrics = ['accuracy']
+
+    lr = args.lrearning_rate
+    epsilon = args.epsilon
+    optimizer_selection = {'Adadelta': optimizers.Adadelta(
                                    lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
-                           'Adagrad' : optimizers.Adagrad(
+                           'Adagrad':   optimizers.Adagrad(
                                    lr=lr, epsilon=epsilon, decay=0.0),
-                           'Adam' : optimizers.Adam(
+                           'Adam':      optimizers.Adam(
                                    lr=lr, beta_1=0.9, beta_2=0.999,
                                    epsilon=epsilon, decay=0.0, amsgrad=False),
-                           'Adamax' : optimizers.Adamax(
+                           'Adamax':    optimizers.Adamax(
                                    lr=lr, beta_1=0.9, beta_2=0.999,
                                    epsilon=epsilon, decay=0.0),
-                           'Nadam' : optimizers.Nadam(
+                           'Nadam':     optimizers.Nadam(
                                    lr=lr, beta_1=0.9, beta_2=0.999,
                                    epsilon=epsilon, schedule_decay=0.004),
-                           'RMSprop' : optimizers.RMSprop(
+                           'RMSprop':   optimizers.RMSprop(
                                    lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
-                           'SGD' : optimizers.SGD(
+                           'SGD':       optimizers.SGD(
                                    lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
-    
-    optimizer=optimizer_selection[args.optimizer]
-    
+
+    optimizer = optimizer_selection[args.optimizer]
+
     model.compile(optimizer=optimizer,
                   loss=loss_function,
                   metrics=metrics)
-    
+
     # %%
     # Save trained models for every epoch
-    
-    models_path=r'artificial_neural_networks/trained_models/'
-    model_name='mnist_snn_dense'
-    weights_path=models_path + model_name + '_weights'
-    model_path=models_path + model_name + '_model'
-    file_suffix='_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
-    
+
+    models_path = r'artificial_neural_networks/trained_models/'
+    model_name = 'mnist_snn_dense'
+    weights_path = models_path + model_name + '_weights'
+    model_path = models_path + model_name + '_model'
+    file_suffix = '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
+
     if (args.save_weights_only):
-        file_path=weights_path
+        file_path = weights_path
     else:
-        file_path=model_path
-    
+        file_path = model_path
+
     file_path += file_suffix
-    
+
     # monitor='val_loss'
-    monitor='val_acc'
-    
+    monitor = 'val_acc'
+
     if (args.save_models):
-        checkpoint=ModelCheckpoint(file_path + '.h5',
+        checkpoint = ModelCheckpoint(file_path + '.h5',
                                      monitor=monitor,
                                      verbose=args.verbose,
                                      save_best_only=args.save_best_only,
                                      mode='auto',
                                      save_weights_only=args.save_weights_only)
-        callbacks=[checkpoint]
+        callbacks = [checkpoint]
     else:
-        callbacks=[]
-    
+        callbacks = []
+
     # %%
     # TRAINING PHASE
-    
-    model_history=model.fit(x=train_x, y=train_y,
+
+    model_history = model.fit(x=train_x, y=train_y,
                               validation_data=(test_x, test_y),
                               batch_size=args.batch_size,
                               epochs=args.n_epochs,
                               verbose=args.verbose,
                               callbacks=callbacks)
-    
+
     # %%
     # TESTING PHASE
-    
-    train_y_pred=np.argmax(model.predict(train_x), axis=1)
-    test_y_pred=np.argmax(model.predict(test_x), axis=1)
-    
-    train_score=model.evaluate(x=train_x, y=train_y, verbose=args.verbose)
-    train_dict={'val_loss' : train_score[0], 'val_acc' : train_score[1]}
-    
-    test_score=model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
-    test_dict={'val_loss' : test_score[0], 'val_acc' : test_score[1]}
-    
+
+    train_y_pred = np.argmax(model.predict(train_x), axis=1)
+    test_y_pred = np.argmax(model.predict(test_x), axis=1)
+
+    train_score = model.evaluate(x=train_x, y=train_y, verbose=args.verbose)
+    train_dict = {'val_loss': train_score[0], 'val_acc': train_score[1]}
+
+    test_score = model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
+    test_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
+
     if (args.verbose > 0):
         print('Train loss:', train_dict['val_loss'])
         print('Train accuracy:', train_dict['val_acc'])
-        
+
         print('Test loss:', test_dict['val_loss'])
         print('Test accuracy:', test_dict['val_acc'])
-    
+
     # %%
     # Data Visualization
-    
-    def plot_confusion_matrix(cm, classes, title='Confusion matrix', 
+
+    def plot_confusion_matrix(cm, classes, title='Confusion matrix',
                               cmap=plt.cm.Blues):
         plt.figure()
         plt.imshow(cm, interpolation='nearest', cmap=cmap)
         plt.title(title)
         plt.colorbar()
-        tick_marks=np.arange(len(classes))
+        tick_marks = np.arange(len(classes))
         plt.xticks(tick_marks, classes)
         plt.yticks(tick_marks, classes)
-    
-        fmt='d'
-        thresh=cm.max() / 2.
+
+        fmt = 'd'
+        thresh = cm.max() / 2.
         for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
             plt.text(j, i, format(cm[i, j], fmt),
                      horizontalalignment='center',
                      color='white' if cm[i, j] > thresh else 'black')
-    
+
         plt.ylabel('Actual label')
         plt.xlabel('Predicted label')
         plt.tight_layout()
         plt.show()
-    
+
     if (args.plot):
-        train_cm=confusion_matrix(train_y, train_y_pred)    
-        test_cm=confusion_matrix(test_y, test_y_pred)
-        
-        classes=list(range(n_out))
-        
-        plot_confusion_matrix(train_cm, classes=classes, 
+        train_cm = confusion_matrix(train_y, train_y_pred)
+        test_cm = confusion_matrix(test_y, test_y_pred)
+
+        classes = list(range(n_out))
+
+        plot_confusion_matrix(train_cm, classes=classes,
                               title='Confusion matrix for training set')
-        plot_confusion_matrix(test_cm, classes=classes, 
-                             title='Confusion matrix for test set')
-    
+        plot_confusion_matrix(test_cm, classes=classes,
+                              title='Confusion matrix for test set')
+
     # %%
     # Save the architecture and the lastly trained model
 
