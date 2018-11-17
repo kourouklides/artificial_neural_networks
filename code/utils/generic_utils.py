@@ -77,3 +77,12 @@ def save_model(model, models_path, model_name, weights_path, model_path, file_su
     # Save the whole model (as an HDF5 file)
     if args.save_last_model:
         model.save(model_path + last_suffix + '.h5')
+
+
+# %%
+
+
+def load_model():
+    """
+    Utility to load the whole model
+    """
