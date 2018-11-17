@@ -52,7 +52,8 @@ def snn_dense_mnist(new_dir=os.getcwd()):
 
     # code repository sub-package imports
     from artificial_neural_networks.code.utils.download_mnist import download_mnist
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float, \
+        save_model
     from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
     # %%
@@ -250,17 +251,17 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     test_y_pred = np.argmax(model.predict(test_x), axis=1)
 
     train_score = model.evaluate(x=train_x, y=train_y, verbose=args.verbose)
-    score_dict = {'loss': train_score[0], 'acc': train_score[1]}
+    train_dict = {'loss': train_score[0], 'acc': train_score[1]}
 
     test_score = model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
-    score_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
+    test_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
 
     if args.verbose > 0:
-        print('Train loss:', score_dict['loss'])
-        print('Train accuracy:', score_dict['acc'])
+        print('Train loss:', train_dict['loss'])
+        print('Train accuracy:', train_dict['acc'])
 
-        print('Test loss:', score_dict['val_loss'])
-        print('Test accuracy:', score_dict['val_acc'])
+        print('Test loss:', test_dict['val_loss'])
+        print('Test accuracy:', test_dict['val_acc'])
 
     # %%
     # Data Visualization
@@ -294,27 +295,8 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     # %%
     # Save the architecture and the lastly trained model
 
-    architecture_path = models_path + model_name + '_architecture'
-
-    last_suffix = file_suffix.format(
-        epoch=args.n_epochs, val_acc=score_dict['val_acc'], val_loss=score_dict['val_loss'])
-
-    if args.save_architecture:
-        # Save only the archtitecture (as a JSON file)
-        json_string = model.to_json()
-        json.dump(json.loads(json_string), open(architecture_path + '.json', "w"))
-
-        # Save only the archtitecture (as a YAML file)
-        yaml_string = model.to_yaml()
-        yaml.dump(yaml.load(yaml_string), open(architecture_path + '.yml', "w"))
-
-    # Save only the weights (as an HDF5 file)
-    if args.save_last_weights:
-        model.save_weights(weights_path + last_suffix + '.h5')
-
-    # Save the whole model (as an HDF5 file)
-    if args.save_last_model:
-        model.save(model_path + last_suffix + '.h5')
+    save_model(model, models_path, model_name, weights_path, model_path, file_suffix, test_dict,
+               args)
 
     # %%
 

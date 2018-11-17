@@ -69,10 +69,10 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     parser.add_argument('--scaling_factor', type=float, default=(1 / 255))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--same_size', type=bool, default=True)
-    parser.add_argument('--n_layers', type=int, default=20)
+    parser.add_argument('--n_layers', type=int, default=2)
     parser.add_argument('--layer_size', type=int, default=512)
     parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[512, 512])
-    parser.add_argument('--n_epochs', type=int, default=2)
+    parser.add_argument('--n_epochs', type=int, default=20)
     parser.add_argument('--batch_size', type=none_or_int, default=128)
     parser.add_argument('--optimizer', type=str, default='RMSprop')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
@@ -252,17 +252,17 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     test_y_pred = np.argmax(model.predict(test_x), axis=1)
 
     train_score = model.evaluate(x=train_x, y=train_y, verbose=args.verbose)
-    score_dict = {'loss': train_score[0], 'acc': train_score[1]}
+    train_dict = {'loss': train_score[0], 'acc': train_score[1]}
 
     test_score = model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
-    score_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
+    test_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
 
     if args.verbose > 0:
-        print('Train loss:', score_dict['loss'])
-        print('Train accuracy:', score_dict['acc'])
+        print('Train loss:', train_dict['loss'])
+        print('Train accuracy:', train_dict['acc'])
 
-        print('Test loss:', score_dict['val_loss'])
-        print('Test accuracy:', score_dict['val_acc'])
+        print('Test loss:', test_dict['val_loss'])
+        print('Test accuracy:', test_dict['val_acc'])
 
     # %%
     # Data Visualization
@@ -299,7 +299,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     architecture_path = models_path + model_name + '_architecture'
 
     last_suffix = file_suffix.format(
-        epoch=args.n_epochs, val_acc=score_dict['val_acc'], val_loss=score_dict['val_loss'])
+        epoch=args.n_epochs, val_acc=test_dict['val_acc'], val_loss=test_dict['val_loss'])
 
     if args.save_architecture:
         # Save only the archtitecture (as a JSON file)
