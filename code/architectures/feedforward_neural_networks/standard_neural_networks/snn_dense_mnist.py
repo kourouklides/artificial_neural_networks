@@ -23,6 +23,7 @@ from __future__ import print_function
 import argparse
 import os
 import random as rn
+from timeit import default_timer as timer
 
 # third-party imports
 from keras import optimizers
@@ -62,6 +63,7 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     parser.add_argument('--verbose', type=int, default=1)
     parser.add_argument('--reproducible', type=bool, default=True)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--time_training', type=bool, default=True)
     parser.add_argument('--plot', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
@@ -233,6 +235,9 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
+    if args.time_training:
+        start = timer()
+
     model_history = model.fit(
         x=train_x,
         y=train_y,
@@ -241,6 +246,12 @@ def snn_dense_mnist(new_dir=os.getcwd()):
         epochs=args.n_epochs,
         verbose=args.verbose,
         callbacks=callbacks)
+
+    if args.time_training:
+        end = timer()
+        duration = end - start
+        print('Total time for training (in seconds):')
+        print(duration)
 
     # %%
     # TESTING PHASE
