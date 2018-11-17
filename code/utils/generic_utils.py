@@ -82,7 +82,7 @@ def save_model(model, models_path, model_name, weights_path, model_path, file_su
 # %%
 
 
-def load_keras_model(model_h51, model_json=None, model_yaml=None, is_full=True):
+def load_keras_model(model_h5, model_json=None, model_yaml=None, is_full=True):
     """
     Utility to load the whole model
     """
