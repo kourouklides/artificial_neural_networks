@@ -36,7 +36,7 @@ The code examples require several Python packages to be installed. These package
 
 You first have to change the directory to the current one, by __replacing__ \<your directory path> accordingly:
 
-    cd <your directory path>/setup
+    cd <your directory path>/artificial_neural_networks/setup
 
 Then, to install the required Python packages and dependencies you have to run the following commands in a terminal:
 
@@ -50,7 +50,7 @@ __Note:__ For Windows, you should run all of the commands, including the above, 
 
 You need to download the necessary data for each corresponding code example, as they are __not__ inluded in this repository. To do this, follow the instructions in the [datasets](../datasets) folder.
 
-    cd <your directory path>/datasets
+    cd <your directory path>/artificial_neural_networks/datasets
 
 ## Recommended installation
 
