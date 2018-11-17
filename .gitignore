@@ -4,6 +4,7 @@
 datasets/
 model_zoo/
 trained_models/
+bash_scripts/
 
 # Do NOT ignore the following files and (sub)directories:
 !datasets/README.md

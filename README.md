@@ -2,15 +2,15 @@
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://raw.githubusercontent.com/kourouklides/artificial_neural_networks/master/LICENSE)
 
 ## About
-This repository contains a collection of Methods and Models for various architectures of Artificial Neural Networks.
+This repository contains a collection of Methods and Models for various architectures of __Artificial Neural Networks__.
 
 The code implementation is in __Python 3__ (using [TensorFlow](https://www.tensorflow.org/) and [Keras](https://keras.io/) libraries).
 
 The repository is the one used for lectures of the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) and also, at the meetups and workshops of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
 
-Note: Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
-
 If you like this repository or if you found it useful, feel fre to __Star, Fork, Watch__ it or __share__ it online.
+
+__Note:__ Hyperparameter Optimization, Model Selection and Model Evaluation are outside the scope of this repository.
 
 ## Introduction
 
@@ -37,7 +37,7 @@ Guides and instructions on how to install the necessary libraries and how to set
 
 ## Running from the terminal
 
-If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) and want to run scripts from the command line (terminal) then you __should__ use it with the [``-m`` command-line flag](https://docs.python.org/3.6/using/cmdline.html#cmdoption-m) and without its ``.py`` extension, for the reasons explained [here](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not).
+If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) and want to run a script from the command line (terminal) then you __should__ use it with the [``-m`` command-line flag](https://docs.python.org/3.6/using/cmdline.html#cmdoption-m) and without its ``.py`` extension, for the reasons explained [here](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not).
 
 For example, you can either run this:
 
