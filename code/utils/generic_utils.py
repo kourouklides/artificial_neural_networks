@@ -14,15 +14,19 @@ from __future__ import division
 from __future__ import print_function
 
 
-def none_or_int(value):
-    if value == 'None':
-        return None
+def none_or_int(input_arg):
+    if input_arg == 'None':
+        value = None
     else:
-        return int(value)
+        value = int(input_arg)
+    
+    return value
 
 
-def none_or_float(value):
-    if value == 'None':
-        return None
+def none_or_float(input_arg):
+    if input_arg == 'None':
+        value = None
     else:
-        return float(value)
+        value = float(input_arg)
+    
+    return value

@@ -12,49 +12,30 @@ Task: Handwritten Digit Recognition (Multi-class Classification)
 
 """
 # %%
-# Python configurations
+# IMPORTS
 
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import numpy as np
-import tensorflow as tf
-import random as rn
-
-from keras import optimizers
-from keras.layers import Input, Dense, Dropout
-from keras.models import Model
-from keras.callbacks import ModelCheckpoint
-from keras.utils import to_categorical
-
-from sklearn.metrics import confusion_matrix
-import itertools
-
+# standard library imports
+import argparse
 import json
+import os
+import random as rn
 import yaml
 
-import argparse
-
-import os
-
-import matplotlib.pyplot as plt
+# third-party imports
+from keras import optimizers
+from keras.callbacks import ModelCheckpoint
+from keras.layers import Input, Dense, Dropout
+from keras.models import Model
+from keras.utils import to_categorical
+import numpy as np
+from sklearn.metrics import confusion_matrix
+import tensorflow as tf
 
 # %%
-
-
-def none_or_int(value):
-    if value == 'None':
-        return None
-    else:
-        return int(value)
-
-
-def none_or_float(value):
-    if value == 'None':
-        return None
-    else:
-        return float(value)
 
 
 def snn_dropout_mnist(new_dir=os.getcwd()):
@@ -62,6 +43,8 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     os.chdir(new_dir)
 
     from artificial_neural_networks.code.utils.download_mnist import download_mnist
+    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+    from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
     # SETTINGS
     parser = argparse.ArgumentParser()
@@ -258,54 +241,49 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     train_y_pred = np.argmax(model.predict(train_x), axis=1)
     test_y_pred = np.argmax(model.predict(test_x), axis=1)
 
-    train_score = model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
-    train_dict = {'val_loss': train_score[0], 'val_acc': train_score[1]}
+    train_score = model.evaluate(x=train_x, y=train_y, verbose=args.verbose)
+    score_dict = {'loss': train_score[0], 'acc': train_score[1]}
 
     test_score = model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
-    test_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
+    score_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
 
     if (args.verbose > 0):
-        print('Train loss:', train_dict['val_loss'])
-        print('Train accuracy:', train_dict['val_acc'])
+        print('Train loss:', score_dict['loss'])
+        print('Train accuracy:', score_dict['acc'])
 
-        print('Test loss:', test_dict['val_loss'])
-        print('Test accuracy:', test_dict['val_acc'])
+        print('Test loss:', score_dict['val_loss'])
+        print('Test accuracy:', score_dict['val_acc'])
 
     # %%
     # Data Visualization
 
-    def plot_confusion_matrix(cm, classes, title='Confusion matrix',
-                              cmap=plt.cm.Blues):
-
-        plt.imshow(cm, interpolation='nearest', cmap=cmap)
-        plt.title(title)
-        plt.colorbar()
-        tick_marks = np.arange(len(classes))
-        plt.xticks(tick_marks, classes)
-        plt.yticks(tick_marks, classes)
-
-        fmt = 'd'
-        thresh = cm.max() / 2.
-        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-            plt.text(j, i, format(cm[i, j], fmt),
-                     horizontalalignment="center",
-                     color="white" if cm[i, j] > thresh else "black")
-
-        plt.ylabel('Actual label')
-        plt.xlabel('Predicted label')
-        plt.tight_layout()
-        plt.show()
-
     if (args.plot):
-        train_cm = confusion_matrix(train_y, train_y_pred)
-        test_cm = confusion_matrix(test_y, test_y_pred)
+
+        # Confusion matrices
 
         classes = list(range(n_out))
 
+        train_cm = confusion_matrix(train_y, train_y_pred)
         plot_confusion_matrix(train_cm, classes=classes,
                               title='Confusion matrix for training set')
+
+        test_cm = confusion_matrix(test_y, test_y_pred)
         plot_confusion_matrix(test_cm, classes=classes,
                               title='Confusion matrix for test set')
+
+        # Loss vs epoch
+
+        epoch_axis = range(1, args.n_epochs+1)
+
+        train_loss = model_history.history['loss']
+        test_loss = model_history.history['val_loss']
+        epoch_plot(epoch_axis, train_loss, test_loss, 'Loss')
+
+        # Accuracy vs epoch
+
+        train_acc = model_history.history['acc']
+        test_acc = model_history.history['val_acc']
+        epoch_plot(epoch_axis, train_acc, test_acc, 'Accuracy')
 
     # %%
     # Save the architecture and the lastly trained model
@@ -313,8 +291,8 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     architecture_path = models_path + model_name + '_architecture'
 
     last_suffix = file_suffix.format(epoch=args.n_epochs,
-                                     val_acc=test_dict['val_acc'],
-                                     val_loss=test_dict['val_loss'])
+                                     val_acc=score_dict['val_acc'],
+                                     val_loss=score_dict['val_loss'])
 
     if (args.save_architecture):
         # Save only the archtitecture (as a JSON file)
