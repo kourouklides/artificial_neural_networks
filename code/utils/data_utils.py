@@ -1,6 +1,6 @@
 """
 
-Utility to download a dataset
+Utilities related to datasets
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
@@ -16,12 +16,24 @@ from __future__ import print_function
 from six.moves.urllib.request import urlretrieve
 
 import os
+from os.path import dirname as up
 
 
 def download_dataset(file_url, file_name):
-    # print(os.path.abspath(__file__))
-    # print(os.path.dirname(os.path.abspath(__file__)))
-    # print(os.getcwd())
+    """
+    Utility to download a dataset
+    """
+
+    print(os.path.abspath(__file__))
+    print()
+    print(os.getcwd())
+    print()
+
+    new_dir = up(up(up(up(os.path.abspath(__file__)))))
+    os.chdir(new_dir)
+
+    print(os.getcwd())
+    print()
 
     file_path = r'artificial_neural_networks/datasets/' + file_name
     exists = os.path.isfile(file_path)

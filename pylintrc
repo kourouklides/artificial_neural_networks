@@ -62,7 +62,6 @@ confidence=
 # --disable=W".
 disable=
         # disabled by me
-        bad-continuation,
         invalid-name,
         too-many-locals,
         too-many-branches,
