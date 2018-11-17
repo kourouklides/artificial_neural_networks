@@ -60,12 +60,13 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--scaling_factor', type=float, default=(255/255))
+    parser.add_argument('--scaling_factor', type=float, default=(255 / 255))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--same_size', type=bool, default=True)
     parser.add_argument('--n_layers', type=int, default=2)
     parser.add_argument('--layer_size', type=int, default=128)
-    parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[128, 128])
+    parser.add_argument(
+        '--explicit_layer_sizes', nargs='*', type=int, default=[128, 128])
     parser.add_argument('--n_epochs', type=int, default=50)
     parser.add_argument('--batch_size', type=none_or_int, default=512)
     parser.add_argument('--optimizer', type=str, default='RMSprop')
@@ -173,29 +174,38 @@ def snn_dense_mnist(new_dir=os.getcwd()):
 
     lr = args.lrearning_rate
     epsilon = args.epsilon
-    optimizer_selection = {'Adadelta': optimizers.Adadelta(
-                                   lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
-                           'Adagrad':   optimizers.Adagrad(
-                                   lr=lr, epsilon=epsilon, decay=0.0),
-                           'Adam':      optimizers.Adam(
-                                   lr=lr, beta_1=0.9, beta_2=0.999,
-                                   epsilon=epsilon, decay=0.0, amsgrad=False),
-                           'Adamax':    optimizers.Adamax(
-                                   lr=lr, beta_1=0.9, beta_2=0.999,
-                                   epsilon=epsilon, decay=0.0),
-                           'Nadam':     optimizers.Nadam(
-                                   lr=lr, beta_1=0.9, beta_2=0.999,
-                                   epsilon=epsilon, schedule_decay=0.004),
-                           'RMSprop':   optimizers.RMSprop(
-                                   lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
-                           'SGD':       optimizers.SGD(
-                                   lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
+    optimizer_selection = {
+        'Adadelta':
+        optimizers.Adadelta(lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
+        'Adagrad':
+        optimizers.Adagrad(lr=lr, epsilon=epsilon, decay=0.0),
+        'Adam':
+        optimizers.Adam(
+            lr=lr,
+            beta_1=0.9,
+            beta_2=0.999,
+            epsilon=epsilon,
+            decay=0.0,
+            amsgrad=False),
+        'Adamax':
+        optimizers.Adamax(
+            lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, decay=0.0),
+        'Nadam':
+        optimizers.Nadam(
+            lr=lr,
+            beta_1=0.9,
+            beta_2=0.999,
+            epsilon=epsilon,
+            schedule_decay=0.004),
+        'RMSprop':
+        optimizers.RMSprop(lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
+        'SGD':
+        optimizers.SGD(lr=lr, momentum=0.0, decay=0.0, nesterov=False)
+    }
 
     optimizer = optimizer_selection[args.optimizer]
 
-    model.compile(optimizer=optimizer,
-                  loss=loss_function,
-                  metrics=metrics)
+    model.compile(optimizer=optimizer, loss=loss_function, metrics=metrics)
 
     # %%
     # Save trained models for every epoch
@@ -217,12 +227,13 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     monitor = 'val_acc'
 
     if args.save_models:
-        checkpoint = ModelCheckpoint(file_path + '.h5',
-                                     monitor=monitor,
-                                     verbose=args.verbose,
-                                     save_best_only=args.save_best_only,
-                                     mode='auto',
-                                     save_weights_only=args.save_weights_only)
+        checkpoint = ModelCheckpoint(
+            file_path + '.h5',
+            monitor=monitor,
+            verbose=args.verbose,
+            save_best_only=args.save_best_only,
+            mode='auto',
+            save_weights_only=args.save_weights_only)
         callbacks = [checkpoint]
     else:
         callbacks = []
@@ -230,12 +241,14 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
-    model_history = model.fit(x=train_x, y=train_y,
-                              validation_data=(test_x, test_y),
-                              batch_size=args.batch_size,
-                              epochs=args.n_epochs,
-                              verbose=args.verbose,
-                              callbacks=callbacks)
+    model_history = model.fit(
+        x=train_x,
+        y=train_y,
+        validation_data=(test_x, test_y),
+        batch_size=args.batch_size,
+        epochs=args.n_epochs,
+        verbose=args.verbose,
+        callbacks=callbacks)
 
     # %%
     # TESTING PHASE
@@ -266,16 +279,18 @@ def snn_dense_mnist(new_dir=os.getcwd()):
         classes = list(range(n_out))
 
         train_cm = confusion_matrix(train_y, train_y_pred)
-        plot_confusion_matrix(train_cm, classes=classes,
-                              title='Confusion matrix for training set')
+        plot_confusion_matrix(
+            train_cm,
+            classes=classes,
+            title='Confusion matrix for training set')
 
         test_cm = confusion_matrix(test_y, test_y_pred)
-        plot_confusion_matrix(test_cm, classes=classes,
-                              title='Confusion matrix for test set')
+        plot_confusion_matrix(
+            test_cm, classes=classes, title='Confusion matrix for test set')
 
         # Loss vs epoch
 
-        epoch_axis = range(1, args.n_epochs+1)
+        epoch_axis = range(1, args.n_epochs + 1)
 
         train_loss = model_history.history['loss']
         test_loss = model_history.history['val_loss']
@@ -292,14 +307,16 @@ def snn_dense_mnist(new_dir=os.getcwd()):
 
     architecture_path = models_path + model_name + '_architecture'
 
-    last_suffix = file_suffix.format(epoch=args.n_epochs,
-                                     val_acc=score_dict['val_acc'],
-                                     val_loss=score_dict['val_loss'])
+    last_suffix = file_suffix.format(
+        epoch=args.n_epochs,
+        val_acc=score_dict['val_acc'],
+        val_loss=score_dict['val_loss'])
 
     if args.save_architecture:
         # Save only the archtitecture (as a JSON file)
         json_string = model.to_json()
-        json.dump(json.loads(json_string), open(architecture_path + '.json', "w"))
+        json.dump(
+            json.loads(json_string), open(architecture_path + '.json', "w"))
 
         # Save only the archtitecture (as a YAML file)
         yaml_string = model.to_yaml()
@@ -315,8 +332,8 @@ def snn_dense_mnist(new_dir=os.getcwd()):
 
     return model
 
-# %%
 
+# %%
 
 if __name__ == '__main__':
     model_snn_dense = snn_dense_mnist('../../../../../')
