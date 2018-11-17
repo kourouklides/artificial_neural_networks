@@ -18,6 +18,11 @@ import os
 
 
 def download_mnist(new_dir=os.getcwd()):
+    """
+
+    Main function
+
+    """
     os.chdir(new_dir)
 
     from artificial_neural_networks.code.utils.data_utils import download_dataset
