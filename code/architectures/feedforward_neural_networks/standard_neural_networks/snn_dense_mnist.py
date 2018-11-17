@@ -21,10 +21,8 @@ from __future__ import print_function
 
 # standard library imports
 import argparse
-import json
 import os
 import random as rn
-import yaml
 
 # third-party imports
 from keras import optimizers
