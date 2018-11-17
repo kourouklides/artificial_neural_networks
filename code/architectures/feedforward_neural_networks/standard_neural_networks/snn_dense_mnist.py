@@ -315,6 +315,7 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     # Save the whole model (as an HDF5 file)
     if args.save_last_model:
         model.save(model_path + last_suffix + '.h5')
+    # %%
 
     return model
 

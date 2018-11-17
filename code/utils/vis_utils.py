@@ -15,17 +15,19 @@ from __future__ import division
 from __future__ import print_function
 
 # standard library imports
-import numpy as np
 import itertools
 
 # third-party imports
 import matplotlib.pyplot as plt
+import numpy as np
 
 # %%
 
 
-def plot_confusion_matrix(cm, classes, title='Confusion matrix',
-                          cmap=plt.cm.Blues):
+def plot_confusion_matrix(cm, classes, title='Confusion matrix', cmap=plt.cm.Blues):
+    """
+    Utility to plot the Confusion matrix
+    """
     plt.figure()
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
     plt.title(title)
@@ -37,19 +39,26 @@ def plot_confusion_matrix(cm, classes, title='Confusion matrix',
     fmt = 'd'
     thresh = cm.max() / 2.
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        plt.text(j, i, format(cm[i, j], fmt),
-                 horizontalalignment="center",
-                 color="white" if cm[i, j] > thresh else "black")
+        plt.text(
+            j,
+            i,
+            format(cm[i, j], fmt),
+            horizontalalignment="center",
+            color="white" if cm[i, j] > thresh else "black")
 
     plt.ylabel('Actual label')
     plt.xlabel('Predicted label')
     plt.tight_layout()
     plt.show()
 
+
 # %%
 
 
 def epoch_plot(x_values, y_train, y_test, y_axis):
+    """
+    Utility to plot Y vs epoch, where Y should be provided
+    """
     plt.figure()
     plt.plot(x_values, y_train, 'r--')
     plt.plot(x_values, y_test, 'b-')

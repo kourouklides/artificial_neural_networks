@@ -8,15 +8,18 @@ Utilities related to datasets
 
 """
 # %%
+# IMPORTS
 
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from six.moves.urllib.request import urlretrieve
-
+# standard library imports
 import os
 from os.path import dirname as up
+
+# third-party imports
+from six.moves.urllib.request import urlretrieve
 
 # %%
 
@@ -25,6 +28,7 @@ def download_dataset(file_url, file_name):
     """
     Utility to download a dataset
     """
+    # %%
 
     new_dir = up(up(up(up(os.path.abspath(__file__)))))
     os.chdir(new_dir)
@@ -37,5 +41,7 @@ def download_dataset(file_url, file_name):
     else:
         urlretrieve(file_url, file_path)
         print(file_name + ' was downloaded succesfully.')
+
+    # %%
 
     return file_path

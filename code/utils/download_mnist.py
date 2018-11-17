@@ -34,15 +34,19 @@ def download_mnist(new_dir=os.getcwd()):
     # code repository sub-package imports
     from artificial_neural_networks.code.utils.data_utils import download_dataset
 
+    # %%
+
     file_url = 'https://s3.amazonaws.com/img-datasets/mnist.npz'
     file_name = 'mnist.npz'
 
     file_path = download_dataset(file_url, file_name)
 
+    # %%
+
     return file_path
 
-# %%
 
+# %%
 
 if __name__ == '__main__':
     dataset_path = download_mnist('../../../')

@@ -34,15 +34,19 @@ def download_cifar_10(new_dir=os.getcwd()):
     # code repository sub-package imports
     from artificial_neural_networks.code.utils.data_utils import download_dataset
 
+    # %%
+
     file_url = 'https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz'
     file_name = 'cifar-10-python.tar.gz'
 
     file_path = download_dataset(file_url, file_name)
 
+    # %%
+
     return file_path
 
-# %%
 
+# %%
 
 if __name__ == '__main__':
     dataset_path = download_cifar_10('../../../')
