@@ -66,7 +66,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--scaling_factor', type=float, default=(1/255))
+    parser.add_argument('--scaling_factor', type=float, default=(1 / 255))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--same_size', type=bool, default=True)
     parser.add_argument('--n_layers', type=int, default=20)
@@ -90,11 +90,11 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     args = parser.parse_args()
 
-    if (args.verbose > 0):
+    if args.verbose > 0:
         print(args)
 
     # For reproducibility
-    if (args.reproducible):
+    if args.reproducible:
         os.environ['PYTHONHASHSEED'] = '0'
         np.random.seed(args.seed)
         rn.seed(args.seed)
@@ -137,7 +137,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     one_hot = False  # It works exactly the same for both True and False
 
     # Convert class vectors to binary class matrices (i.e. One hot encoding)
-    if (one_hot):
+    if one_hot:
         train_y = to_categorical(train_y, n_out)
         test_y = to_categorical(test_y, n_out)
 
@@ -146,7 +146,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     N = []
     N.append(n_in)  # input layer
-    if (args.same_size):
+    if args.same_size:
         n_layers = args.n_layers
         for i in range(n_layers):
             N.append(args.layer_size)  # hidden layer i
@@ -169,10 +169,10 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     model = Model(inputs=x, outputs=out)
 
-    if (args.verbose > 0):
+    if args.verbose > 0:
         model.summary()
 
-    if (one_hot):
+    if one_hot:
         loss_function = 'categorical_crossentropy'
     else:
         loss_function = 'sparse_categorical_crossentropy'
@@ -200,9 +200,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     optimizer = optimizer_selection[args.optimizer]
 
-    model.compile(optimizer=optimizer,
-                  loss=loss_function,
-                  metrics=metrics)
+    model.compile(optimizer=optimizer, loss=loss_function, metrics=metrics)
 
     # %%
     # Save trained models for every epoch
@@ -213,7 +211,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     model_path = models_path + model_name + '_model'
     file_suffix = '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
 
-    if (args.save_weights_only):
+    if args.save_weights_only:
         file_path = weights_path
     else:
         file_path = model_path
@@ -223,13 +221,14 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     # monitor='val_loss'
     monitor = 'val_acc'
 
-    if (args.save_models):
-        checkpoint = ModelCheckpoint(file_path + '.h5',
-                                     monitor=monitor,
-                                     verbose=args.verbose,
-                                     save_best_only=args.save_best_only,
-                                     mode='auto',
-                                     save_weights_only=args.save_weights_only)
+    if args.save_models:
+        checkpoint = ModelCheckpoint(
+            file_path + '.h5',
+            monitor=monitor,
+            verbose=args.verbose,
+            save_best_only=args.save_best_only,
+            mode='auto',
+            save_weights_only=args.save_weights_only)
         callbacks = [checkpoint]
     else:
         callbacks = []
@@ -237,12 +236,14 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
-    model_history = model.fit(x=train_x, y=train_y,
-                              validation_data=(test_x, test_y),
-                              batch_size=args.batch_size,
-                              epochs=args.n_epochs,
-                              verbose=args.verbose,
-                              callbacks=callbacks)
+    model_history = model.fit(
+        x=train_x,
+        y=train_y,
+        validation_data=(test_x, test_y),
+        batch_size=args.batch_size,
+        epochs=args.n_epochs,
+        verbose=args.verbose,
+        callbacks=callbacks)
 
     # %%
     # TESTING PHASE
@@ -256,7 +257,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     test_score = model.evaluate(x=test_x, y=test_y, verbose=args.verbose)
     score_dict = {'val_loss': test_score[0], 'val_acc': test_score[1]}
 
-    if (args.verbose > 0):
+    if args.verbose > 0:
         print('Train loss:', score_dict['loss'])
         print('Train accuracy:', score_dict['acc'])
 
@@ -266,23 +267,21 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     # %%
     # Data Visualization
 
-    if (args.plot):
+    if args.plot:
 
         # Confusion matrices
 
         classes = list(range(n_out))
 
         train_cm = confusion_matrix(train_y, train_y_pred)
-        plot_confusion_matrix(train_cm, classes=classes,
-                              title='Confusion matrix for training set')
+        plot_confusion_matrix(train_cm, classes=classes, title='Confusion matrix for training set')
 
         test_cm = confusion_matrix(test_y, test_y_pred)
-        plot_confusion_matrix(test_cm, classes=classes,
-                              title='Confusion matrix for test set')
+        plot_confusion_matrix(test_cm, classes=classes, title='Confusion matrix for test set')
 
         # Loss vs epoch
 
-        epoch_axis = range(1, args.n_epochs+1)
+        epoch_axis = range(1, args.n_epochs + 1)
 
         train_loss = model_history.history['loss']
         test_loss = model_history.history['val_loss']
@@ -299,11 +298,10 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     architecture_path = models_path + model_name + '_architecture'
 
-    last_suffix = file_suffix.format(epoch=args.n_epochs,
-                                     val_acc=score_dict['val_acc'],
-                                     val_loss=score_dict['val_loss'])
+    last_suffix = file_suffix.format(
+        epoch=args.n_epochs, val_acc=score_dict['val_acc'], val_loss=score_dict['val_loss'])
 
-    if (args.save_architecture):
+    if args.save_architecture:
         # Save only the archtitecture (as a JSON file)
         json_string = model.to_json()
         json.dump(json.loads(json_string), open(architecture_path + '.json', "w"))
@@ -313,11 +311,11 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
         yaml.dump(yaml.load(yaml_string), open(architecture_path + '.yml', "w"))
 
     # Save only the weights (as an HDF5 file)
-    if (args.save_last_weights):
+    if args.save_last_weights:
         model.save_weights(weights_path + last_suffix + '.h5')
 
     # Save the whole model (as an HDF5 file)
-    if (args.save_last_model):
+    if args.save_last_model:
         model.save(model_path + last_suffix + '.h5')
 
     # %%
@@ -327,6 +325,5 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
 # %%
 
-
 if __name__ == '__main__':
-    model = snn_dropout_mnist('../../../../../')
+    model_snn_dropout = snn_dropout_mnist('../../../../../')
