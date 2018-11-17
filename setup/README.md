@@ -25,7 +25,7 @@ In order to save a lot of trouble, download the [Anaconda Distribution](https://
 1. Go to [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
 1. Choose __Python 3.6__ (but not later, since there are [known issues](https://github.com/tensorflow/tensorflow/issues/20444)).
 
-The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
+The Anaconda Distribution also includes the [Spyder](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
 
 __Note:__ Anaconda uses ``conda`` to create _virtual environments_, so is __cannot__ be used with venv or virtualenv.
 
