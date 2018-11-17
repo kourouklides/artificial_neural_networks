@@ -8,7 +8,8 @@ Dataset: MNIST
 Task: Handwritten Digit Recognition (Multi-class Classification)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
-    License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
+    License:
+        https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
 
 """
 # %%
@@ -39,13 +40,22 @@ import tensorflow as tf
 
 
 def snn_dropout_mnist(new_dir=os.getcwd()):
+    """
+
+    Main function
+
+    """
+    # %%
+    # IMPORTS
 
     os.chdir(new_dir)
 
+    # code repository sub-package imports
     from artificial_neural_networks.code.utils.download_mnist import download_mnist
     from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
     from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
+    # %%
     # SETTINGS
     parser = argparse.ArgumentParser()
 
@@ -171,23 +181,22 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 
     lr = args.lrearning_rate
     epsilon = args.epsilon
-    optimizer_selection = {'Adadelta': optimizers.Adadelta(
-                                   lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
-                           'Adagrad':   optimizers.Adagrad(
-                                   lr=lr, epsilon=epsilon, decay=0.0),
-                           'Adam':      optimizers.Adam(
-                                   lr=lr, beta_1=0.9, beta_2=0.999,
-                                   epsilon=epsilon, decay=0.0, amsgrad=False),
-                           'Adamax':    optimizers.Adamax(
-                                   lr=lr, beta_1=0.9, beta_2=0.999,
-                                   epsilon=epsilon, decay=0.0),
-                           'Nadam':     optimizers.Nadam(
-                                   lr=lr, beta_1=0.9, beta_2=0.999,
-                                   epsilon=epsilon, schedule_decay=0.004),
-                           'RMSprop':   optimizers.RMSprop(
-                                   lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
-                           'SGD':       optimizers.SGD(
-                                   lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
+    optimizer_selection = {
+        'Adadelta':
+        optimizers.Adadelta(lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
+        'Adagrad':
+        optimizers.Adagrad(lr=lr, epsilon=epsilon, decay=0.0),
+        'Adam':
+        optimizers.Adam(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, decay=0.0, amsgrad=False),
+        'Adamax':
+        optimizers.Adamax(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, decay=0.0),
+        'Nadam':
+        optimizers.Nadam(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, schedule_decay=0.004),
+        'RMSprop':
+        optimizers.RMSprop(lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
+        'SGD':
+        optimizers.SGD(lr=lr, momentum=0.0, decay=0.0, nesterov=False)
+    }
 
     optimizer = optimizer_selection[args.optimizer]
 
@@ -311,7 +320,10 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     if (args.save_last_model):
         model.save(model_path + last_suffix + '.h5')
 
+    # %%
+
     return model
+
 
 # %%
 
