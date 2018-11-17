@@ -81,7 +81,7 @@ Various applications of the aforementioned Methods and Models are also included 
 ## Theory
 Finally, regarding theory of Artificial Neural Networks, you can check the following pages of my personal wiki:
 
-- [Artificial Neural Network](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
+- [Artificial Neural Networks](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
 - [Deep Learning](https://wiki.kourouklides.com/wiki/Deep_Learning)
 - [Machine Learning](https://wiki.kourouklides.com/wiki/Machine_Learning)
 
