@@ -85,7 +85,7 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     parser.add_argument('--save_last_model', type=bool, default=True)
     parser.add_argument('--save_models', type=bool, default=False)
     parser.add_argument('--save_weights_only', type=bool, default=False)
-    parser.add_argument('--save_best', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=True)
 
     args = parser.parse_args()
 

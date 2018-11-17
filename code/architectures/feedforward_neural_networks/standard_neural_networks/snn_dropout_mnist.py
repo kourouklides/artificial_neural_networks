@@ -73,7 +73,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     parser.add_argument('--n_layers', type=int, default=2)
     parser.add_argument('--layer_size', type=int, default=512)
     parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[512, 512])
-    parser.add_argument('--n_epochs', type=int, default=20)
+    parser.add_argument('--n_epochs', type=int, default=19)
     parser.add_argument('--batch_size', type=none_or_int, default=128)
     parser.add_argument('--optimizer', type=str, default='RMSprop')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
@@ -87,7 +87,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     parser.add_argument('--save_last_model', type=bool, default=True)
     parser.add_argument('--save_models', type=bool, default=False)
     parser.add_argument('--save_weights_only', type=bool, default=False)
-    parser.add_argument('--save_best', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=True)
 
     args = parser.parse_args()
 
