@@ -18,22 +18,16 @@ from six.moves.urllib.request import urlretrieve
 import os
 from os.path import dirname as up
 
+# %%
+
 
 def download_dataset(file_url, file_name):
     """
     Utility to download a dataset
     """
 
-    print(os.path.abspath(__file__))
-    print()
-    print(os.getcwd())
-    print()
-
     new_dir = up(up(up(up(os.path.abspath(__file__)))))
     os.chdir(new_dir)
-
-    print(os.getcwd())
-    print()
 
     file_path = r'artificial_neural_networks/datasets/' + file_name
     exists = os.path.isfile(file_path)
