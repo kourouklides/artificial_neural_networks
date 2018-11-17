@@ -18,7 +18,7 @@ If, for any reason, you want to spend the minimum amount of time for setting up 
 
 This installation process requires the __minimum__ knowledge of software tools. It cannot get any easier than this.
 
-### 1. Install Python 3
+### 1. Install Python 3 with Anaconda
 
 In order to save a lot of trouble, download the [Anaconda Distribution](https://www.anaconda.com/distribution/), which is actively supported by the Data Science community.
 
@@ -26,6 +26,8 @@ In order to save a lot of trouble, download the [Anaconda Distribution](https://
 1. Choose __Python 3.6__ (but not later, since there are [known issues](https://github.com/tensorflow/tensorflow/issues/20444)).
 
 The Anaconda Distribution also includes the [SPYDER](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
+
+__Note:__ Anaconda uses ``conda`` to create _virtual environments_, so is __cannot__ be used with venv or virtualenv.
 
 ### 2. Install the required packages
 
@@ -55,8 +57,6 @@ You need to download the necessary data for each corresponding code example, as 
 If you want to use __Docker__ containers, then you should follow __all__ the steps below. Docker containers are especially useful for __Data Science__ and __Research__ code.
 
 This installation process employs best practises and follows industry standards. So, it is highly __recommended__.
-
-__Note:__ Docker uses containers to create _virtual environments_, so is __cannot__ be used with venv or virtualenv.
 
 ### 1. Install Docker
 
