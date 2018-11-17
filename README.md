@@ -41,7 +41,8 @@ If you do not want to use an IDE (e.g. Spyder) and want to run scripts from the 
 
 For example,
 
-
+    cd <your directory path>/standard_neural_networks
+    python -m snn_dense_mnist
 
 ## Methods and Models
 This repository includes the following architectures:
