@@ -41,7 +41,7 @@ If you do not want to use an IDE (e.g. Spyder) and want to run scripts from the 
 
 For example, you can either run this:
 
-    cd <your directory path>/artificial_neural_networks/master/code/architectures/feedforward_neural_networks/standard_neural_networks/
+    cd <your directory path>/artificial_neural_networks/code/architectures/feedforward_neural_networks/standard_neural_networks/
     python -m snn_dense_mnist
 
 or you can run this:
