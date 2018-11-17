@@ -86,3 +86,4 @@ def load_model():
     """
     Utility to load the whole model
     """
+    # TODO
