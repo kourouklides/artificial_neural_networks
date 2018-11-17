@@ -40,9 +40,13 @@ import tensorflow as tf
 
 def snn_dense_mnist(new_dir=os.getcwd()):
     """
-    Main
+
+    Main function
+
     """
     # %%
+    # IMPORTS
+
     os.chdir(new_dir)
 
     # code repository sub-package imports
@@ -50,6 +54,7 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
     from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
+    # %%
     # SETTINGS
     parser = argparse.ArgumentParser()
 
