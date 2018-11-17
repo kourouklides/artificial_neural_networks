@@ -32,4 +32,4 @@ def download_mnist(new_dir=os.getcwd()):
 
 
 if __name__ == '__main__':
-    file_path = download_mnist('../../../')
+    dataset_path = download_mnist('../../../')
