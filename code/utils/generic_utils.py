@@ -54,7 +54,7 @@ def none_or_float(input_arg):
 def save_model(model, models_path, model_name, weights_path, model_path, file_suffix, test_dict,
                args):
     """
-    Utility to save the architecture, the weights and the whole model
+    Utility to save the architecture, the weights and the full model
     """
     architecture_path = models_path + model_name + '_architecture'
 
@@ -74,7 +74,7 @@ def save_model(model, models_path, model_name, weights_path, model_path, file_su
     if args.save_last_weights:
         model.save_weights(weights_path + last_suffix + '.h5')
 
-    # Save the whole model (as an HDF5 file)
+    # Save the full model (as an HDF5 file)
     if args.save_last_model:
         model.save(model_path + last_suffix + '.h5')
 
@@ -82,7 +82,7 @@ def save_model(model, models_path, model_name, weights_path, model_path, file_su
 # %%
 
 
-def load_model():
+def load_keras_model(model_h5, model_json=None, model_yaml=None, is_full=True):
     """
     Utility to load the whole model
     """
