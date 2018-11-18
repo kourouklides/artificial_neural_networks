@@ -29,4 +29,4 @@ if __name__ == '__main__':
     from artificial_neural_networks.code.architectures.recurrent_neural_networks.LSTM. \
         lstm_dense_sunsposts import lstm_dense_sunsposts
 
-    model = lstm_dense_sunsposts()
+    model_lstm_dense = lstm_dense_sunsposts()

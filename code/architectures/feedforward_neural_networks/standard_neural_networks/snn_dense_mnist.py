@@ -41,9 +41,7 @@ import tensorflow as tf
 
 def snn_dense_mnist(new_dir=os.getcwd()):
     """
-
     Main function
-
     """
     # %%
     # IMPORTS
@@ -53,7 +51,7 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     # code repository sub-package imports
     from artificial_neural_networks.code.utils.download_mnist import download_mnist
     from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float, \
-        save_model
+        save_classif_model
     from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
     # %%
@@ -308,8 +306,8 @@ def snn_dense_mnist(new_dir=os.getcwd()):
     # %%
     # Save the architecture and the lastly trained model
 
-    save_model(model, models_path, model_name, weights_path, model_path, file_suffix, test_dict,
-               args)
+    save_classif_model(model, models_path, model_name, weights_path, model_path, file_suffix,
+                       test_dict, args)
 
     # %%
 
