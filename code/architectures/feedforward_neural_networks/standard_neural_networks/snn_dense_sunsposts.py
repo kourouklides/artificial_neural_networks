@@ -70,7 +70,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--look_back', type=int, default=10)
-    parser.add_argument('--scaling_factor', type=float, default=(1/780))
+    parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--same_size', type=bool, default=False)
     parser.add_argument('--n_layers', type=int, default=2)
@@ -109,15 +109,15 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     # Load the Monthly sunspots dataset
 
     sunspots_path = download_monthly_sunspots()
-    sunspots = np.genfromtxt(fname=sunspots_path, dtype=np.float32,
-                             delimiter=",", skip_header=1, usecols=1)
+    sunspots = np.genfromtxt(
+        fname=sunspots_path, dtype=np.float32, delimiter=",", skip_header=1, usecols=1)
 
     # %%
     # Train-Test split
 
     n_series = len(sunspots)
 
-    split_ratio = 2/3  # between zero and one
+    split_ratio = 2 / 3  # between zero and one
     n_split = int(n_series * split_ratio)
 
     look_back = args.look_back
@@ -187,29 +187,26 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     lr = args.lrearning_rate
     epsilon = args.epsilon
-    optimizer_selection = {'Adadelta': optimizers.Adadelta(
-        lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
-        'Adagrad': optimizers.Adagrad(
-        lr=lr, epsilon=epsilon, decay=0.0),
-        'Adam': optimizers.Adam(
-        lr=lr, beta_1=0.9, beta_2=0.999,
-        epsilon=epsilon, decay=0.0, amsgrad=False),
-        'Adamax': optimizers.Adamax(
-        lr=lr, beta_1=0.9, beta_2=0.999,
-        epsilon=epsilon, decay=0.0),
-        'Nadam': optimizers.Nadam(
-        lr=lr, beta_1=0.9, beta_2=0.999,
-        epsilon=epsilon, schedule_decay=0.004),
-        'RMSprop': optimizers.RMSprop(
-        lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
-        'SGD': optimizers.SGD(
-        lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
+    optimizer_selection = {
+        'Adadelta':
+        optimizers.Adadelta(lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
+        'Adagrad':
+        optimizers.Adagrad(lr=lr, epsilon=epsilon, decay=0.0),
+        'Adam':
+        optimizers.Adam(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, decay=0.0, amsgrad=False),
+        'Adamax':
+        optimizers.Adamax(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, decay=0.0),
+        'Nadam':
+        optimizers.Nadam(lr=lr, beta_1=0.9, beta_2=0.999, epsilon=epsilon, schedule_decay=0.004),
+        'RMSprop':
+        optimizers.RMSprop(lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
+        'SGD':
+        optimizers.SGD(lr=lr, momentum=0.0, decay=0.0, nesterov=False)
+    }
 
     optimizer = optimizer_selection[args.optimizer]
 
-    model.compile(optimizer=optimizer,
-                  loss=loss_function,
-                  metrics=metrics)
+    model.compile(optimizer=optimizer, loss=loss_function, metrics=metrics)
 
     # %%
     # Save trained models for every epoch
@@ -230,12 +227,13 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     monitor = 'val_loss'
 
     if (args.save_models):
-        checkpoint = ModelCheckpoint(file_path + '.h5',
-                                     monitor=monitor,
-                                     verbose=args.verbose,
-                                     save_best_only=args.save_best,
-                                     mode='auto',
-                                     save_weights_only=args.save_weights_only)
+        checkpoint = ModelCheckpoint(
+            file_path + '.h5',
+            monitor=monitor,
+            verbose=args.verbose,
+            save_best_only=args.save_best,
+            mode='auto',
+            save_weights_only=args.save_weights_only)
         callbacks = [checkpoint]
     else:
         callbacks = []
@@ -246,12 +244,14 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     if args.time_training:
         start = timer()
 
-    model_history = model.fit(x=train_x_, y=train_y_,
-                              validation_data=(test_x_, test_y_),
-                              batch_size=args.batch_size,
-                              epochs=args.n_epochs,
-                              verbose=args.verbose,
-                              callbacks=callbacks)
+    model_history = model.fit(
+        x=train_x_,
+        y=train_y_,
+        validation_data=(test_x_, test_y_),
+        batch_size=args.batch_size,
+        epochs=args.n_epochs,
+        verbose=args.verbose,
+        callbacks=callbacks)
 
     if args.time_training:
         end = timer()
@@ -267,10 +267,8 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     test_y_pred_ = model.predict(test_x_)[:, 0]
 
     # Remove preprocessing
-    train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation,
-                                         inverse=True)
-    test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation,
-                                        inverse=True)
+    train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
+    test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse=True)
 
     train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
     train_mae = mean_absolute_error(train_y, train_y_pred)
