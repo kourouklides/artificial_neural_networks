@@ -92,11 +92,11 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     args = parser.parse_args()
 
-    if (args.verbose > 0):
+    if args.verbose > 0:
         print(args)
 
     # For reproducibility
-    if (args.reproducible):
+    if args.reproducible:
         os.environ['PYTHONHASHSEED'] = '0'
         np.random.seed(args.seed)
         rn.seed(args.seed)
@@ -148,7 +148,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     N = []
     N.append(n_in)  # input layer
-    if (args.same_size):
+    if args.same_size:
         n_layers = args.n_layers
         for i in range(n_layers):
             N.append(args.layer_size)  # hidden layer i
@@ -172,7 +172,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     model = Model(inputs=x, outputs=out)
 
-    if (args.verbose > 0):
+    if args.verbose > 0:
         model.summary()
 
     def root_mean_squared_error(y_true, y_pred):
@@ -214,7 +214,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     model_path = models_path + model_name + '_model'
     file_suffix = '_{epoch:04d}_{val_loss:.4f}_{val_mean_absolute_error:.4f}'
 
-    if (args.save_weights_only):
+    if args.save_weights_only:
         file_path = weights_path
     else:
         file_path = model_path
@@ -223,7 +223,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     monitor = 'val_loss'
 
-    if (args.save_models):
+    if args.save_models:
         checkpoint = ModelCheckpoint(
             file_path + '.h5',
             monitor=monitor,
@@ -275,7 +275,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     test_mae = mean_absolute_error(test_y, test_y_pred)
     test_r2 = r2_score(test_y, test_y_pred)
 
-    if (args.verbose > 0):
+    if args.verbose > 0:
         print('Train RMSE: %.4f ' % (train_rmse))
         print('Train MAE: %.4f ' % (train_mae))
         print('Train (1 - R_squared): %.4f ' % (1.0 - train_r2))
@@ -289,7 +289,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     # %%
     # Data Visualization
 
-    if (args.plot):
+    if args.plot:
         plt.figure()
         plt.plot(train_y)
         plt.plot(train_y_pred)
