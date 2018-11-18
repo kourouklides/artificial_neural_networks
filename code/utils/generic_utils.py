@@ -109,6 +109,7 @@ def save_regress_model(model, models_path, model_name, weights_path, model_path,
     if args.save_last_model:
         model.save(model_path + model_suffix + '.h5')
 
+
 # %%
 
 
@@ -132,6 +133,7 @@ def load_keras_model(h5_file, json_file=None, yaml_file=None, is_weights=False, 
 
     return model
 
+
 # %%
 
 
@@ -150,6 +152,7 @@ def series_to_supervised(dataset, look_back=1):
         data_Y.append(dataset[sliding_window])
 
     return np.array(data_X), np.array(data_Y)
+
 
 # %%
 
