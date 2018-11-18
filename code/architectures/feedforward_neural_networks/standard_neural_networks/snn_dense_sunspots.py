@@ -1,8 +1,8 @@
 """
 
-Model: Long short-term memory (LSTM) with dense (i.e. fully connected) layers
-Mehtod: Truncated Backpropagation Through Time (TBPTT)
-Architecture: Recurrent Neural Network
+Model: Standard Neural Network (SNN) with dense (i.e. fully connected) layers
+Method: Backpropagation
+Architecture: Feedforward Neural Network
 
 Dataset: Monthly sunspots
 Task: Time Series Forecasting (Univariate Regression)
