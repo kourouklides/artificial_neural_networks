@@ -128,8 +128,8 @@ def cnn_dense_mnist(new_dir=os.getcwd()):
     n_out = np.unique(train_y).shape[0]  # number of classes/labels
 
     # Reshape training and test sets
-    train_x = train_x.reshape(n_train, n_in)
-    test_x = test_x.reshape(n_test, n_in)
+    train_x = train_x.reshape(n_train, img_width, img_height, 1)
+    test_x = test_x.reshape(n_test, img_width, img_height, 1)
 
     # Apply preprocessing
     train_x = scaling_factor * (train_x - translation)
