@@ -40,7 +40,7 @@ import tensorflow as tf
 # %%
 
 
-def bi_lstm_dense_sunsposts(new_dir=os.getcwd()):
+def bi_lstm_dropout_sunspots(new_dir=os.getcwd()):
     """
     Main function
     """
@@ -199,7 +199,7 @@ def bi_lstm_dense_sunsposts(new_dir=os.getcwd()):
     # Save trained models for every epoch
 
     models_path = r'artificial_neural_networks/trained_models/'
-    model_name = 'sunspots_bi_lstm_dense'
+    model_name = 'sunspots_bi_lstm_dropout'
     weights_path = models_path + model_name + '_weights'
     model_path = models_path + model_name + '_model'
     file_suffix = '_{epoch:04d}_{val_loss:.4f}_{val_mean_absolute_error:.4f}'
@@ -342,4 +342,4 @@ def bi_lstm_dense_sunsposts(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    model_bi_lstm_dense = lstm_bi_dense_sunspots('../../../../../')
+    model_bi_lstm_dense = bi_lstm_dropout_sunspots('../../../../../')
