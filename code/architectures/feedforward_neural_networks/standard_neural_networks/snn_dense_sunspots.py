@@ -42,9 +42,7 @@ import tensorflow as tf
 
 def snn_dense_sunspots(new_dir=os.getcwd()):
     """
-
     Main function
-
     """
     # %%
     # IMPORTS
