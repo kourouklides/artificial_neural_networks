@@ -7,209 +7,216 @@ Dataset: Monthly sunspots
 Task: Time Series Forecasting (Univariate Regression)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
-    License: https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
+    License:
+        https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
 
 """
-#%% 
-# Python configurations
+# %%
+# IMPORTS
 
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import numpy as np
+# standard library imports
+import argparse
+from math import sqrt
+import os
 import random as rn
 
-from math import sqrt
+# third-party imports
+import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
-import argparse
+# %%
 
-import os
 
-import matplotlib.pyplot as plt
+def naive_persistence_model_sunspots(new_dir=os.getcwd()):
+    """
+    Main function
+    """
+    # %%
+    # IMPORTS
 
-# SETTINGS
-parser = argparse.ArgumentParser()
+    os.chdir(new_dir)
 
-# General settings
-parser.add_argument('--verbose', type = int, default = 1)
-parser.add_argument('--reproducible', type = bool, default = True)
-parser.add_argument('--seed', type = int, default = 0)
-parser.add_argument('--plot', type = bool, default = True)
+    # code repository sub-package imports
+    from artificial_neural_networks.code.utils.download_monthly_sunspots import \
+        download_monthly_sunspots
+    from artificial_neural_networks.code.utils.generic_utils import series_to_supervised, \
+        affine_transformation
 
-# Settings for preprocessing and hyperparameters
-parser.add_argument('--look_back', type = int, default = 1)
-parser.add_argument('--scaling_factor', type = float, default = (1/255) )
-parser.add_argument('--translation', type = float, default = 0)
+    # %%
+    # SETTINGS
+    parser = argparse.ArgumentParser()
 
-args = parser.parse_args()
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--plot', type=bool, default=False)
 
-if (args.verbose > 0):
-    print(args)
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--look_back', type=int, default=3)
+    parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
+    parser.add_argument('--translation', type=float, default=0)
 
-# For reproducibility
-if (args.reproducible):
-    os.environ['PYTHONHASHSEED'] = '0'
-    np.random.seed(args.seed)
-    rn.seed(args.seed)
-    
-#%% 
-# Load the Montly sunspots dataset
+    args = parser.parse_args()
 
-sunspots_path = r'../../../../datasets/monthly-sunspots.csv'
-sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
-                        delimiter = ",", skip_header = 1, usecols = 1)
+    if args.verbose > 0:
+        print(args)
 
-#%% 
-# Train-Test split
+    # For reproducibility
+    if args.reproducible:
+        os.environ['PYTHONHASHSEED'] = '0'
+        np.random.seed(args.seed)
+        rn.seed(args.seed)
 
-def series_to_supervised(dataset, look_back = 1):
-    # Prepare the dataset (Time Series) to be used for Supervised Learning
-    
-    data_X, data_Y = [], []
-    
-    for i in range(len(dataset) - look_back):
-        sliding_window = i + look_back
-        data_X.append(dataset[i:sliding_window])
-        data_Y.append(dataset[sliding_window])
+    # %%
+    # Load the Monthly sunspots dataset
 
-    return np.array(data_X), np.array(data_Y)
+    sunspots_path = download_monthly_sunspots()
+    sunspots = np.genfromtxt(
+        fname=sunspots_path, dtype=np.float32, delimiter=",", skip_header=1, usecols=1)
 
-n_series = len(sunspots)
+    # %%
+    # Train-Test split
 
-split_ratio = 2/3 # between zero and one
-n_split = int(n_series * split_ratio)
+    n_series = len(sunspots)
 
-look_back = args.look_back
+    split_ratio = 2 / 3  # between zero and one
+    n_split = int(n_series * split_ratio)
 
-train = sunspots[:n_split + look_back]
-test = sunspots[n_split:]
+    look_back = args.look_back
 
-train_x, train_y = series_to_supervised(train,look_back)
-test_x, test_y = series_to_supervised(test,look_back)
+    train = sunspots[:n_split + look_back]
+    test = sunspots[n_split:]
 
-#%% 
-# PREPROCESSING STEP
-scaling_factor = args.scaling_factor
-translation = args.translation
+    train_x, train_y = series_to_supervised(train, look_back)
+    test_x, test_y = series_to_supervised(test, look_back)
 
-n_train = train_x.shape[0] # number of training examples/samples
-n_test = test_x.shape[0] # number of test examples/samples
+    # %%
+    # PREPROCESSING STEP
 
-n_in = train_x.shape[1] # number of features / dimensions
-n_out = 1 # number of classes/labels
+    scaling_factor = args.scaling_factor
+    translation = args.translation
 
-# Reshape training and test sets
-train_x = train_x.reshape(n_train, n_in, 1)
-test_x = test_x.reshape(n_test, n_in, 1)
+    n_train = train_x.shape[0]  # number of training examples/samples
+    n_test = test_x.shape[0]  # number of test examples/samples
 
-def affine_transformation(data_in, scaling, translation, inverse = False):
-    # Apply affine trasnforamtion to the data
-    
-    if (inverse):
-        #Inverse Transformation
-        data_out = (data_in / scaling) + translation
-    else:
-        # Direct Transformation
-        data_out = scaling * (data_in - translation)
-    
-    return data_out
+    n_in = train_x.shape[1]  # number of features / dimensions
 
-# Apply preprocessing
-train_x_ = affine_transformation(train_x, scaling_factor, translation)
-train_y_ = affine_transformation(train_y, scaling_factor, translation)
-test_x_ = affine_transformation(test_x, scaling_factor, translation)
-test_y_ = affine_transformation(test_y, scaling_factor, translation)
+    # Reshape training and test sets
+    train_x = train_x.reshape(n_train, n_in, 1)
+    test_x = test_x.reshape(n_test, n_in, 1)
 
-#%% 
-# TRAINING PHASE
+    # Apply preprocessing
+    train_x_ = affine_transformation(train_x, scaling_factor, translation)
+    test_x_ = affine_transformation(test_x, scaling_factor, translation)
 
-def model_predict(x):
-    # Predict using the Naive Persistence Model
-    
-    last = x.shape[1] - 1
-    
-    y_pred = []
-    
-    y_pred.append(x[0][last][0])
-    
-    for i in range(x.shape[0] - 1):
-        y_pred.append(x[i][last][0])
-    
-    return np.array(y_pred)
+    # %%
+    # TRAINING PHASE
 
-#%% 
-# TESTING PHASE
+    def model_predict(x):
+        """
+        Predict using the Naive Persistence Model
+        """
+        last = x.shape[1] - 1
 
-# Predict preprocessed values
-train_y_pred_ = model_predict(train_x_)
-test_y_pred_ = model_predict(test_x_)
+        y_pred = []
 
-# Remove preprocessing
-train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse = True)
-test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse = True)
+        y_pred.append(x[0][last][0])
 
-train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
-train_mae = mean_absolute_error(train_y, train_y_pred)
-train_r2 = r2_score(train_y, train_y_pred)
+        for i in range(x.shape[0] - 1):
+            y_pred.append(x[i][last][0])
 
-test_rmse = sqrt(mean_squared_error(test_y, test_y_pred))
-test_mae = mean_absolute_error(test_y, test_y_pred)
-test_r2 = r2_score(test_y, test_y_pred)
+        return np.array(y_pred)
 
-if (args.verbose > 0):
-    print('Train RMSE: %.4f ' % (train_rmse))
-    print('Train MAE: %.4f ' % (train_mae))
-    print('Train (1 - R_squared): %.4f ' % (1.0 - train_r2))
-    print('Train R_squared: %.4f ' % (train_r2))
-    print('')
-    print('Test RMSE: %.4f ' % (test_rmse))
-    print('Test MAE: %.4f ' % (test_mae))
-    print('Test (1 - R_squared): %.4f ' % (1.0 - test_r2))
-    print('Test R_squared: %.4f ' % (test_r2))
+    # %%
+    # TESTING PHASE
 
-#%% 
-# Data Visualization
+    # Predict preprocessed values
+    train_y_pred_ = model_predict(train_x_)
+    test_y_pred_ = model_predict(test_x_)
 
-if (args.plot):
-    plt.plot(train_y)
-    plt.plot(train_y_pred)
-    plt.title('Time Series of the training set')
-    plt.show()
-    
-    plt.plot(test_y)
-    plt.plot(test_y_pred)
-    plt.title('Time Series of the test set')
-    plt.show()
-    
-    train_errors = train_y - train_y_pred
-    plt.hist(train_errors, bins='auto')
-    plt.title('Histogram of training errors')
-    plt.show()
-    
-    test_errors = test_y - test_y_pred
-    plt.hist(test_errors, bins='auto')
-    plt.title('Histogram of test errors')
-    plt.show()
-    
-    plt.scatter(x = train_y, y = train_y_pred, edgecolors=(0, 0, 0))
-    plt.plot([train_y.min(), train_y.max()], [train_y.min(), train_y.max()], 'k--', lw=4)
-    plt.title('Predicted vs Actual for training set')
-    plt.show()
-    
-    plt.scatter(x = test_y, y = test_y_pred, edgecolors=(0, 0, 0))
-    plt.plot([test_y.min(), test_y.max()], [test_y.min(), test_y.max()], 'k--', lw=4)
-    plt.title('Predicted vs Actual for test set')
-    plt.show()
-    
-    plt.scatter(x = train_y_pred, y = train_errors, edgecolors=(0, 0, 0))
-    plt.plot([train_y.min(), train_y.max()], [0, 0], 'k--', lw=4)
-    plt.title('Residuals vs Predicted for training set')
-    plt.show()
-    
-    plt.scatter(x = test_y_pred, y = test_errors, edgecolors=(0, 0, 0))
-    plt.plot([test_y.min(), test_y.max()], [0, 0], 'k--', lw=4)
-    plt.title('Residuals vs Predicted for test set')
-    plt.show()
+    # Remove preprocessing
+    train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
+    test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse=True)
 
+    train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
+    train_mae = mean_absolute_error(train_y, train_y_pred)
+    train_r2 = r2_score(train_y, train_y_pred)
+
+    test_rmse = sqrt(mean_squared_error(test_y, test_y_pred))
+    test_mae = mean_absolute_error(test_y, test_y_pred)
+    test_r2 = r2_score(test_y, test_y_pred)
+
+    if args.verbose > 0:
+        print('Train RMSE: %.4f ' % (train_rmse))
+        print('Train MAE: %.4f ' % (train_mae))
+        print('Train (1 - R_squared): %.4f ' % (1.0 - train_r2))
+        print('Train R_squared: %.4f ' % (train_r2))
+        print('')
+        print('Test RMSE: %.4f ' % (test_rmse))
+        print('Test MAE: %.4f ' % (test_mae))
+        print('Test (1 - R_squared): %.4f ' % (1.0 - test_r2))
+        print('Test R_squared: %.4f ' % (test_r2))
+
+    # %%
+    # Data Visualization
+
+    if args.plot:
+        plt.figure()
+        plt.plot(train_y)
+        plt.plot(train_y_pred)
+        plt.title('Time Series of the training set')
+        plt.show()
+
+        plt.figure()
+        plt.plot(test_y)
+        plt.plot(test_y_pred)
+        plt.title('Time Series of the test set')
+        plt.show()
+
+        train_errors = train_y - train_y_pred
+        plt.figure()
+        plt.hist(train_errors, bins='auto')
+        plt.title('Histogram of training errors')
+        plt.show()
+
+        test_errors = test_y - test_y_pred
+        plt.figure()
+        plt.hist(test_errors, bins='auto')
+        plt.title('Histogram of test errors')
+        plt.show()
+
+        plt.figure()
+        plt.scatter(x=train_y, y=train_y_pred, edgecolors=(0, 0, 0))
+        plt.plot([train_y.min(), train_y.max()], [train_y.min(), train_y.max()], 'k--', lw=4)
+        plt.title('Predicted vs Actual for training set')
+        plt.show()
+
+        plt.figure()
+        plt.scatter(x=test_y, y=test_y_pred, edgecolors=(0, 0, 0))
+        plt.plot([test_y.min(), test_y.max()], [test_y.min(), test_y.max()], 'k--', lw=4)
+        plt.title('Predicted vs Actual for test set')
+        plt.show()
+
+        plt.figure()
+        plt.scatter(x=train_y_pred, y=train_errors, edgecolors=(0, 0, 0))
+        plt.plot([train_y.min(), train_y.max()], [0, 0], 'k--', lw=4)
+        plt.title('Residuals vs Predicted for training set')
+        plt.show()
+
+        plt.figure()
+        plt.scatter(x=test_y_pred, y=test_errors, edgecolors=(0, 0, 0))
+        plt.plot([test_y.min(), test_y.max()], [0, 0], 'k--', lw=4)
+        plt.title('Residuals vs Predicted for test set')
+        plt.show()
+
+
+# %%
+
+if __name__ == '__main__':
+    naive_persistence_model_sunspots('../../../../../')
