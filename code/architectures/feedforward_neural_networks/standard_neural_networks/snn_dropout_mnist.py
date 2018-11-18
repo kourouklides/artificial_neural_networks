@@ -145,7 +145,7 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
         test_y = to_categorical(test_y, n_out)
 
     # %%
-    # Model hyperparameters
+    # Model hyperparameters and ANN Architecture
 
     N = []
     N.append(n_in)  # input layer
@@ -159,7 +159,6 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
             N.append(args.explicit_layer_sizes[i])  # hidden layer i
     N.append(n_out)  # output layer
 
-    # ANN Architecture
     L = len(N) - 1
 
     x = Input(shape=(n_in,))  # input layer

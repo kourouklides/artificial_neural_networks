@@ -148,9 +148,7 @@ def bi_lstm_dropout_sunspots(new_dir=os.getcwd()):
     test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
     # %%
-    # Model hyperparameters
-
-    # ANN Architecture
+    # Model hyperparameters and ANN Architecture
 
     x = Input(shape=(n_in, 1))  # input layer
     h = Dropout(rate=args.dropout_rate_input)(x)

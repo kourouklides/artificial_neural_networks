@@ -142,7 +142,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
     # %%
-    # Model hyperparameters
+    # Model hyperparameters and ANN Architecture
 
     N = []
     N.append(n_in)  # input layer
@@ -155,8 +155,6 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
         for i in range(n_layers):
             N.append(args.explicit_layer_sizes[i])  # hidden layer i
     N.append(n_out)  # output layer
-
-    # ANN Architecture
 
     L = len(N) - 1
 
