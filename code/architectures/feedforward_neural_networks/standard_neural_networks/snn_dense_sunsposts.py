@@ -62,33 +62,33 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     parser = argparse.ArgumentParser()
 
     # General settings
-    parser.add_argument('--verbose', type = int, default = 1)
-    parser.add_argument('--reproducible', type = bool, default = True)
-    parser.add_argument('--seed', type = int, default = 0)
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type = bool, default = True)
+    parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type = int, default = 10)
-    parser.add_argument('--scaling_factor', type = float, default = (1/780) )
-    parser.add_argument('--translation', type = float, default = 0)
-    parser.add_argument('--same_size', type = bool, default = False)
-    parser.add_argument('--n_layers', type = int, default = 2)
-    parser.add_argument('--layer_size', type = int, default = 128)
-    parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default = [128, 128])
-    parser.add_argument('--n_epochs', type = int, default = 7)
-    parser.add_argument('--batch_size', type = none_or_int, default = 1)
-    parser.add_argument('--optimizer', type = str, default = 'Adam')
-    parser.add_argument('--lrearning_rate', type = float, default = 1e-3)
-    parser.add_argument('--epsilon', type = none_or_float, default = None)
+    parser.add_argument('--look_back', type=int, default=10)
+    parser.add_argument('--scaling_factor', type=float, default=(1/780))
+    parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--same_size', type=bool, default=False)
+    parser.add_argument('--n_layers', type=int, default=2)
+    parser.add_argument('--layer_size', type=int, default=128)
+    parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[128, 128])
+    parser.add_argument('--n_epochs', type=int, default=7)
+    parser.add_argument('--batch_size', type=none_or_int, default=1)
+    parser.add_argument('--optimizer', type=str, default='Adam')
+    parser.add_argument('--lrearning_rate', type=float, default=1e-3)
+    parser.add_argument('--epsilon', type=none_or_float, default=None)
 
     # Settings for saving the model
-    parser.add_argument('--save_architecture', type = bool, default = True)
-    parser.add_argument('--save_last_weights', type = bool, default = True)
-    parser.add_argument('--save_last_model', type = bool, default = True)
-    parser.add_argument('--save_models', type = bool, default = False)
-    parser.add_argument('--save_weights_only', type = bool, default = False)
-    parser.add_argument('--save_best', type = bool, default = True)
+    parser.add_argument('--save_architecture', type=bool, default=True)
+    parser.add_argument('--save_last_weights', type=bool, default=True)
+    parser.add_argument('--save_last_model', type=bool, default=True)
+    parser.add_argument('--save_models', type=bool, default=False)
+    parser.add_argument('--save_weights_only', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=True)
 
     args = parser.parse_args()
 
@@ -105,19 +105,19 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
         K.set_session(sess)
         # print(hash("keras"))
 
-    #%%
+    # %%
     # Load the Monthly sunspots dataset
 
     sunspots_path = download_monthly_sunspots()
-    sunspots = np.genfromtxt(fname=sunspots_path, dtype = np.float32,  \
-                            delimiter = ",", skip_header = 1, usecols = 1)
+    sunspots = np.genfromtxt(fname=sunspots_path, dtype=np.float32,
+                             delimiter=",", skip_header=1, usecols=1)
 
-    #%%
+    # %%
     # Train-Test split
 
     n_series = len(sunspots)
 
-    split_ratio = 2/3 # between zero and one
+    split_ratio = 2/3  # between zero and one
     n_split = int(n_series * split_ratio)
 
     look_back = args.look_back
@@ -125,20 +125,20 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     train = sunspots[:n_split + look_back]
     test = sunspots[n_split:]
 
-    train_x, train_y = series_to_supervised(train,look_back)
-    test_x, test_y = series_to_supervised(test,look_back)
+    train_x, train_y = series_to_supervised(train, look_back)
+    test_x, test_y = series_to_supervised(test, look_back)
 
-    #%%
+    # %%
     # PREPROCESSING STEP
 
     scaling_factor = args.scaling_factor
     translation = args.translation
 
-    n_train = train_x.shape[0] # number of training examples/samples
-    n_test = test_x.shape[0] # number of test examples/samples
+    n_train = train_x.shape[0]  # number of training examples/samples
+    n_test = test_x.shape[0]  # number of test examples/samples
 
-    n_in = train_x.shape[1] # number of features / dimensions
-    n_out = 1 # number of classes/labels
+    n_in = train_x.shape[1]  # number of features / dimensions
+    n_out = 1  # number of classes/labels
 
     # Apply preprocessing
     train_x_ = affine_transformation(train_x, scaling_factor, translation)
@@ -146,40 +146,40 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     test_x_ = affine_transformation(test_x, scaling_factor, translation)
     test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
-    #%%
+    # %%
     # Model hyperparameters
 
     N = []
-    N.append(n_in) #input layer
+    N.append(n_in)  # input layer
     if (args.same_size):
         n_layers = args.n_layers
         for i in range(n_layers):
-            N.append(args.layer_size) # hidden layer i
+            N.append(args.layer_size)  # hidden layer i
     else:
         n_layers = len(args.explicit_layer_sizes)
         for i in range(n_layers):
-            N.append(args.explicit_layer_sizes[i]) # hidden layer i
-    N.append(n_out) # output layer
+            N.append(args.explicit_layer_sizes[i])  # hidden layer i
+    N.append(n_out)  # output layer
 
     # ANN Architecture
 
     L = len(N) - 1
 
-    x = Input(shape = (n_in,)) #input layer
+    x = Input(shape=(n_in,))  # input layer
     h = x
 
-    for i in range(1,L):
-        h = Dense(units = N[i], activation = 'relu')(h) # hidden layer i
+    for i in range(1, L):
+        h = Dense(units=N[i], activation='relu')(h)  # hidden layer i
 
-    out = Dense(units = n_out, activation = None)(h) # output layer
+    out = Dense(units=n_out, activation=None)(h)  # output layer
 
-    model = Model(inputs = x, outputs = out)
+    model = Model(inputs=x, outputs=out)
 
     if (args.verbose > 0):
         model.summary()
 
     def root_mean_squared_error(y_true, y_pred):
-            return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1))
+        return K.sqrt(K.mean(K.square(y_pred - y_true), axis=-1))
 
     loss_function = root_mean_squared_error
 
@@ -187,31 +187,31 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
 
     lr = args.lrearning_rate
     epsilon = args.epsilon
-    optimizer_selection = {'Adadelta' : optimizers.Adadelta( \
-                                   lr=lr, rho=0.95, epsilon=epsilon, decay=0.0), \
-                           'Adagrad' : optimizers.Adagrad( \
-                                   lr=lr, epsilon=epsilon, decay=0.0), \
-                           'Adam' : optimizers.Adam( \
-                                   lr=lr, beta_1=0.9, beta_2=0.999, \
-                                   epsilon=epsilon, decay=0.0, amsgrad=False), \
-                           'Adamax' : optimizers.Adamax( \
-                                   lr=lr, beta_1=0.9, beta_2=0.999, \
-                                   epsilon=epsilon, decay=0.0), \
-                           'Nadam' : optimizers.Nadam( \
-                                   lr=lr, beta_1=0.9, beta_2=0.999, \
-                                   epsilon=epsilon, schedule_decay=0.004), \
-                           'RMSprop' : optimizers.RMSprop( \
-                                   lr=lr, rho=0.9, epsilon=epsilon, decay=0.0), \
-                           'SGD' : optimizers.SGD( \
-                                   lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
+    optimizer_selection = {'Adadelta': optimizers.Adadelta(
+        lr=lr, rho=0.95, epsilon=epsilon, decay=0.0),
+        'Adagrad': optimizers.Adagrad(
+        lr=lr, epsilon=epsilon, decay=0.0),
+        'Adam': optimizers.Adam(
+        lr=lr, beta_1=0.9, beta_2=0.999,
+        epsilon=epsilon, decay=0.0, amsgrad=False),
+        'Adamax': optimizers.Adamax(
+        lr=lr, beta_1=0.9, beta_2=0.999,
+        epsilon=epsilon, decay=0.0),
+        'Nadam': optimizers.Nadam(
+        lr=lr, beta_1=0.9, beta_2=0.999,
+        epsilon=epsilon, schedule_decay=0.004),
+        'RMSprop': optimizers.RMSprop(
+        lr=lr, rho=0.9, epsilon=epsilon, decay=0.0),
+        'SGD': optimizers.SGD(
+        lr=lr, momentum=0.0, decay=0.0, nesterov=False)}
 
     optimizer = optimizer_selection[args.optimizer]
 
-    model.compile(optimizer = optimizer, \
-                  loss = loss_function, \
-                  metrics = metrics)
+    model.compile(optimizer=optimizer,
+                  loss=loss_function,
+                  metrics=metrics)
 
-    #%%
+    # %%
     # Save trained models for every epoch
 
     models_path = r'artificial_neural_networks/trained_models/'
@@ -230,28 +230,28 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     monitor = 'val_loss'
 
     if (args.save_models):
-        checkpoint = ModelCheckpoint(file_path + '.h5', \
-                                     monitor = monitor, \
-                                     verbose = args.verbose, \
-                                     save_best_only = args.save_best, \
-                                     mode='auto', \
-                                     save_weights_only = args.save_weights_only)
+        checkpoint = ModelCheckpoint(file_path + '.h5',
+                                     monitor=monitor,
+                                     verbose=args.verbose,
+                                     save_best_only=args.save_best,
+                                     mode='auto',
+                                     save_weights_only=args.save_weights_only)
         callbacks = [checkpoint]
     else:
         callbacks = []
 
-    #%%
+    # %%
     # TRAINING PHASE
 
     if args.time_training:
-            start = timer()
+        start = timer()
 
-    model_history = model.fit(x = train_x_, y = train_y_, \
-                              validation_data = (test_x_, test_y_), \
-                              batch_size = args.batch_size, \
-                              epochs = args.n_epochs, \
-                              verbose = args.verbose, \
-                              callbacks = callbacks)
+    model_history = model.fit(x=train_x_, y=train_y_,
+                              validation_data=(test_x_, test_y_),
+                              batch_size=args.batch_size,
+                              epochs=args.n_epochs,
+                              verbose=args.verbose,
+                              callbacks=callbacks)
 
     if args.time_training:
         end = timer()
@@ -259,18 +259,18 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
         print('Total time for training (in seconds):')
         print(duration)
 
-    #%%
+    # %%
     # TESTING PHASE
 
     # Predict preprocessed values
-    train_y_pred_ = model.predict(train_x_)[:,0]
-    test_y_pred_ = model.predict(test_x_)[:,0]
+    train_y_pred_ = model.predict(train_x_)[:, 0]
+    test_y_pred_ = model.predict(test_x_)[:, 0]
 
     # Remove preprocessing
-    train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, \
-                                         inverse = True)
-    test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, \
-                                        inverse = True)
+    train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation,
+                                         inverse=True)
+    test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation,
+                                        inverse=True)
 
     train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
     train_mae = mean_absolute_error(train_y, train_y_pred)
@@ -291,7 +291,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
         print('Test (1 - R_squared): %.4f ' % (1.0 - test_r2))
         print('Test R_squared: %.4f ' % (test_r2))
 
-    #%%
+    # %%
     # Data Visualization
 
     if (args.plot):
@@ -320,25 +320,25 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
         plt.show()
 
         plt.figure()
-        plt.scatter(x = train_y, y = train_y_pred, edgecolors=(0, 0, 0))
+        plt.scatter(x=train_y, y=train_y_pred, edgecolors=(0, 0, 0))
         plt.plot([train_y.min(), train_y.max()], [train_y.min(), train_y.max()], 'k--', lw=4)
         plt.title('Predicted vs Actual for training set')
         plt.show()
 
         plt.figure()
-        plt.scatter(x = test_y, y = test_y_pred, edgecolors=(0, 0, 0))
+        plt.scatter(x=test_y, y=test_y_pred, edgecolors=(0, 0, 0))
         plt.plot([test_y.min(), test_y.max()], [test_y.min(), test_y.max()], 'k--', lw=4)
         plt.title('Predicted vs Actual for test set')
         plt.show()
 
         plt.figure()
-        plt.scatter(x = train_y_pred, y = train_errors, edgecolors=(0, 0, 0))
+        plt.scatter(x=train_y_pred, y=train_errors, edgecolors=(0, 0, 0))
         plt.plot([train_y.min(), train_y.max()], [0, 0], 'k--', lw=4)
         plt.title('Residuals vs Predicted for training set')
         plt.show()
 
         plt.figure()
-        plt.scatter(x = test_y_pred, y = test_errors, edgecolors=(0, 0, 0))
+        plt.scatter(x=test_y_pred, y=test_errors, edgecolors=(0, 0, 0))
         plt.plot([test_y.min(), test_y.max()], [0, 0], 'k--', lw=4)
         plt.title('Residuals vs Predicted for test set')
         plt.show()
