@@ -82,8 +82,22 @@ def save_model(model, models_path, model_name, weights_path, model_path, file_su
 # %%
 
 
-def load_keras_model(model_h5, model_json=None, model_yaml=None, is_full=True):
+def load_keras_model(h5_file, json_file=None, yaml_file=None, is_weights=False, from_json=True):
     """
     Utility to load the whole model
     """
-    # TODO
+    # third-party imports
+    from keras.models import load_model, model_from_json, model_from_yaml
+
+    if is_weights:
+        if from_json:
+            json_string = open(json_file, "r").read()
+            model = model_from_json(json_string)
+        else:
+            yaml_string = open(yaml_file, "r").read()
+            model = model_from_yaml(yaml_string)
+        model.load_weights(h5_file)
+    else:
+        model = load_model(h5_file)
+
+    return model
