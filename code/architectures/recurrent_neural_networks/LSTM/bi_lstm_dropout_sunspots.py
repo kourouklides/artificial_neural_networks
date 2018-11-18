@@ -1,6 +1,6 @@
 """
 
-Model: Bidirectional Long short-term memory (LSTM) with dense (i.e. fully connected) layers
+Model: Bidirectional Long short-term memory (LSTM) with dropout layers
 Mehtod: Truncated Backpropagation Through Time (TBPTT)
 Architecture: Recurrent Neural Network
 
