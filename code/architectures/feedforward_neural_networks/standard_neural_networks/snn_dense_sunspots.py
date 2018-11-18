@@ -134,9 +134,6 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     scaling_factor = args.scaling_factor
     translation = args.translation
 
-    n_train = train_x.shape[0]  # number of training examples/samples
-    n_test = test_x.shape[0]  # number of test examples/samples
-
     n_in = train_x.shape[1]  # number of features / dimensions
     n_out = 1  # number of classes/labels
 
@@ -244,7 +241,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     if args.time_training:
         start = timer()
 
-    model_history = model.fit(
+    model.fit(
         x=train_x_,
         y=train_y_,
         validation_data=(test_x_, test_y_),
