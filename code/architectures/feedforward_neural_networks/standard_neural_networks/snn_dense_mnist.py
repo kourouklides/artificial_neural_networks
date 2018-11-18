@@ -26,6 +26,7 @@ import random as rn
 from timeit import default_timer as timer
 
 # third-party imports
+from keras import backend as K
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
 from keras.layers import Input, Dense
@@ -98,6 +99,9 @@ def snn_dense_mnist(new_dir=os.getcwd()):
         np.random.seed(args.seed)
         rn.seed(args.seed)
         tf.set_random_seed(args.seed)
+        sess = tf.Session(graph=tf.get_default_graph())
+        K.set_session(sess)
+        # print(hash("keras"))
 
     # %%
     # Load the MNIST dataset
