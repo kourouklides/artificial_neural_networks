@@ -40,7 +40,7 @@ import tensorflow as tf
 # %%
 
 
-def lstm_dense_sunsposts(new_dir=os.getcwd()):
+def lstm_dense_sunspots(new_dir=os.getcwd()):
     """
     Main function
     """
@@ -83,7 +83,7 @@ def lstm_dense_sunsposts(new_dir=os.getcwd()):
     parser.add_argument('--save_last_model', type=bool, default=True)
     parser.add_argument('--save_models', type=bool, default=False)
     parser.add_argument('--save_weights_only', type=bool, default=False)
-    parser.add_argument('--save_best', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=True)
 
     args = parser.parse_args()
 
@@ -339,4 +339,4 @@ def lstm_dense_sunsposts(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    model_lstm_dense = lstm_dense_sunsposts('../../../../../')
+    model_lstm_dense = lstm_dense_sunspots('../../../../../')
