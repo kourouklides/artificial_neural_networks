@@ -102,15 +102,6 @@ def naive_persistence_model_sunspots(new_dir=os.getcwd()):
     scaling_factor = args.scaling_factor
     translation = args.translation
 
-    n_train = train_x.shape[0]  # number of training examples/samples
-    n_test = test_x.shape[0]  # number of test examples/samples
-
-    n_in = train_x.shape[1]  # number of features / dimensions
-
-    # Reshape training and test sets
-    train_x = train_x.reshape(n_train, n_in, 1)
-    test_x = test_x.reshape(n_test, n_in, 1)
-
     # Apply preprocessing
     train_x_ = affine_transformation(train_x, scaling_factor, translation)
     test_x_ = affine_transformation(test_x, scaling_factor, translation)
@@ -126,10 +117,10 @@ def naive_persistence_model_sunspots(new_dir=os.getcwd()):
 
         y_pred = []
 
-        y_pred.append(x[0][last][0])
+        y_pred.append(x[0][last])
 
         for i in range(x.shape[0] - 1):
-            y_pred.append(x[i][last][0])
+            y_pred.append(x[i][last])
 
         return np.array(y_pred)
 
