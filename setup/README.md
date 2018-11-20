@@ -23,7 +23,7 @@ This installation process requires the __minimum__ knowledge of software tools. 
 In order to save a lot of trouble, download the [Anaconda Distribution](https://www.anaconda.com/distribution/), which is actively supported by the Data Science community.
 
 1. Go to [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
-1. Choose __Python 3.6__ (but not later, since there are [known issues](https://github.com/tensorflow/tensorflow/issues/20444)).
+1. Choose __Python 3__ (latest version is fine as you can change it after you donwload it)
 
 The Anaconda Distribution also includes the [Spyder](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
 
@@ -33,6 +33,8 @@ __Note:__ Anaconda uses ``conda`` to create _virtual environments_, so is __cann
 
 The code examples require several Python packages to be installed. These packages are listed in the 
 [requirements.txt](requirements.txt) file of this folder. You do not need to edit the file for the quick installation.
+
+Currently, there are [known issues in TensorFlow](https://github.com/tensorflow/tensorflow/issues/20444)) with Python 3.7, so follow the instructions below carefully.
 
 You first have to change the directory to the current one, by __replacing__ \<your directory path> accordingly:
 
