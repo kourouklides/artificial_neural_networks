@@ -93,7 +93,7 @@ TODO: write them
 
 ## Contributing
 
-Contributers are all welcome.
+Contributors are all welcome.
 
 ## License
 
