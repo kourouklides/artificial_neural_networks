@@ -1,8 +1,7 @@
 """
 
-Model: Standard Neural Network (SNN) with dense (i.e. fully connected) layers
-Method: Backpropagation
-Architecture: Feedforward Neural Network
+Model: Seasonal AutoRegressive Integrated Moving Average with eXogenous regressors (SARIMAX)
+Method: Maximum Likelihood Estimation (MLE) via Kalman filter
 
 Dataset: Monthly sunspots
 Task: One-step Ahead Forecasting of Univariate Time Series (Univariate Regression)
@@ -107,11 +106,10 @@ def main(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
-    order = (1, 0, 1)
-    seasonal_order = (1, 1, 0, 130)
-    outlier_exog = np.zeros(n_train)
-    model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order, exog=outlier_exog,
-                    enforce_invertibility=False)
+    order = (2, 0, 3)
+    seasonal_order = (1, 1, 0, 13)
+    train_outliers = np.zeros(n_train)
+    model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order, exog=train_outliers)
     model_fit = model.fit()
 
     if args.verbose > 0:
@@ -120,11 +118,11 @@ def main(new_dir=os.getcwd()):
     # %%
     # TESTING PHASE
 
-    outlier_exog_fcast = np.zeros((n_test, 1))
+    test_outliers = np.zeros((n_test, 1))
 
     # Predict preprocessed values
-    train_y_pred_ = model_fit.predict(start=0, end=n_train-1, exog=outlier_exog_fcast)
-    test_y_pred_ = model_fit.predict(start=n_train, end=n_series-1, exog=outlier_exog_fcast)
+    train_y_pred_ = model_fit.predict(start=0, end=n_train-1, exog=test_outliers)
+    test_y_pred_ = model_fit.predict(start=n_train, end=n_series-1, exog=test_outliers)
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
