@@ -23,6 +23,7 @@ import argparse
 from math import sqrt
 import os
 import random as rn
+from timeit import default_timer as timer
 
 # third-party imports
 import matplotlib.pyplot as plt
@@ -55,6 +56,7 @@ def main(new_dir=os.getcwd()):
     parser.add_argument('--verbose', type=int, default=1)
     parser.add_argument('--reproducible', type=bool, default=True)
     parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--time_training', type=bool, default=True)
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
@@ -106,23 +108,39 @@ def main(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
-    order = (2, 0, 3)
-    seasonal_order = (1, 1, 0, 13)
+    order = (1, 0, 1)
+    seasonal_order = (1, 1, 0, 130)
     train_outliers = np.zeros(n_train)
-    model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order, exog=train_outliers)
-    model_fit = model.fit()
+
+    train_model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order,
+                          exog=train_outliers)
+
+    if args.time_training:
+        start = timer()
+
+    model_fit = train_model.fit()
+
+    if args.time_training:
+        end = timer()
+        duration = end - start
+        print('Total time for training (in seconds):')
+        print(duration)
 
     if args.verbose > 0:
         print(model_fit.summary())
 
+    fitted_params = model_fit.params
+
     # %%
     # TESTING PHASE
 
-    test_outliers = np.zeros((n_test, 1))
+    test_outliers = np.zeros(n_test)
+
+    test_model = SARIMAX(test_y_, order=order, seasonal_order=seasonal_order, exog=test_outliers)
 
     # Predict preprocessed values
     train_y_pred_ = model_fit.predict(start=0, end=n_train-1, exog=test_outliers)
-    test_y_pred_ = model_fit.predict(start=n_train, end=n_series-1, exog=test_outliers)
+    test_y_pred_ = test_model.filter(fitted_params).get_prediction().predicted_mean
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
