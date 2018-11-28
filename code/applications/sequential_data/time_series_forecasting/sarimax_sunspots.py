@@ -108,8 +108,8 @@ def main(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
-    order = (1, 0, 1)
-    seasonal_order = (1, 1, 0, 130)
+    order = (20, 0, 3)
+    seasonal_order = (0, 0, 0, 0)
     train_outliers = np.zeros(n_train)
 
     train_model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order,
