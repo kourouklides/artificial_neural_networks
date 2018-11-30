@@ -57,11 +57,14 @@ def main(new_dir=os.getcwd()):
     parser.add_argument('--reproducible', type=bool, default=True)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=True)
+    parser.add_argument('--plot', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--scaling_factor', type=float, default=(1 / 1))
     parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--autoregressive', type=float, default=20)
+    parser.add_argument('--integrated', type=float, default=0)
+    parser.add_argument('--moving_average', type=float, default=2)
 
     args = parser.parse_args()
 
@@ -106,10 +109,20 @@ def main(new_dir=os.getcwd()):
     test_y_ = affine_transformation(test_y, scaling_factor, translation)
 
     # %%
+    # Model hyperparameters
+
+    optimizer = 'lbfgs'
+    # optimizer = 'powell'
+
+    maxiter = 50
+    # maxiter = 1
+
+    order = (args.autoregressive, args.integrated, args.moving_average)
+    seasonal_order = (0, 0, 0, 0)
+
+    # %%
     # TRAINING PHASE
 
-    order = (20, 0, 3)
-    seasonal_order = (0, 0, 0, 0)
     train_outliers = np.zeros(n_train)
 
     train_model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order,
@@ -118,7 +131,15 @@ def main(new_dir=os.getcwd()):
     if args.time_training:
         start = timer()
 
-    model_fit = train_model.fit()
+    fitted_params = None
+
+    for i in range(1):
+        model_fit = train_model.fit(start_params=fitted_params, method=optimizer, maxiter=maxiter)
+        fitted_params = model_fit.params
+
+        if args.verbose > 0:
+            print('Fitted parameters:')
+            print(fitted_params)
 
     if args.time_training:
         end = timer()
@@ -128,8 +149,6 @@ def main(new_dir=os.getcwd()):
 
     if args.verbose > 0:
         print(model_fit.summary())
-
-    fitted_params = model_fit.params
 
     # %%
     # TESTING PHASE
