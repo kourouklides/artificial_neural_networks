@@ -34,7 +34,7 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 # %%
 
 
-def main(new_dir=os.getcwd()):
+def sarimax_sunspots(new_dir=os.getcwd()):
     """
     Main function
     """
@@ -119,6 +119,7 @@ def main(new_dir=os.getcwd()):
 
     order = (args.autoregressive, args.integrated, args.moving_average)
     seasonal_order = (0, 0, 0, 0)
+    trend=None
 
     # %%
     # TRAINING PHASE
@@ -126,7 +127,7 @@ def main(new_dir=os.getcwd()):
     train_outliers = np.zeros(n_train)
 
     train_model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order,
-                          exog=train_outliers)
+                          exog=train_outliers, trend=trend)
 
     if args.time_training:
         start = timer()
@@ -155,7 +156,8 @@ def main(new_dir=os.getcwd()):
 
     test_outliers = np.zeros(n_test)
 
-    test_model = SARIMAX(test_y_, order=order, seasonal_order=seasonal_order, exog=test_outliers)
+    test_model = SARIMAX(test_y_, order=order, seasonal_order=seasonal_order,
+                         exog=test_outliers, trend=trend)
 
     # Predict preprocessed values
     train_y_pred_ = model_fit.predict(start=0, end=n_train-1, exog=test_outliers)
@@ -236,9 +238,20 @@ def main(new_dir=os.getcwd()):
         plt.title('Residuals vs Predicted for test set')
         plt.show()
 
+    # %%
+
+    model = {}
+    model['params'] = fitted_params
+    model['hyperparams'] = {}
+    model['hyperparams']['order'] = order
+    model['hyperparams']['seasonal_order'] = seasonal_order
+    model['hyperparams']['trend'] = trend
+
+    return model
+
 
 # %%
 
 
 if __name__ == '__main__':
-    main('../../../../../')
+    model_sarimax_sunspots = sarimax_sunspots('../../../../../')
