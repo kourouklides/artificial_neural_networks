@@ -57,7 +57,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--reproducible', type=bool, default=True)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=False)
+    parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--scaling_factor', type=float, default=(1 / 1))
@@ -119,7 +119,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
     order = (args.autoregressive, args.integrated, args.moving_average)
     seasonal_order = (0, 0, 0, 0)
-    trend=None
+    trend = 'ct'
 
     # %%
     # TRAINING PHASE
@@ -139,7 +139,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
         fitted_params = model_fit.params
 
         if args.verbose > 0:
-            print('Fitted parameters:')
+            print('All parameters:')
             print(fitted_params)
 
     if args.time_training:
@@ -160,7 +160,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
                          exog=test_outliers, trend=trend)
 
     # Predict preprocessed values
-    train_y_pred_ = model_fit.predict(start=0, end=n_train-1, exog=test_outliers)
+    train_y_pred_ = train_model.filter(fitted_params).get_prediction().predicted_mean
     test_y_pred_ = test_model.filter(fitted_params).get_prediction().predicted_mean
 
     # Remove preprocessing
