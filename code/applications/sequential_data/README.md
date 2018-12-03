@@ -10,7 +10,7 @@ Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Mo
 A Time Series can be either _univariate_ or _multivariate_.
 
 ## Sub-tasks
-Various applications of the aforementioned Methods and Models are also included and they fall under the following domains:
+There are various sub-tasks that fall under this specific domain and some of them are the following:
 
 - [One-Step Ahead Time Series Forecasting](code/applications/sequential_data/one_step_time_series_forecasting)
 - [Multi-Step Ahead Time Series Forecasting](code/applications/sequential_data/multi_step_time_series_forecasting)
