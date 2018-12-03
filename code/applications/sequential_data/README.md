@@ -20,6 +20,7 @@ There are various sub-tasks that fall under this specific domain and some of the
 Regarding theory of Sequential Data, you can check the following pages on my personal wiki:
 
 - [Linear Dynamical Systems](https://wiki.kourouklides.com/wiki/Linear_Dynamical_System)
+- [Statistical Signal Processing](https://wiki.kourouklides.com/wiki/Statistical_Signal_Processing)
 
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
