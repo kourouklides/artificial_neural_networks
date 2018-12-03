@@ -65,7 +65,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--autoregressive', type=int, default=1)
     parser.add_argument('--integrated', type=int, default=0)
     parser.add_argument('--moving_average', type=int, default=1)
-    parser.add_argument('--seasonal_periods', type=int, default=128)
+    parser.add_argument('--seasonal_periods', type=int, default=126)
 
     args = parser.parse_args()
 
@@ -140,15 +140,19 @@ def sarimax_sunspots(new_dir=os.getcwd()):
         model_fit = train_model.fit(start_params=fitted_params, method=optimizer, maxiter=maxiter)
         fitted_params = model_fit.params
 
-        new_params = fitted_params.copy()
-        new_params[0] = 0.8446147426983434  # 0.4446147426983434
-        new_params[1] = -0.00087190913463951184  # -0.00047190913463951184
+        new_params = np.zeros(6)
+        new_params[0] = 0.6446147426983434  # 0.4446147426983434
+        new_params[1] = -0.00067190913463951184  # -0.00047190913463951184
+        new_params[2] = 0.0  # 0.0
+        new_params[3] = 0.9518981714555636  # 0.9418981714555636
+        new_params[4] = -0.38742006217597214  # -0.38742006217597214
+        new_params[5] = 460.2075087762523  # 460.2075087762523
 
-        model_fit.params = new_params
+        # model_fit.params = new_params
 
         if args.verbose > 0:
-            print('All fitted parameters:')
-            print(model_fit.params)
+            print('All parameters:')
+            print(new_params)
 
     if args.time_training:
         end = timer()
@@ -171,13 +175,9 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     train_y_pred_ = np.zeros(n_train)
     train_y_pred_[s:] = train_model.filter(new_params).get_prediction(
             start=s, end=n_train-1, exog=train_outliers, dynamic=True).predicted_mean
-    # train_y_pred_[s:] = model_fit.predict(start=s, end=n_train-1, exog=test_outliers,dynamic=True)
     test_y_pred_ = np.zeros(n_test)
     test_y_pred_[s:] = test_model.filter(new_params).get_prediction(
             start=s, end=n_test-1, exog=test_outliers, dynamic=True).predicted_mean
-    # test_y_pred_[s:] = model_fit.predict(start=n_train+s, end=n_series-1, exog=test_outliers)
-
-    # TODO: change both to filters
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
