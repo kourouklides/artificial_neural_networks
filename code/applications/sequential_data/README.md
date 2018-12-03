@@ -3,7 +3,7 @@
 ## About
 This part of the repository is concerned with __Sequential Data__, including Time Series.
 
-Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Systems, ARMA, ARIMA, SARIMAX
+Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Models, ARMA, ARIMA, SARIMAX
 
 ## Introduction
 
