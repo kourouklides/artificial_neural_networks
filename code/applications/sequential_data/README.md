@@ -12,8 +12,8 @@ A Time Series can be either _univariate_ or _multivariate_.
 ## Sub-tasks
 There are various sub-tasks that fall under this specific domain and some of them are the following:
 
-- [One-Step Ahead Time Series Forecasting](code/applications/sequential_data/one_step_time_series_forecasting)
-- [Multi-Step Ahead Time Series Forecasting](code/applications/sequential_data/multi_step_time_series_forecasting)
+- [One-Step ahead Time Series Forecasting](code/applications/sequential_data/one_step_time_series_forecasting)
+- [Multi-Step ahead Time Series Forecasting](code/applications/sequential_data/multi_step_time_series_forecasting)
 - [Dynamic Time Series Forecasting](code/applications/sequential_data/dynamic_time_series_forecasting)
 
 ## Theory
