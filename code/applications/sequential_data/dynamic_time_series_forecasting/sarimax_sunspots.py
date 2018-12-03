@@ -54,7 +54,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
     # General settings
     parser.add_argument('--verbose', type=int, default=1)
-    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--reproducible', type=bool, default=False)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
     parser.add_argument('--plot', type=bool, default=True)
