@@ -54,10 +54,10 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
     # General settings
     parser.add_argument('--verbose', type=int, default=1)
-    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--reproducible', type=bool, default=False)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=True)
+    parser.add_argument('--plot', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--scaling_factor', type=float, default=(1 / 1))
@@ -114,8 +114,8 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     optimizer = 'lbfgs'
     # optimizer = 'powell'
 
-    maxiter = 50
-    # maxiter = 1
+    maxiter = 15
+    # maxiter = 50
 
     order = (args.autoregressive, args.integrated, args.moving_average)
     seasonal_order = (0, 0, 0, 0)
