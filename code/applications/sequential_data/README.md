@@ -17,7 +17,7 @@ There are various sub-tasks that fall under this specific domain and some of the
 - [Dynamic Time Series Forecasting](code/applications/sequential_data/dynamic_time_series_forecasting)
 
 ## Theory
-Regarding theory of Sequential Data, you can check the following pages of my personal wiki:
+Regarding theory of Sequential Data, you can check the following pages on my personal wiki:
 
 - [Linear Dynamical Systems](https://wiki.kourouklides.com/wiki/Linear_Dynamical_System)
 
