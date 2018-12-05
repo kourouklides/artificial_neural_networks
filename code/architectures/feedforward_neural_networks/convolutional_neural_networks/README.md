@@ -11,9 +11,9 @@ This part of the repository is concerned with Convolutional Neural Networks__ (C
 
 The code examples included so far are the following:
 
-* Classification
-** CNN without dropout on MNIST dataset
-** CNN without dropout on MNIST dataset
+- Classification
+  - CNN without dropout on MNIST dataset
+  - CNN without dropout on MNIST dataset
 
 ## Theory
 
