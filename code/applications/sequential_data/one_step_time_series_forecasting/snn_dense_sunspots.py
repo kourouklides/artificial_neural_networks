@@ -5,7 +5,7 @@ Method: Backpropagation
 Architecture: Feedforward Neural Network
 
 Dataset: Monthly sunspots
-Task: One-step Ahead Forecasting of Univariate Time Series (Univariate Regression)
+Task: One-step ahead Forecasting of Univariate Time Series (Univariate Regression)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License:

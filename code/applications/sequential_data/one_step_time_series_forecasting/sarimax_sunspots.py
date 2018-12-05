@@ -4,7 +4,7 @@ Model: Seasonal AutoRegressive Integrated Moving Average with eXogenous regresso
 Method: Maximum Likelihood Estimation (MLE) via Kalman filter
 
 Dataset: Monthly sunspots
-Task: One-step Ahead Forecasting of Univariate Time Series (Univariate Regression)
+Task: One-step ahead Forecasting of Univariate Time Series (Univariate Regression)
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License:
