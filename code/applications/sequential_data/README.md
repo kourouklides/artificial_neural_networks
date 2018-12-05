@@ -3,23 +3,24 @@
 ## About
 This part of the repository is concerned with __Sequential Data__, including Time Series.
 
-Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Systems, ARMA, ARIMA, SARIMAX
+Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Models, ARMA, ARIMA, SARIMAX
 
 ## Introduction
 
 A Time Series can be either _univariate_ or _multivariate_.
 
 ## Sub-tasks
-Various applications of the aforementioned Methods and Models are also included and they fall under the following domains:
+There are various sub-tasks that fall under this specific domain and some of them are the following:
 
-- [One-Step Ahead Time Series Forecasting](code/applications/sequential_data/one_step_time_series_forecasting)
-- [Multi-Step Ahead Time Series Forecasting](code/applications/sequential_data/multi_step_time_series_forecasting)
+- [One-Step ahead Time Series Forecasting](code/applications/sequential_data/one_step_time_series_forecasting)
+- [Multi-Step ahead Time Series Forecasting](code/applications/sequential_data/multi_step_time_series_forecasting)
 - [Dynamic Time Series Forecasting](code/applications/sequential_data/dynamic_time_series_forecasting)
 
 ## Theory
-Regarding theory of Sequential Data, you can check the following pages of my personal wiki:
+Regarding theory of Sequential Data, you can check the following pages on my personal wiki:
 
 - [Linear Dynamical Systems](https://wiki.kourouklides.com/wiki/Linear_Dynamical_System)
+- [Statistical Signal Processing](https://wiki.kourouklides.com/wiki/Statistical_Signal_Processing)
 
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 

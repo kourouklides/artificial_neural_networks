@@ -79,7 +79,7 @@ Various applications of the aforementioned Methods and Models are also included 
 - [Speech Processing](code/applications/speech_processing)
 
 ## Theory
-Finally, regarding theory of Artificial Neural Networks, you can check the following pages of my personal wiki:
+Finally, regarding theory of Artificial Neural Networks, you can check the following pages on my personal wiki:
 
 - [Artificial Neural Networks](https://wiki.kourouklides.com/wiki/Artificial_Neural_Network)
 - [Deep Learning](https://wiki.kourouklides.com/wiki/Deep_Learning)
