@@ -37,7 +37,7 @@ Guides and instructions on how to install the necessary libraries and how to set
 
 ## Running from the terminal
 
-If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) and want to run a script from the command line (terminal) then you __should__ use it with the [``-m`` command-line flag](https://docs.python.org/3.6/using/cmdline.html#cmdoption-m) and without its ``.py`` extension, for the reasons explained [here](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not).
+If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) and want to run a script from the command line (terminal) then you __should use__ it with the [``-m`` command-line flag](https://docs.python.org/3.6/using/cmdline.html#cmdoption-m) and without its ``.py`` extension, for the reasons explained [here](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not).
 
 For example, by __replacing__ \<your directory path> accordingly, you can either run this:
 
