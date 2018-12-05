@@ -27,7 +27,7 @@ In order to save a lot of trouble, download the [Anaconda Distribution](https://
 
 The Anaconda Distribution also includes the [Spyder](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__.
 
-__Note:__ Anaconda uses ``conda`` to create _virtual environments_, so is __cannot__ be used with venv or virtualenv.
+__Note:__ Anaconda uses ``conda`` to create _virtual environments_, so is __cannot__ be used with ``venv`` or ``virtualenv``.
 
 ### 2. Install the required packages
 
