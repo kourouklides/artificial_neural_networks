@@ -137,9 +137,10 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     fitted_params = None
 
     for i in range(1):
+        """
         model_fit = train_model.fit(start_params=fitted_params, method=optimizer, maxiter=maxiter)
         fitted_params = model_fit.params
-
+        """
         new_params = np.zeros(6)
         new_params[0] = 0.6446147426983434  # 0.4446147426983434
         new_params[1] = -0.00067190913463951184  # -0.00047190913463951184
@@ -159,10 +160,10 @@ def sarimax_sunspots(new_dir=os.getcwd()):
         duration = end - start
         print('Total time for training (in seconds):')
         print(duration)
-
+    """
     if args.verbose > 0:
         print(model_fit.summary())
-
+    """
     # %%
     # TESTING PHASE
 
@@ -172,12 +173,22 @@ def sarimax_sunspots(new_dir=os.getcwd()):
                          exog=test_outliers, trend=trend)
 
     # Predict preprocessed values
+    train_start = s
+    train_end = n_train-1
     train_y_pred_ = np.zeros(n_train)
-    train_y_pred_[s:] = train_model.filter(new_params).get_prediction(
-            start=s, end=n_train-1, exog=train_outliers, dynamic=True).predicted_mean
+    train_y_pred_[train_start:] = train_model.filter(new_params).get_prediction(
+            start=train_start, end=train_end, exog=train_outliers, dynamic=True).predicted_mean
+    print(train_end)
+    print(len(train_y_pred_[s:]))
+
+    test_y_pred_ = np.zeros(n_test)
+    test_start = s
+    test_end = n_test-1
     test_y_pred_ = np.zeros(n_test)
     test_y_pred_[s:] = test_model.filter(new_params).get_prediction(
-            start=s, end=n_test-1, exog=test_outliers, dynamic=True).predicted_mean
+            start=test_start, end=test_end, exog=test_outliers, dynamic=True).predicted_mean
+    print(test_end)
+    print(len(test_y_pred_[s:]))
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
