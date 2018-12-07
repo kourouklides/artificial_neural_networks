@@ -165,19 +165,21 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
     # %%
     # TESTING PHASE
-
-    test_outliers = np.zeros((n_test, 1))
-
-    test_model = SARIMAX(test_y_, order=order, seasonal_order=seasonal_order,
-                         exog=test_outliers, trend=trend)
+    test_outliers = np.zeros(s)
 
     # Predict preprocessed values
     train_y_pred_ = np.zeros(n_train)
     train_y_pred_[s:] = train_model.filter(new_params).get_prediction(
             start=s, end=n_train-1, exog=train_outliers, dynamic=True).predicted_mean
+
+    test_model = SARIMAX(test_y_[0:s], order=order, seasonal_order=seasonal_order,
+                         exog=test_outliers, trend=trend)
+
+    test_start = s
+    test_end = 2*s
     test_y_pred_ = np.zeros(n_test)
-    test_y_pred_[s:] = test_model.filter(new_params).get_prediction(
-            start=s, end=n_test-1, exog=test_outliers, dynamic=True).predicted_mean
+    test_y_pred_[test_start:test_end] = test_model.filter(new_params).get_prediction(
+            start=test_start, end=test_end, exog=test_outliers, dynamic=True).predicted_mean
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
