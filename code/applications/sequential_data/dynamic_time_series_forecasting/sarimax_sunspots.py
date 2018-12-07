@@ -166,7 +166,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     # %%
     # TESTING PHASE
 
-    test_outliers = np.zeros((n_test, 1))
+    test_outliers = np.zeros(n_test)
 
     test_model = SARIMAX(test_y_, order=order, seasonal_order=seasonal_order,
                          exog=test_outliers, trend=trend)
