@@ -176,19 +176,14 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     train_start = s
     train_end = n_train-1
     train_y_pred_ = np.zeros(n_train)
-    train_y_pred_[train_start:] = train_model.filter(new_params).get_prediction(
+    train_y_pred_[train_start:train_end+1] = train_model.filter(new_params).get_prediction(
             start=train_start, end=train_end, exog=train_outliers, dynamic=True).predicted_mean
-    print(train_end)
-    print(len(train_y_pred_[s:]))
-
     test_y_pred_ = np.zeros(n_test)
     test_start = s
     test_end = n_test-1
     test_y_pred_ = np.zeros(n_test)
-    test_y_pred_[s:] = test_model.filter(new_params).get_prediction(
+    test_y_pred_[test_start:test_end+1] = test_model.filter(new_params).get_prediction(
             start=test_start, end=test_end, exog=test_outliers, dynamic=True).predicted_mean
-    print(test_end)
-    print(len(test_y_pred_[s:]))
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
