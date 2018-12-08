@@ -223,6 +223,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     if args.plot:
         regression_figs(train_y=train_y, train_y_pred=train_y_pred,
                         test_y=test_y, test_y_pred=test_y_pred)
+
     # %%
 
     model = {}
