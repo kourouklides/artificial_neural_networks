@@ -26,7 +26,6 @@ import random as rn
 from timeit import default_timer as timer
 
 # third-party imports
-import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from statsmodels.tsa.statespace.sarimax import SARIMAX
@@ -47,6 +46,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     from artificial_neural_networks.code.utils.download_monthly_sunspots import \
         download_monthly_sunspots
     from artificial_neural_networks.code.utils.generic_utils import affine_transformation
+    from artificial_neural_networks.code.utils.vis_utils import regression_figs
 
     # %%
     # SETTINGS
@@ -190,53 +190,8 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     # Data Visualization
 
     if args.plot:
-        plt.figure()
-        plt.plot(train_y)
-        plt.plot(train_y_pred)
-        plt.title('Time Series of the training set')
-        plt.show()
-
-        plt.figure()
-        plt.plot(test_y)
-        plt.plot(test_y_pred)
-        plt.title('Time Series of the test set')
-        plt.show()
-
-        train_errors = train_y - train_y_pred
-        plt.figure()
-        plt.hist(train_errors, bins='auto')
-        plt.title('Histogram of training errors')
-        plt.show()
-
-        test_errors = test_y - test_y_pred
-        plt.figure()
-        plt.hist(test_errors, bins='auto')
-        plt.title('Histogram of test errors')
-        plt.show()
-
-        plt.figure()
-        plt.scatter(x=train_y, y=train_y_pred, edgecolors=(0, 0, 0))
-        plt.plot([train_y.min(), train_y.max()], [train_y.min(), train_y.max()], 'k--', lw=4)
-        plt.title('Predicted vs Actual for training set')
-        plt.show()
-
-        plt.figure()
-        plt.scatter(x=test_y, y=test_y_pred, edgecolors=(0, 0, 0))
-        plt.plot([test_y.min(), test_y.max()], [test_y.min(), test_y.max()], 'k--', lw=4)
-        plt.title('Predicted vs Actual for test set')
-        plt.show()
-
-        plt.figure()
-        plt.scatter(x=train_y_pred, y=train_errors, edgecolors=(0, 0, 0))
-        plt.plot([train_y.min(), train_y.max()], [0, 0], 'k--', lw=4)
-        plt.title('Residuals vs Predicted for training set')
-        plt.show()
-
-        plt.figure()
-        plt.scatter(x=test_y_pred, y=test_errors, edgecolors=(0, 0, 0))
-        plt.plot([test_y.min(), test_y.max()], [0, 0], 'k--', lw=4)
-        plt.title('Residuals vs Predicted for test set')
-        plt.show()
+        regression_figs(train_y=train_y, train_y_pred=train_y_pred,
+                        test_y=test_y, test_y_pred=test_y_pred)
 
     # %%
 
