@@ -58,7 +58,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
     parser.add_argument('--plot', type=bool, default=True)
-    parser.add_argument('--use_custom_params', type=bool, default=True)
+    parser.add_argument('--use_custom_params', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--scaling_factor', type=float, default=(1 / 1))
