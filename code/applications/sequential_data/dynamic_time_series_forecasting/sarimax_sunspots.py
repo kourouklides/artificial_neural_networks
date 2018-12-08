@@ -131,39 +131,38 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     train_model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order,
                           exog=train_outliers, trend=trend)
 
+    """
+    fitted_params = None
+
     if args.time_training:
         start = timer()
 
-    fitted_params = None
-
     for i in range(1):
-        """
         model_fit = train_model.fit(start_params=fitted_params, method=optimizer, maxiter=maxiter)
         fitted_params = model_fit.params
-        """
-        new_params = np.zeros(6)
-        new_params[0] = 0.6446147426983434  # 0.4446147426983434
-        new_params[1] = -0.00067190913463951184  # -0.00047190913463951184
-        new_params[2] = 0.0  # 0.0
-        new_params[3] = 0.9518981714555636  # 0.9418981714555636
-        new_params[4] = -0.38742006217597214  # -0.38742006217597214
-        new_params[5] = 460.2075087762523  # 460.2075087762523
-
-        # model_fit.params = new_params
-
-        if args.verbose > 0:
-            print('All parameters:')
-            print(new_params)
 
     if args.time_training:
         end = timer()
         duration = end - start
         print('Total time for training (in seconds):')
         print(duration)
-    """
+
     if args.verbose > 0:
         print(model_fit.summary())
     """
+
+    custom_params = np.zeros(6)
+    custom_params[0] = 0.6446147426983434  # 0.4446147426983434
+    custom_params[1] = -0.00067190913463951184  # -0.00047190913463951184
+    custom_params[2] = 0.0  # 0.0
+    custom_params[3] = 0.9518981714555636  # 0.9418981714555636
+    custom_params[4] = -0.38742006217597214  # -0.38742006217597214
+    custom_params[5] = 460.2075087762523  # 460.2075087762523
+
+    if args.verbose > 0:
+        print('All parameters:')
+        print(custom_params)
+
     # %%
     # TESTING PHASE
 
@@ -174,15 +173,15 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
     # Predict preprocessed values
     train_start = s
-    train_end = n_train-1
+    train_end = n_train - 1
     train_y_pred_ = np.zeros(n_train)
-    train_y_pred_[train_start:train_end+1] = train_model.filter(new_params).get_prediction(
+    train_y_pred_[train_start:train_end + 1] = train_model.filter(custom_params).get_prediction(
             start=train_start, end=train_end, exog=train_outliers, dynamic=True).predicted_mean
     test_y_pred_ = np.zeros(n_test)
     test_start = s
-    test_end = n_test-1
+    test_end = n_test - 1
     test_y_pred_ = np.zeros(n_test)
-    test_y_pred_[test_start:test_end+1] = test_model.filter(new_params).get_prediction(
+    test_y_pred_[test_start:test_end + 1] = test_model.filter(custom_params).get_prediction(
             start=test_start, end=test_end, exog=test_outliers, dynamic=True).predicted_mean
 
     # Remove preprocessing
@@ -263,7 +262,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     # %%
 
     model = {}
-    model['params'] = new_params
+    model['params'] = custom_params
     model['hyperparams'] = {}
     model['hyperparams']['order'] = order
     model['hyperparams']['seasonal_order'] = seasonal_order
