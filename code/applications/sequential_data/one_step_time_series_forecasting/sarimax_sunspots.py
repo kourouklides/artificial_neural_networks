@@ -102,7 +102,6 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     translation = args.translation
 
     n_train = train_y.shape[0]  # number of training examples/samples
-    n_test = test_y.shape[0]  # number of test examples/samples
 
     # Apply preprocessing
     train_y_ = affine_transformation(train_y, scaling_factor, translation)
@@ -151,17 +150,25 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     if args.verbose > 0:
         print(model_fit.summary())
 
+    def model_predict(y):
+        """
+        Predict using the SARIMAX Model (One-step ahead Forecasting)
+        """
+        n_y = y.shape[0]
+
+        pred_outliers = np.zeros(n_y)
+        pred_model = SARIMAX(y, order=order, seasonal_order=seasonal_order,
+                             exog=pred_outliers, trend=trend)
+        y_pred = pred_model.filter(fitted_params).get_prediction().predicted_mean
+
+        return y_pred
+
     # %%
     # TESTING PHASE
 
-    test_outliers = np.zeros(n_test)
-
-    test_model = SARIMAX(test_y_, order=order, seasonal_order=seasonal_order,
-                         exog=test_outliers, trend=trend)
-
     # Predict preprocessed values
-    train_y_pred_ = train_model.filter(fitted_params).get_prediction().predicted_mean
-    test_y_pred_ = test_model.filter(fitted_params).get_prediction().predicted_mean
+    train_y_pred_ = model_predict(train_y_)
+    test_y_pred_ = model_predict(test_y_)
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
