@@ -126,33 +126,20 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
+    """
     train_outliers = np.zeros(n_train)
 
     train_model = SARIMAX(train_y_, order=order, seasonal_order=seasonal_order,
                           exog=train_outliers, trend=trend)
 
+    fitted_params = None
+
     if args.time_training:
         start = timer()
-
-    fitted_params = None
 
     for i in range(1):
         model_fit = train_model.fit(start_params=fitted_params, method=optimizer, maxiter=maxiter)
         fitted_params = model_fit.params
-
-        new_params = np.zeros(6)
-        new_params[0] = 0.6446147426983434  # 0.4446147426983434
-        new_params[1] = -0.00067190913463951184  # -0.00047190913463951184
-        new_params[2] = 0.0  # 0.0
-        new_params[3] = 0.9518981714555636  # 0.9418981714555636
-        new_params[4] = -0.38742006217597214  # -0.38742006217597214
-        new_params[5] = 460.2075087762523  # 460.2075087762523
-
-        # model_fit.params = new_params
-
-        if args.verbose > 0:
-            print('All parameters:')
-            print(new_params)
 
     if args.time_training:
         end = timer()
@@ -162,24 +149,57 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
     if args.verbose > 0:
         print(model_fit.summary())
+    """
+
+    custom_params = np.zeros(6)
+    custom_params[0] = 0.6446147426983434  # 0.4446147426983434
+    custom_params[1] = -0.00067190913463951184  # -0.00047190913463951184
+    custom_params[2] = 0.0  # 0.0
+    custom_params[3] = 0.9518981714555636  # 0.9418981714555636
+    custom_params[4] = -0.38742006217597214  # -0.38742006217597214
+    custom_params[5] = 460.2075087762523  # 460.2075087762523
+
+    if args.verbose > 0:
+        print('All parameters:')
+        print(custom_params)
+
+    def model_predict(y):
+        """
+        Predict using the SARIMAX Model (Multi-step ahead Forecasting)
+        """
+        n_y = y.shape[0]
+        window_start = s
+        n_iter = int(np.floor(n_y/s))
+        L_last_window = n_y % s
+        y_pred = np.zeros(n_y)
+
+        # Multi-step ahead Forecasting of full windows
+        for i in range(1, n_iter):
+            pred_start = i * s
+            pred_end = pred_start + s - 1
+            window_end = window_start + s - 1
+            x = y[pred_start - s:pred_start]
+            pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order, trend=trend)
+            y_pred[pred_start:pred_end + 1] = pred_model.filter(custom_params).get_prediction(
+                    start=window_start, end=window_end, dynamic=True).predicted_mean
+
+        # Multi-step ahead Forecasting of the last window
+        pred_start = n_y - L_last_window
+        pred_end = n_y
+        window_end = window_start + L_last_window - 1
+        x = y[pred_start - s:pred_start]
+        pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order, trend=trend)
+        y_pred[pred_start:pred_end + 1] = pred_model.filter(custom_params).get_prediction(
+                start=window_start, end=window_end, dynamic=True).predicted_mean
+
+        return y_pred
 
     # %%
     # TESTING PHASE
-    test_outliers = np.zeros(s)
 
     # Predict preprocessed values
-    train_y_pred_ = np.zeros(n_train)
-    train_y_pred_[s:] = train_model.filter(new_params).get_prediction(
-            start=s, end=n_train-1, exog=train_outliers, dynamic=True).predicted_mean
-
-    test_model = SARIMAX(test_y_[0:s], order=order, seasonal_order=seasonal_order,
-                         exog=test_outliers, trend=trend)
-
-    test_start = s
-    test_end = 2*s
-    test_y_pred_ = np.zeros(n_test)
-    test_y_pred_[test_start:test_end] = test_model.filter(new_params).get_prediction(
-            start=test_start, end=test_end, exog=test_outliers, dynamic=True).predicted_mean
+    train_y_pred_ = model_predict(train_y_)
+    test_y_pred_ = model_predict(test_y_)
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
@@ -259,7 +279,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     # %%
 
     model = {}
-    model['params'] = new_params
+    model['params'] = custom_params
     model['hyperparams'] = {}
     model['hyperparams']['order'] = order
     model['hyperparams']['seasonal_order'] = seasonal_order
