@@ -64,7 +64,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--reproducible', type=bool, default=True)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=False)
+    parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--look_back', type=int, default=10)
@@ -117,19 +117,20 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
 
     look_back = args.look_back
 
-    train = np.concatenate((np.zeros(look_back), sunspots[:n_split]))
-    test = sunspots[n_split - look_back:]
+    diff = 130
 
-    train_x, train_y = series_to_supervised(train, look_back)
-    test_x, test_y = series_to_supervised(test, look_back)
+    train = sunspots[:n_split]
+    test = sunspots[n_split - diff - look_back:]
+
+    train_y = train
+    test_y = test[diff + look_back:]
 
     # Apply diferencing for Seasonality Adjustment to make the it stationary
-    diff = 130
-    d_train = train[diff:] - train[:-diff]
+    d_train = np.concatenate((np.zeros(look_back), train[diff:] - train[:-diff]))
     d_test = test[diff:] - test[:-diff]
 
-    train_first = train[look_back:look_back+diff]
-    test_first = test[look_back:look_back+diff]
+    train_first = train[:diff]
+    test_first = test[:diff]
 
     d_train_x, d_train_y = series_to_supervised(d_train, look_back)
     d_test_x, d_test_y = series_to_supervised(d_test, look_back)
@@ -279,12 +280,13 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
         d_y_reshaped = d_y_pad.reshape(n_rows, n_cols)
         y_pad = d_y_reshaped.cumsum(axis=0).reshape(n_rows*n_cols)
         y = y_pad[:-n_zeros]
+        y[:d] = np.zeros(d)
 
         return y
 
     # Remove differencing
     train_y_pred = remove_diff(d_train_y_pred, train_first)
-    test_y_pred = remove_diff(d_test_y_pred, test_first)
+    test_y_pred = remove_diff(d_test_y_pred, test_first)[diff:]
 
     train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
     train_mae = mean_absolute_error(train_y, train_y_pred)
