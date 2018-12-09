@@ -119,8 +119,8 @@ def bi_lstm_dropout_sunspots(new_dir=os.getcwd()):
 
     look_back = args.look_back
 
-    train = sunspots[:n_split + look_back]
-    test = sunspots[n_split:]
+    train = np.concatenate((np.zeros(look_back), sunspots[:n_split]))
+    test = sunspots[n_split - look_back:]
 
     train_x, train_y = series_to_supervised(train, look_back)
     test_x, test_y = series_to_supervised(test, look_back)
