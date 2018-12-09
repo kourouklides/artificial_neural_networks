@@ -64,14 +64,14 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--reproducible', type=bool, default=True)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=True)
+    parser.add_argument('--plot', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=3)
+    parser.add_argument('--look_back', type=int, default=10)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
-    parser.add_argument('--n_epochs', type=int, default=3)
+    parser.add_argument('--n_epochs', type=int, default=13)
     parser.add_argument('--batch_size', type=none_or_int, default=1)
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
@@ -124,7 +124,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     test_x, test_y = series_to_supervised(test, look_back)
 
     # Apply diferencing for Seasonality Adjustment to make the it stationary
-    diff = 126
+    diff = 130
     d_train = train[diff:] - train[:-diff]
     d_test = test[diff:] - test[:-diff]
 
@@ -285,12 +285,6 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # Remove differencing
     train_y_pred = remove_diff(d_train_y_pred, train_first)
     test_y_pred = remove_diff(d_test_y_pred, test_first)
-    """
-
-    train_y_pred, test_y_pred = d_train_y_pred, d_test_y_pred
-    train_y, test_y = d_train_y, d_test_y
-
-    """
 
     train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
     train_mae = mean_absolute_error(train_y, train_y_pred)
