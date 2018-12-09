@@ -57,7 +57,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--reproducible', type=bool, default=False)
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=False)
+    parser.add_argument('--plot', type=bool, default=True)
     parser.add_argument('--use_custom_params', type=bool, default=False)
 
     # Settings for preprocessing and hyperparameters
@@ -216,6 +216,9 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
     test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse=True)
+
+    train_y_pred[:s] = np.zeros(s)
+    test_y_pred[:s] = np.zeros(s)
 
     train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
     train_mae = mean_absolute_error(train_y, train_y_pred)
