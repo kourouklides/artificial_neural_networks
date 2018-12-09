@@ -5,7 +5,7 @@ Mehtod: Truncated Backpropagation Through Time (TBPTT)
 Architecture: Recurrent Neural Network
 
 Dataset: Monthly sunspots
-Task: One-step Ahead Forecasting of Univariate Time Series (Univariate Regression)
+Task: One-step Ahead Forecasting of Univariate Time Series (Univariate Regression) with Deseasoning
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License:
@@ -205,7 +205,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # Save trained models for every epoch
 
     models_path = r'artificial_neural_networks/trained_models/'
-    model_name = 'sunspots_lstm_dense_d'
+    model_name = 'sunspots_lstm_dense_des'
     weights_path = models_path + model_name + '_weights'
     model_path = models_path + model_name + '_model'
     file_suffix = '_{epoch:04d}_{val_loss:.4f}_{val_mean_absolute_error:.4f}'
