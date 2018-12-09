@@ -198,10 +198,11 @@ def sarimax_sunspots(new_dir=os.getcwd()):
         window_end = window_start + L_last_window - 1
         pred_outliers = np.zeros((s, 1))
         x = y[pred_start - s:pred_start]
-        pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order, trend=trend)
+        pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order,
+                             exog=pred_outliers, trend=trend)
         pred_outliers = np.zeros((L_last_window, 1))
         y_pred[pred_start:pred_end + 1] = pred_model.filter(fitted_params).get_prediction(
-                start=window_start, end=window_end).predicted_mean
+                start=window_start, end=window_end, exog=pred_outliers).predicted_mean
 
         return y_pred
 
