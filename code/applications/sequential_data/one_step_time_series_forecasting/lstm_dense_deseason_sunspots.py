@@ -76,6 +76,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
+    parser.add_argument('--diff', type=int, default=126)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
@@ -117,7 +118,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
 
     look_back = args.look_back
 
-    diff = 130
+    diff = args.diff
 
     train = sunspots[:n_split]
     test = sunspots[n_split - diff - look_back:]
