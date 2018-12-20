@@ -39,12 +39,12 @@ Guides and instructions on how to install the necessary libraries and how to set
 
 If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) and want to run a script from the command line (terminal) then you __should use__ it with the [``-m`` command-line flag](https://docs.python.org/3.6/using/cmdline.html#cmdoption-m) and without its ``.py`` extension, for the reasons explained [here](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not).
 
-For example, by __replacing__ \<your directory path> accordingly, you can either run this:
+For example, by __replacing__ \<your directory path> accordingly, you can __either__ run this:
 
     cd <your directory path>/artificial_neural_networks/code/architectures/feedforward_neural_networks/standard_neural_networks/
     python -m snn_dense_mnist
 
-or you can run this:
+__or__ you can run this:
 
     cd <your directory path>/artificial_neural_networks/
     python -m artificial_neural_networks.code.architectures.feedforward_neural_networks.standard_neural_networks.snn_dense_mnist
