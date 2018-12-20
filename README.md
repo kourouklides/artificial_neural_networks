@@ -97,7 +97,7 @@ Contributors are all welcome.
 
 Please not that this project is under development, so it is likely you'll run into bugs and/or problems.
 
-So, if you find any bugs/problems, please open an [issue](https://github.com/kourouklides/artificial_neural_networks/issues) or submit a [pull request](https://github.com/kourouklides/artificial_neural_networks/pulls).
+So, if you find any bugs and/or problems, please feel free to open an [issue](https://github.com/kourouklides/artificial_neural_networks/issues) or submit a [pull request](https://github.com/kourouklides/artificial_neural_networks/pulls).
 
 ## License
 
