@@ -6,7 +6,7 @@ This repository contains a collection of Methods and Models for various architec
 
 The code implementation is in __Python 3__ (using [TensorFlow](https://www.tensorflow.org/) and [Keras](https://keras.io/) libraries).
 
-The repository is the one used for lectures of the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) and also, at the meetups and workshops of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
+The repository is the one used for lectures of the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) and also, at the [meetups](https://github.com/PyDataCyprus/meetups) and [workshops](https://github.com/PyDataCyprus/workshops) of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
 
 If you like this repository or if you found it useful, feel free to __Star, Fork, Watch__ it or __share__ it online.
 
@@ -39,12 +39,12 @@ Guides and instructions on how to install the necessary libraries and how to set
 
 If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) and want to run a script from the command line (terminal) then you __should use__ it with the [``-m`` command-line flag](https://docs.python.org/3.6/using/cmdline.html#cmdoption-m) and without its ``.py`` extension, for the reasons explained [here](https://stackoverflow.com/questions/22241420/execution-of-python-code-with-m-option-or-not).
 
-For example, by __replacing__ \<your directory path> accordingly, you can either run this:
+For example, by __replacing__ \<your directory path> accordingly, you can __either__ run this:
 
     cd <your directory path>/artificial_neural_networks/code/architectures/feedforward_neural_networks/standard_neural_networks/
     python -m snn_dense_mnist
 
-or you can run this:
+__or__ you can run this:
 
     cd <your directory path>/artificial_neural_networks/
     python -m artificial_neural_networks.code.architectures.feedforward_neural_networks.standard_neural_networks.snn_dense_mnist
@@ -71,12 +71,14 @@ Some advanced Methods of Machine Learning are also included:
 Various applications of the aforementioned Methods and Models are also included and they fall under the following domains, in alphabetical order:
 
 - [Bioinformatics](code/applications/bioinformatics)
+- Compressed Sensing
 - [Computational Finance](code/applications/computational_finance)
 - [Computer Vision](code/applications/computer_vision)
+- Control
 - Econometrics
 - Energy
 - Environmetrics
-- Geospatial Data
+- Geospatial Data (including LiDAR, Hyperspectral images and GIS)
 - [Medical Imaging](code/applications/medical_imaging)
 - [Natural Language Processing](code/applications/natural_language_processing)
 - [Sequential Data](code/applications/sequential_data) (including Time Series)
@@ -94,6 +96,10 @@ The wiki contains curated lists of online and offline resources (e.g. books, pap
 ## Contributing
 
 Contributors are all welcome.
+
+Please not that this project is __under development__, so it is likely you'll run into bugs and/or problems.
+
+So, if you find any bugs and/or problems, please feel free to open an [issue](https://github.com/kourouklides/artificial_neural_networks/issues) or submit a [pull request](https://github.com/kourouklides/artificial_neural_networks/pulls).
 
 ## License
 
