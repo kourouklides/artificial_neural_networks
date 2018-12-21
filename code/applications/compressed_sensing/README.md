@@ -17,7 +17,7 @@ There are various sub-tasks that fall under this specific domain and some of the
 ## Theory
 Regarding theory of Sequential Data, you can check the following pages on my personal wiki:
 
-- 
+- [Compressed Sensing](https://wiki.kourouklides.com/wiki/Compressed_Sensing)
 
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
