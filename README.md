@@ -73,6 +73,7 @@ Various applications of the aforementioned Methods and Models are also included 
 - [Bioinformatics](code/applications/bioinformatics)
 - [Computational Finance](code/applications/computational_finance)
 - [Computer Vision](code/applications/computer_vision)
+- Control
 - Econometrics
 - Energy
 - Environmetrics
