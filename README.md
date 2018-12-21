@@ -51,7 +51,7 @@ __or__ you can run this:
 
 
 ## Methods and Models
-This repository includes the following architectures:
+This repository includes the following __architectures__:
 
 - [Feedforward Neural Network](code/architectures/feedforward_neural_networks)
   - Bayesian Neural Networks
@@ -62,7 +62,7 @@ This repository includes the following architectures:
   - [LSTM](code/architectures/recurrent_neural_networks/LSTM/)
   - Vanilla RNN
 
-Some advanced Methods of Machine Learning are also included:
+Some advanced __Methods__ of Machine Learning are also included:
 
 - Ensemble Learning
 - Transfer Learning
