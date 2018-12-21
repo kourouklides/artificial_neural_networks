@@ -71,10 +71,10 @@ Some advanced Methods of Machine Learning are also included:
 Various applications of the aforementioned Methods and Models are also included and they fall under the following domains, in alphabetical order:
 
 - [Bioinformatics](code/applications/bioinformatics)
-- Compressed Sensing
+- [Compressed Sensing](code/applications/compressed_sensing)
 - [Computational Finance](code/applications/computational_finance)
 - [Computer Vision](code/applications/computer_vision)
-- Control
+- [Control](code/applications/control)
 - Econometrics
 - Energy
 - Environmetrics
