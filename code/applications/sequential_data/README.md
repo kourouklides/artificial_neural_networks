@@ -24,6 +24,9 @@ Regarding theory of Sequential Data, you can check the following pages on my per
 
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
+## Datasets
+ - Monthly sunspots
+
 ## Blog posts
 
 TODO: write them
