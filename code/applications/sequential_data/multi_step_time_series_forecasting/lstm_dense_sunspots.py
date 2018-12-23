@@ -120,7 +120,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     steps_ahead = args.steps_ahead
 
     train = sunspots[:n_split]
-    test = sunspots[n_split - look_back - steps_ahead + 1:]
+    test = sunspots[n_split - look_back:]
 
     train_x, train_y = series_to_supervised(train, look_back, steps_ahead)
     test_x, test_y = series_to_supervised(test, look_back, steps_ahead)
@@ -255,7 +255,6 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
         L_last_window = n_y % steps_ahead
 
         y_pred = np.zeros(n_y)
-
         # Multi-step ahead Forecasting of all the full windows
         for i in range(0, n_iter):
             pred_start = i * steps_ahead
@@ -278,7 +277,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # TESTING PHASE
 
     train_y_series = train[look_back:]
-    test_y_series = test[look_back+steps_ahead-1:]
+    test_y_series = test[look_back:]
 
     # Predict preprocessed values
     train_y_pred_ = model_predict(train_x_, train_y_series, train_)

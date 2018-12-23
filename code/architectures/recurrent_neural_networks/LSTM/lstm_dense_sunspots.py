@@ -133,7 +133,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     n_test = test_x.shape[0]  # number of test examples/samples
 
     n_in = train_x.shape[1]  # number of features / dimensions
-    n_out = 1  # number of classes/labels
+    n_out = train_y.shape[1]  # number of steps ahead to be predicted
 
     # Reshape training and test sets
     train_x = train_x.reshape(n_train, n_in, 1)

@@ -133,7 +133,7 @@ def snn_dense_sunspots(new_dir=os.getcwd()):
     translation = args.translation
 
     n_in = train_x.shape[1]  # number of features / dimensions
-    n_out = 1  # number of classes/labels
+    n_out = train_y.shape[1]  # number of steps ahead to be predicted
 
     # Apply preprocessing
     train_x_ = affine_transformation(train_x, scaling_factor, translation)
