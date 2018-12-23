@@ -174,17 +174,17 @@ def sarimax_sunspots(new_dir=os.getcwd()):
         Predict using the SARIMAX Model (Multi-step ahead Forecasting)
         """
         n_y = y.shape[0]
-        window_start = s
         n_iter = int(np.floor(n_y/s))
         L_last_window = n_y % s
 
         y_pred = np.zeros(n_y)
 
-        # Multi-step ahead Forecasting of all full windows
+        # Multi-step ahead Forecasting of all the full windows
+        window_start = s
+        window_end = window_start + s - 1
         for i in range(1, n_iter):
             pred_start = i * s
             pred_end = pred_start + s - 1
-            window_end = window_start + s - 1
             pred_outliers = np.zeros((s, 1))
             x = y[pred_start - s:pred_start]
             pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order,
@@ -192,17 +192,19 @@ def sarimax_sunspots(new_dir=os.getcwd()):
             y_pred[pred_start:pred_end + 1] = pred_model.filter(fitted_params).get_prediction(
                     start=window_start, end=window_end, exog=pred_outliers).predicted_mean
 
-        # Multi-step ahead Forecasting of the last window
-        pred_start = n_y - L_last_window
-        pred_end = n_y
-        window_end = window_start + L_last_window - 1
-        pred_outliers = np.zeros((s, 1))
-        x = y[pred_start - s:pred_start]
-        pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order,
-                             exog=pred_outliers, trend=trend)
-        pred_outliers = np.zeros((L_last_window, 1))
-        y_pred[pred_start:pred_end + 1] = pred_model.filter(fitted_params).get_prediction(
-                start=window_start, end=window_end, exog=pred_outliers).predicted_mean
+        if L_last_window > 0:
+            # Multi-step ahead Forecasting of the last window
+            window_start = s
+            window_end = window_start + L_last_window - 1
+            pred_start = n_y - L_last_window
+            pred_end = n_y
+            pred_outliers = np.zeros((s, 1))
+            x = y[pred_start - s:pred_start]
+            pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order,
+                                 exog=pred_outliers, trend=trend)
+            pred_outliers = np.zeros((L_last_window, 1))
+            y_pred[pred_start:pred_end + 1] = pred_model.filter(fitted_params).get_prediction(
+                    start=window_start, end=window_end, exog=pred_outliers).predicted_mean
 
         return y_pred
 
