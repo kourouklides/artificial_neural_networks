@@ -127,11 +127,11 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     test_y = test[diff + look_back:]
 
     # Apply diferencing for Seasonality Adjustment to make the it stationary
-    d_train = np.concatenate((np.zeros(look_back), train[diff:] - train[:-diff]))
+    d_train = train[diff:] - train[:-diff]
     d_test = test[diff:] - test[:-diff]
 
-    train_first = train[:diff]
-    test_first = test[:diff]
+    train_first = train[look_back:look_back + diff]
+    test_first = test[look_back:look_back + diff]
 
     d_train_x, d_train_y = series_to_supervised(d_train, look_back)
     d_test_x, d_test_y = series_to_supervised(d_test, look_back)
@@ -286,7 +286,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
         return y
 
     # Remove differencing
-    train_y_pred = remove_diff(d_train_y_pred, train_first)
+    train_y_pred = np.concatenate((np.zeros(look_back), remove_diff(d_train_y_pred, train_first)))
     test_y_pred = remove_diff(d_test_y_pred, test_first)[diff:]
 
     train_rmse = sqrt(mean_squared_error(train_y, train_y_pred))
