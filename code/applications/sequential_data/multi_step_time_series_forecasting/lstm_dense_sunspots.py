@@ -67,16 +67,16 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=20)
+    parser.add_argument('--look_back', type=int, default=3)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
-    parser.add_argument('--n_epochs', type=int, default=3)
+    parser.add_argument('--n_epochs', type=int, default=13)
     parser.add_argument('--batch_size', type=none_or_int, default=1)
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=20)
+    parser.add_argument('--steps_ahead', type=int, default=1)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
@@ -152,10 +152,15 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # %%
     # Model hyperparameters and ANN Architecture
 
-    x = Input(shape=(n_in, 1))  # input layer
+    stateful = False
+
+    if stateful:
+        x = Input(shape=(n_in, 1), batch_shape=(1, n_in, 1))  # input layer
+    else:
+        x = Input(shape=(n_in, 1))  # input layer
     h = x
 
-    h = LSTM(units=args.layer_size)(h)  # hidden layer
+    h = LSTM(units=args.layer_size, stateful=stateful)(h)  # hidden layer
 
     out = Dense(units=n_out, activation=None)(h)  # output layer
 
@@ -230,14 +235,20 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     if args.time_training:
         start = timer()
 
-    model.fit(
-        x=train_x_,
-        y=train_y_,
-        validation_data=(test_x_, test_y_),
-        batch_size=args.batch_size,
-        epochs=args.n_epochs,
-        verbose=args.verbose,
-        callbacks=callbacks)
+    for i in range(args.n_epochs):
+        print('Epoch:')
+        print(i)
+        model.fit(
+            x=train_x_,
+            y=train_y_,
+            validation_data=(test_x_, test_y_),
+            batch_size=args.batch_size,
+            epochs=1,
+            verbose=args.verbose,
+            callbacks=callbacks,
+            shuffle=False)
+        if stateful:
+            model.reset_states()
 
     if args.time_training:
         end = timer()
@@ -281,7 +292,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
 
     # Predict preprocessed values
     train_y_pred_ = model_predict(train_x_, train_y_series, train_)
-    test_y_pred_ = model_predict(test_x_, test_y_series, test_)  # TODO: check
+    test_y_pred_ = model_predict(test_x_, test_y_series, test_)
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
