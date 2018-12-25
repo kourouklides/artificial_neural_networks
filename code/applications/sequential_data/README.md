@@ -11,7 +11,7 @@ A Time Series can be either _univariate_ or _multivariate_.
 
 __Time Series Forecasting__ can be: (i) _One-Step ahead_, (ii) _Multi-Step ahead_ or (iii) _Dynamic_.
 
-Multi-Step ahead Time Series Forecasting can have three main strategies:
+Multi-Step ahead Time Series Forecasting has [four main strategies](https://machinelearningmastery.com/multi-step-time-series-forecasting/):
 
 1. _Direct Strategy_*, when creating many separate models, one for each time step ahead.
 
@@ -40,7 +40,7 @@ Regarding theory of Sequential Data, you can check the following pages on my per
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
 ## Datasets
- - Monthly sunspots
+ - [Monthly sunspots](../../../datasets#monthly-sunspots) (Univariate Time Series)
 
 ## Blog posts
 
