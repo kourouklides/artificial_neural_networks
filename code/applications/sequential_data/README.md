@@ -13,9 +13,9 @@ In general, models can be single input (SI), single output (SO), multiple input 
 
 __Time Series Forecasting__ can be: (i) _One-Step ahead_, (ii) _Multi-Step ahead_ or (iii) _Dynamic_.
 
-One-Step ahead Time Series Forecasting can use either SISO or MISO models.
+__One-Step ahead Time Series Forecasting__ can use either SISO or MISO models.
 
-Multi-Step ahead Time Series Forecasting has [four main strategies](https://machinelearningmastery.com/multi-step-time-series-forecasting/):
+__Multi-Step ahead Time Series Forecasting__ has [four main strategies](https://machinelearningmastery.com/multi-step-time-series-forecasting/):
 
 1. _Direct Strategy_*, when creating many separate SISO/MISO models, one for each time step ahead.
 
