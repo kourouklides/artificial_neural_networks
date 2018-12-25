@@ -77,6 +77,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
     parser.add_argument('--steps_ahead', type=int, default=1)
+    parser.add_argument('--stateful', type=bool, default=True)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
@@ -152,7 +153,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # %%
     # Model hyperparameters and ANN Architecture
 
-    stateful = False
+    stateful = args.stateful
 
     if stateful:
         x = Input(shape=(n_in, 1), batch_shape=(1, n_in, 1))  # input layer
@@ -232,6 +233,11 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
+    if stateful:
+        shuffle = False
+    else:
+        shuffle = True
+
     if args.time_training:
         start = timer()
 
@@ -246,7 +252,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
             epochs=1,
             verbose=args.verbose,
             callbacks=callbacks,
-            shuffle=False)
+            shuffle=shuffle)
         if stateful:
             model.reset_states()
 
