@@ -11,6 +11,8 @@ A Time Series can be either _univariate_ or _multivariate_.
 
 In general, models can be single input (SI), single output (SO), multiple input (MI), multiple output (MO) and any combination (SISO, MIMO, SIMO, MISO). 
 
+## Time Series Forecasting
+
 __Time Series Forecasting__ can be: (i) _One-Step ahead_, (ii) _Multi-Step ahead_ or (iii) _Dynamic_.
 
 __One-Step ahead Time Series Forecasting__ can use either SISO or MISO models.
