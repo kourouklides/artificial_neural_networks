@@ -13,7 +13,7 @@ The code examples included so far are the following:
 
 - Classification
   - SNN without dropout on MNIST dataset
-  - SNN without dropout on MNIST dataset
+  - SNN with dropout on MNIST dataset
 - Regression
   - SNN without dropout on Monthly Sunspots dataset
 
