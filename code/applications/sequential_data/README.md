@@ -9,6 +9,20 @@ Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Mo
 
 A Time Series can be either _univariate_ or _multivariate_.
 
+__Time Series Forecasting__ can be: (i) _One-Step ahead_, (ii) _Multi-Step ahead_ or (iii) _Dynamic_.
+
+Multi-Step ahead Time Series Forecasting can have three main strategies:
+
+1. _Direct Strategy_*, when creating many separate models, one for each time step ahead.
+
+1. _Recursive Strategy_, when using predicted (and possibly actual) values as input to the (single) model.
+
+1. _Direct-Recursive Hybrid Strategies_*, when combining the two methods.
+
+1. _Multiple Output Strategy_, when using only actual (and not predicted) values as input to the (single) model.
+
+\* Strategies 1 and 3 are much more _computational intensive_ (than the rest ones), since a separate model needs to be trained during the Training Phase.
+
 ## Sub-tasks
 There are various sub-tasks that fall under this specific domain and some of them are the following:
 
