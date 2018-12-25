@@ -67,17 +67,18 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=3)
+    parser.add_argument('--look_back', type=int, default=126)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
-    parser.add_argument('--n_epochs', type=int, default=13)
+    parser.add_argument('--n_epochs', type=int, default=3)
     parser.add_argument('--batch_size', type=none_or_int, default=1)
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=1)
+    parser.add_argument('--steps_ahead', type=int, default=63)
     parser.add_argument('--stateful', type=bool, default=True)
+    parser.add_argument('--samples', type=int, default=1)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
@@ -120,11 +121,13 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     look_back = args.look_back
     steps_ahead = args.steps_ahead
 
-    train = sunspots[:n_split]
+    train = sunspots[:n_split + steps_ahead]
     test = sunspots[n_split - look_back:]
 
-    train_x, train_y = series_to_supervised(train, look_back, steps_ahead)
-    test_x, test_y = series_to_supervised(test, look_back, steps_ahead)
+    samples = args.samples
+
+    train_x, train_y = series_to_supervised(train, look_back, steps_ahead, samples)
+    test_x, test_y = series_to_supervised(test, look_back, steps_ahead, samples)
 
     # %%
     # PREPROCESSING STEP
@@ -243,9 +246,8 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     if args.time_training:
         start = timer()
 
-    for i in range(args.n_epochs):
-        print('Epoch:')
-        print(i)
+    for i in range(0, args.n_epochs):
+        print('Epoch: {0}/{1}'.format(i+1, args.n_epochs))
         model.fit(
             x=train_x_,
             y=train_y_,
@@ -295,7 +297,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # %%
     # TESTING PHASE
 
-    train_y_series = train[look_back:]
+    train_y_series = train[look_back:-steps_ahead]
     test_y_series = test[look_back:]
 
     # Predict preprocessed values
