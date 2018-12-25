@@ -7,7 +7,7 @@ Keywords: Sequential Data, Time Series, Linear Dynamical Systems, State Space Mo
 
 ## Introduction
 
-A Time Series can be either _univariate_ or _multivariate_.
+A __Time Series__ can be either _univariate_ or _multivariate_.
 
 In general, models can be single input (SI), single output (SO), multiple input (MI), multiple output (MO) and any combination (SISO, MIMO, SIMO, MISO). 
 
