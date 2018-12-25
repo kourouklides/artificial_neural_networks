@@ -233,10 +233,12 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     # %%
     # TRAINING PHASE
 
+    """
     if stateful:
         shuffle = False
     else:
         shuffle = True
+    """
 
     if args.time_training:
         start = timer()
@@ -252,7 +254,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
             epochs=1,
             verbose=args.verbose,
             callbacks=callbacks,
-            shuffle=shuffle)
+            shuffle=True)
         if stateful:
             model.reset_states()
 
