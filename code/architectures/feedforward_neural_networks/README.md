@@ -11,9 +11,9 @@ TODO: write it
 
 The architectures included so far are the following:
 
-  - Bayesian Neural Networks
-  - [Convolutional Neural Networks](convolutional_neural_networks)
-  - [Standard Neural Networks](standard_neural_networks)
+- Bayesian Neural Networks
+- [Convolutional Neural Networks](convolutional_neural_networks)
+- [Standard Neural Networks](standard_neural_networks)
 
 ## Theory
 
