@@ -46,7 +46,9 @@ Regarding theory of Sequential Data, you can check the following pages on my per
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
 ## Datasets
- - [Monthly sunspots](../../../datasets#monthly-sunspots) (Univariate Time Series)
+ - Univariate Time Series
+   - [Monthly sunspots](../../../datasets#monthly-sunspots)
+ - Multivariate Time Series
 
 ## Blog posts
 
