@@ -137,7 +137,7 @@ def load_keras_model(h5_file, json_file=None, yaml_file=None, is_weights=False, 
 # %%
 
 
-def series_to_supervised(dataset, n_before=1, n_after=1, samples=1):
+def series_to_supervised(dataset, n_before=1, n_after=1):
     """
     Prepare the dataset (Time Series) to be used for Supervised Learning
     """
@@ -149,7 +149,7 @@ def series_to_supervised(dataset, n_before=1, n_after=1, samples=1):
 
     for i in range(0, n_data - n_before - n_after + 1):
         sliding_window = i + n_before
-        data_X.append(dataset[i:sliding_window:samples])
+        data_X.append(dataset[i:sliding_window])
         data_Y.append(dataset[sliding_window:sliding_window + n_after])
 
     return np.array(data_X), np.array(data_Y)
