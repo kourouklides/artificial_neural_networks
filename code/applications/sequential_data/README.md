@@ -33,7 +33,7 @@ __Multi-Step ahead Time Series Forecasting__ has [four main strategies](https://
 There are various sub-tasks that fall under this specific domain and some of them are the following:
 
 - [One-Step ahead Time Series Forecasting](one_step_time_series_forecasting)
-- [Multi-Step ahead Time Series Forecasting, checking performance of only non-overlapping windows](multi_step_time_series_forecasting)
+- [Multi-Step ahead Time Series Forecasting, checking performance of non-overlapping windows only](multi_step_time_series_forecasting)
 - [Multi-Step ahead Time Series Forecasting, checking performance of all overlapping windows](multi_step_time_series_forecasting_steps)
 - [Dynamic Time Series Forecasting](dynamic_time_series_forecasting)
 
