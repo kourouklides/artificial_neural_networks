@@ -58,9 +58,9 @@ This repository includes the following __architectures__:
   - [Convolutional Neural Networks](code/architectures/feedforward_neural_networks/convolutional_neural_networks)
   - [Standard Neural Networks](code/architectures/feedforward_neural_networks/standard_neural_networks)
 - [Recurrent Neural Network](code/architectures/recurrent_neural_networks)
-  - GRU
-  - [LSTM](code/architectures/recurrent_neural_networks/LSTM)
-  - Vanilla RNN
+  - GRUs
+  - [LSTMs](code/architectures/recurrent_neural_networks/LSTM)
+  - Vanilla RNNs
 
 Some advanced __Methods__ of Machine Learning are also included:
 
