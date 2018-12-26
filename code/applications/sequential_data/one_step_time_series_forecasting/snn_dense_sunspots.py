@@ -29,7 +29,7 @@ if __name__ == '__main__':
     os.chdir('../../../../../')
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.architectures.recurrent_neural_networks.LSTM. \
-        snn_dense_sunspots import snn_dense_sunspots
+    from artificial_neural_networks.code.architectures.feedforward_neural_networks.\
+        standard_neural_networks.snn_dense_sunspots import snn_dense_sunspots
 
     model_snn_dense = snn_dense_sunspots()
