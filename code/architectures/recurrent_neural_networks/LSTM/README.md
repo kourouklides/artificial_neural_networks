@@ -1,7 +1,7 @@
-# Long Short Term Memories
+# Long Short-Term Memories
 
 ## About
-This part of the repository is concerned with __Long Short Term Memories__ (LSTMs).
+This part of the repository is concerned with __Long Short-Term Memories__ (LSTMs).
 
 ## Introduction
 
