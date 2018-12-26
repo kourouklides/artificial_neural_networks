@@ -68,7 +68,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=63)
+    parser.add_argument('--look_back', type=int, default=126)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -77,7 +77,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=30)
+    parser.add_argument('--steps_ahead', type=int, default=63)
     parser.add_argument('--stateful', type=bool, default=True)
     parser.add_argument('--recursive', type=bool, default=True)
 
@@ -288,7 +288,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
             pred_start = 0
             pred_end = steps_ahead
             x_dyn = x_[pred_start:pred_start + 1]
-            y_dyn = model.predict(x_dyn)[0]
+            y_dyn = model.predict(x_dyn)[0]*1.2
             y_pred[pred_start:pred_end] = y_dyn
 
             # Multi-step ahead Forecasting of all the full windows (with recursion)
@@ -297,7 +297,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                 pred_end = pred_start + steps_ahead
                 x_dyn = x_[pred_start:pred_start + 1]  # use actual values (if possible)
                 x_dyn[0, x_start:look_back, 0] = y_dyn[y_start:steps_ahead]  # use predicted values
-                y_dyn = model.predict(x_dyn)[0]
+                y_dyn = model.predict(x_dyn)[0]*1.2
                 y_pred[pred_start:pred_end] = y_dyn
 
             if L_last_window > 0:
@@ -307,7 +307,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                 x_dyn[0, :, 0] = y_[pred_end - look_back:pred_end]  # use actual values (if
                 #                                                     possible)
                 x_dyn[0, x_start:look_back, 0] = y_dyn[y_start:steps_ahead]  # use predicted values
-                y_dyn = model.predict(x_dyn)[0]
+                y_dyn = model.predict(x_dyn)[0]*1.2
                 y_pred[pred_start:pred_end] = y_dyn[:L_last_window]
 
         else:  # Multiple Ouptput  Strategy
