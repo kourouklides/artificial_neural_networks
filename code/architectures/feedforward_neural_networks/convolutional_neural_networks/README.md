@@ -1,7 +1,7 @@
 # Convolutional Neural Networks
 
 ## About
-This part of the repository is concerned with Convolutional Neural Networks__ (CNNs).
+This part of the repository is concerned with __Convolutional Neural Networks__ (CNNs).
 
 ## Introduction
 
