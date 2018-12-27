@@ -22,7 +22,6 @@ from __future__ import print_function
 
 # standard library imports
 import argparse
-import copy
 from math import sqrt
 import os
 import random as rn
@@ -317,7 +316,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                     # y_start = np.max([pred_start, j - look_back])
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
-                    y_pred[j:j + 1] = np.max([0, y_dyn])
+                    y_pred[j:j + 1] = y_dyn  # np.max([0, y_dyn])
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
