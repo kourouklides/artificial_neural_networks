@@ -76,4 +76,4 @@ if __name__ == '__main__':
     # %%
     # MODEL
 
-    model_bi_lstm_dense = bi_lstm_dropout_sunspots()
+    model_bi_lstm_dense = bi_lstm_dropout_sunspots(args)
