@@ -5,6 +5,7 @@ Method: Maximum Likelihood Estimation (MLE) via Kalman filter
 
 Dataset: Monthly sunspots
 Task: Multi-step ahead Forecasting of Univariate Time Series (Univariate Regression)
+Strategy: Recursive Strategy
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License:
@@ -58,7 +59,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--seed', type=int, default=0)
     parser.add_argument('--time_training', type=bool, default=True)
     parser.add_argument('--plot', type=bool, default=True)
-    parser.add_argument('--use_custom_params', type=bool, default=False)
+    parser.add_argument('--use_custom_params', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
     parser.add_argument('--scaling_factor', type=float, default=2)
@@ -67,6 +68,7 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--integrated', type=int, default=0)
     parser.add_argument('--moving_average', type=int, default=1)
     parser.add_argument('--seasonal_periods', type=int, default=126)
+    parser.add_argument('--steps_ahead', type=int, default=126)  # TODO: implement this
 
     args = parser.parse_args()
 

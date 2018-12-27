@@ -6,7 +6,7 @@ Architecture: Recurrent Neural Network
 
 Dataset: Monthly sunspots
 Task: Multi-step ahead Forecasting of Univariate Time Series (Univariate Regression)
-Strategies: (i) Multiple Ouptput Recursive Strategy, or (ii) Multiple Ouptput Direct Strategy
+Strategies: (i) Recursive Strategy, or (ii) Multiple Ouptput Strategy
 
     Author: Ioannis Kourouklides, www.kourouklides.com
     License:
@@ -68,7 +68,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=10)
+    parser.add_argument('--look_back', type=int, default=64)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -77,9 +77,8 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=3)
+    parser.add_argument('--steps_ahead', type=int, default=32)
     parser.add_argument('--stateful', type=bool, default=True)
-    parser.add_argument('--samples', type=int, default=1)
     parser.add_argument('--recursive', type=bool, default=True)
 
     # Settings for saving the model
@@ -126,10 +125,8 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     train = sunspots[:n_split + (steps_ahead - 1)]
     test = sunspots[n_split - look_back:]
 
-    samples = args.samples
-
-    train_x, train_y = series_to_supervised(train, look_back, steps_ahead, samples)
-    test_x, test_y = series_to_supervised(test, look_back, steps_ahead, samples)
+    train_x, train_y = series_to_supervised(train, look_back, steps_ahead)
+    test_x, test_y = series_to_supervised(test, look_back, steps_ahead)
 
     train_y_series = train[look_back:train.shape[0] - (steps_ahead - 1)]
     test_y_series = test[look_back:]
@@ -252,7 +249,9 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
         start = timer()
 
     for i in range(0, args.n_epochs):
-        print('Epoch: {0}/{1}'.format(i+1, args.n_epochs))
+        if args.verbose > 0:
+            print('Epoch: {0}/{1}'.format(i + 1, args.n_epochs))
+
         model.fit(
             x=train_x_,
             y=train_y_,
@@ -262,6 +261,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
             verbose=args.verbose,
             callbacks=callbacks,
             shuffle=True)
+
         if stateful:
             model.reset_states()
 
@@ -271,32 +271,99 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
         print('Total time for training (in seconds):')
         print(duration)
 
-    def model_predict(x_, y_,):
+    # %%
+
+    def model_predict(x_, y_):
         """
         Predict using the LSTM Model (Multi-step ahead Forecasting)
         """
         n_y = y_.shape[0]
 
-        n_iter = int(np.floor(n_y/steps_ahead))
-        L_last_window = n_y % steps_ahead
-
         y_pred = np.zeros(n_y)
 
-        if args.recursive:  # Multiple Ouptput Recursive Strategy
+        if args.recursive:  # Recursive Strategy
+            if args.verbose > 0:
+                print('Following Recursive Strategy ...')
+
             n_x_ = x_.shape[0]
 
-            # x_dyn = x_[0:1]
+            n_iter = int(np.floor(n_x_/steps_ahead))
+            L_last_window = n_x_ % steps_ahead
+
+            first = 0
+
+            # Multi-step ahead Forecasting of all the full windows
+            for i in range(0, n_iter):
+                if args.verbose > 0:
+                    print('Completed: {0}/{1}'.format(i + 1, n_iter + 1))
+
+                pred_start = i * steps_ahead
+                pred_end = pred_start + steps_ahead
+
+                # first time step of each window (no recursion possible)
+                j = pred_start
+                k = j - pred_start  # (always zero and unused)
+                x_dyn = np.copy(x_[j:j + 1])   # use actual values only
+                y_dyn = model.predict(x_dyn)[:, first]
+                y_pred[j:j + 1] = y_dyn
+
+                # remaining time steps of each window (with recursion)
+                for j in range(pred_start + 1, pred_end):
+                    k = j - pred_start
+                    x_dyn = np.copy(x_[j:j + 1])  # use actual values (if possible)
+                    x_start = np.max([0, look_back - k])
+                    y_start = np.max([0, k - look_back]) + pred_start
+                    # y_start = np.max([pred_start, j - look_back])
+                    x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
+                    y_dyn = model.predict(x_dyn)[:, first]
+                    y_pred[j:j + 1] = y_dyn  # np.max([0, y_dyn])
+
+            # Multi-step ahead Forecasting of the last window
+            if L_last_window > 0:
+                if args.verbose > 0:
+                    print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1))
+
+                pred_start = n_x_ - L_last_window
+                pred_end = n_y
+
+                # first time step of the last window (no recursion possible)
+                j = pred_start
+                k = j - pred_start  # (always zero and unused)
+                x_dyn = np.copy(x_[j:j + 1])   # use actual values only
+                y_dyn = model.predict(x_dyn)[:, first]
+                y_pred[j:j + 1] = y_dyn
+
+                # remaining time steps of the last window (with recursion)
+                for j in range(pred_start + 1, pred_end):
+                    k = j - pred_start
+                    x_dyn[0, :, 0] = y_[j - look_back:j]  # use actual values (if possible)
+                    x_start = np.max([0, look_back - k])
+                    y_start = np.max([0, k - look_back]) + pred_start
+                    # y_start = np.max([pred_start, j - look_back])
+                    x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
+                    y_dyn = model.predict(x_dyn)[:, first]
+                    y_pred[j:j + 1] = y_dyn
+            """
+            # One-step ahead Forecasting
+
+            n_x_ = x_.shape[0]
             for i in range(0, n_x_):
                 x_dyn = x_[i:i+1]
                 y_dyn = model.predict(x_dyn)[0, 0]
                 y_pred[i] = y_dyn
 
             for i in range(n_x_, n_y):
-                x_dyn[0, :, 0] = y_[i - look_back:i:samples]
+                x_dyn[0, :, 0] = y_[i - look_back:i]
                 y_dyn = model.predict(x_dyn)[0, 0]
                 y_pred[i] = y_dyn
+            """
+        else:  # Multiple Ouptput Strategy
+            if args.verbose > 0:
+                print('Following Multiple Ouptput Strategy ...')
 
-        else:  # Multiple Ouptput Direct Strategy
+            n_iter = int(np.floor(n_y/steps_ahead))
+            L_last_window = n_y % steps_ahead
+
             # Multi-step ahead Forecasting of all the full windows
             for i in range(0, n_iter):
                 pred_start = i * steps_ahead
@@ -305,11 +372,11 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                 y_dyn = model.predict(x_dyn)[0]
                 y_pred[pred_start:pred_end] = y_dyn
 
+            # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
-                # Multi-step ahead Forecasting of the last window
                 pred_start = n_y - L_last_window
                 pred_end = n_y
-                x_dyn[0, :, 0] = y_[pred_start - look_back:pred_start:samples]
+                x_dyn[0, :, 0] = y_[pred_end - look_back:pred_end]
                 y_dyn = model.predict(x_dyn)[0]
                 y_pred[pred_start:pred_end] = y_dyn[:L_last_window]
 
