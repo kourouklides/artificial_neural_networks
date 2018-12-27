@@ -22,6 +22,7 @@ from __future__ import print_function
 
 # standard library imports
 import argparse
+import copy
 from math import sqrt
 import os
 import random as rn
@@ -68,7 +69,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=126)
+    parser.add_argument('--look_back', type=int, default=64)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -77,7 +78,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=63)
+    parser.add_argument('--steps_ahead', type=int, default=32)
     parser.add_argument('--stateful', type=bool, default=True)
     parser.add_argument('--recursive', type=bool, default=True)
 
@@ -271,16 +272,6 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
         print('Total time for training (in seconds):')
         print(duration)
 
-    # %% Recursive Strategy
-
-    if args.recursive:
-        from artificial_neural_networks.code.architectures.recurrent_neural_networks.LSTM. \
-            lstm_dense_sunspots import lstm_dense_sunspots
-
-        # An LSTM Model for One-Step ahead Forecasting is also required for this strategy
-        args_one = args
-        model_one = lstm_dense_sunspots(args_one)
-
     # %%
 
     def model_predict(x_, y_):
@@ -313,20 +304,20 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                 # first time step of each window (no recursion possible)
                 j = pred_start
                 k = j - pred_start  # (always zero and unused)
-                x_dyn = x_[j:j + 1]   # use actual values only
-                y_dyn = model_one.predict(x_dyn)[:, first]
+                x_dyn = np.copy(x_[j:j + 1])   # use actual values only
+                y_dyn = model.predict(x_dyn)[:, first]
                 y_pred[j:j + 1] = y_dyn
 
                 # remaining time steps of each window (with recursion)
                 for j in range(pred_start + 1, pred_end):
                     k = j - pred_start
-                    x_dyn = x_[j:j + 1]  # use actual values (if possible)
+                    x_dyn = np.copy(x_[j:j + 1])  # use actual values (if possible)
                     x_start = np.max([0, look_back - k])
                     y_start = np.max([0, k - look_back]) + pred_start
                     # y_start = np.max([pred_start, j - look_back])
-                    # x_dyn[0, x_start:look_back, 0] = y_pred[y_start:j]  # use predicted values
-                    y_dyn = model_one.predict(x_dyn)[:, first]
-                    y_pred[j:j + 1] = y_dyn
+                    x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
+                    y_dyn = model.predict(x_dyn)[:, first]
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
@@ -339,8 +330,8 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                 # first time step of the last window (no recursion possible)
                 j = pred_start
                 k = j - pred_start  # (always zero and unused)
-                x_dyn = x_[j:j + 1]   # use actual values only
-                y_dyn = model_one.predict(x_dyn)[:, first]
+                x_dyn = np.copy(x_[j:j + 1])   # use actual values only
+                y_dyn = model.predict(x_dyn)[:, first]
                 y_pred[j:j + 1] = y_dyn
 
                 # remaining time steps of the last window (with recursion)
@@ -350,8 +341,8 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                     x_start = np.max([0, look_back - k])
                     y_start = np.max([0, k - look_back]) + pred_start
                     # y_start = np.max([pred_start, j - look_back])
-                    # x_dyn[0, x_start:look_back, 0] = y_pred[y_start:j]  # use predicted values
-                    y_dyn = model_one.predict(x_dyn)[:, first]
+                    x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
+                    y_dyn = model.predict(x_dyn)[:, first]
                     y_pred[j:j + 1] = y_dyn
             """
             # One-step ahead Forecasting
