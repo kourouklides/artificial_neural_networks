@@ -34,14 +34,12 @@ from statsmodels.tsa.statespace.sarimax import SARIMAX
 # %%
 
 
-def sarimax_sunspots(new_dir=os.getcwd()):
+def sarimax_sunspots(args):
     """
     Main function
     """
     # %%
     # IMPORTS
-
-    os.chdir(new_dir)
 
     # code repository sub-package imports
     from artificial_neural_networks.code.utils.download_monthly_sunspots import \
@@ -50,27 +48,6 @@ def sarimax_sunspots(new_dir=os.getcwd()):
     from artificial_neural_networks.code.utils.vis_utils import regression_figs
 
     # %%
-    # SETTINGS
-    parser = argparse.ArgumentParser()
-
-    # General settings
-    parser.add_argument('--verbose', type=int, default=1)
-    parser.add_argument('--reproducible', type=bool, default=False)
-    parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=True)
-    parser.add_argument('--use_custom_params', type=bool, default=True)
-
-    # Settings for preprocessing and hyperparameters
-    parser.add_argument('--scaling_factor', type=float, default=2)
-    parser.add_argument('--translation', type=float, default=0)
-    parser.add_argument('--autoregressive', type=int, default=1)
-    parser.add_argument('--integrated', type=int, default=0)
-    parser.add_argument('--moving_average', type=int, default=1)
-    parser.add_argument('--seasonal_periods', type=int, default=126)
-    parser.add_argument('--steps_ahead', type=int, default=126)  # TODO: implement this
-
-    args = parser.parse_args()
 
     if args.verbose > 0:
         print(args)
@@ -266,4 +243,36 @@ def sarimax_sunspots(new_dir=os.getcwd()):
 
 
 if __name__ == '__main__':
-    model_sarimax_sunspots = sarimax_sunspots('../../../../../')
+
+    # %%
+    # IMPORTS
+
+    os.chdir('../../../../../')
+
+    # %%
+    # SETTINGS
+    parser = argparse.ArgumentParser()
+
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=False)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--time_training', type=bool, default=True)
+    parser.add_argument('--plot', type=bool, default=True)
+    parser.add_argument('--use_custom_params', type=bool, default=True)
+
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--scaling_factor', type=float, default=2)
+    parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--autoregressive', type=int, default=1)
+    parser.add_argument('--integrated', type=int, default=0)
+    parser.add_argument('--moving_average', type=int, default=1)
+    parser.add_argument('--seasonal_periods', type=int, default=126)
+    parser.add_argument('--steps_ahead', type=int, default=126)  # TODO: implement this
+
+    args = parser.parse_args()
+
+    # %%
+    # MODEL
+
+    model_sarimax_sunspots = sarimax_sunspots(args)

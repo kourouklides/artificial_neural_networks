@@ -40,56 +40,21 @@ import tensorflow as tf
 # %%
 
 
-def lstm_dense_sunspots(new_dir=os.getcwd()):
+def lstm_dense_sunspots(args):
     """
     Main function
     """
     # %%
     # IMPORTS
 
-    os.chdir(new_dir)
-
     # code repository sub-package imports
     from artificial_neural_networks.code.utils.download_monthly_sunspots import \
         download_monthly_sunspots
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float, \
-        save_regress_model, series_to_supervised, affine_transformation
+    from artificial_neural_networks.code.utils.generic_utils import save_regress_model,  \
+        series_to_supervised, affine_transformation
     from artificial_neural_networks.code.utils.vis_utils import regression_figs
 
     # %%
-    # SETTINGS
-    parser = argparse.ArgumentParser()
-
-    # General settings
-    parser.add_argument('--verbose', type=int, default=1)
-    parser.add_argument('--reproducible', type=bool, default=True)
-    parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=True)
-
-    # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=64)
-    parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
-    parser.add_argument('--translation', type=float, default=0)
-    parser.add_argument('--layer_size', type=int, default=4)
-    parser.add_argument('--n_epochs', type=int, default=3)
-    parser.add_argument('--batch_size', type=none_or_int, default=1)
-    parser.add_argument('--optimizer', type=str, default='Adam')
-    parser.add_argument('--lrearning_rate', type=float, default=1e-3)
-    parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=32)
-    parser.add_argument('--stateful', type=bool, default=True)
-    parser.add_argument('--recursive', type=bool, default=True)
-
-    # Settings for saving the model
-    parser.add_argument('--save_architecture', type=bool, default=True)
-    parser.add_argument('--save_last_weights', type=bool, default=True)
-    parser.add_argument('--save_last_model', type=bool, default=True)
-    parser.add_argument('--save_models', type=bool, default=False)
-    parser.add_argument('--save_weights_only', type=bool, default=False)
-    parser.add_argument('--save_best', type=bool, default=True)
-
-    args = parser.parse_args()
 
     if args.verbose > 0:
         print(args)
@@ -316,7 +281,7 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
                     # y_start = np.max([pred_start, j - look_back])
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
-                    y_pred[j:j + 1] = y_dyn  # np.max([0, y_dyn])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])  # y_dyn
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
@@ -433,4 +398,51 @@ def lstm_dense_sunspots(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    model_lstm_dense = lstm_dense_sunspots('../../../../../')
+
+    # %%
+    # IMPORTS
+
+    os.chdir('../../../../../')
+
+    # code repository sub-package imports
+    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+
+    # %%
+    # SETTINGS
+    parser = argparse.ArgumentParser()
+
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--time_training', type=bool, default=True)
+    parser.add_argument('--plot', type=bool, default=True)
+
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--look_back', type=int, default=126)
+    parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
+    parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--layer_size', type=int, default=4)
+    parser.add_argument('--n_epochs', type=int, default=3)
+    parser.add_argument('--batch_size', type=none_or_int, default=1)
+    parser.add_argument('--optimizer', type=str, default='Adam')
+    parser.add_argument('--lrearning_rate', type=float, default=1e-3)
+    parser.add_argument('--epsilon', type=none_or_float, default=None)
+    parser.add_argument('--steps_ahead', type=int, default=63)
+    parser.add_argument('--stateful', type=bool, default=True)
+    parser.add_argument('--recursive', type=bool, default=True)
+
+    # Settings for saving the model
+    parser.add_argument('--save_architecture', type=bool, default=True)
+    parser.add_argument('--save_last_weights', type=bool, default=True)
+    parser.add_argument('--save_last_model', type=bool, default=True)
+    parser.add_argument('--save_models', type=bool, default=False)
+    parser.add_argument('--save_weights_only', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=True)
+
+    args = parser.parse_args()
+
+    # %%
+    # MODEL
+
+    model_lstm_dense = lstm_dense_sunspots(args)
