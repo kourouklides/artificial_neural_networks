@@ -1,5 +1,7 @@
 # artificial_neural_networks
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://raw.githubusercontent.com/kourouklides/artificial_neural_networks/master/LICENSE)
+[![Contributions
+welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ## About
 This repository contains a collection of Methods and Models for various architectures of __Artificial Neural Networks__.
