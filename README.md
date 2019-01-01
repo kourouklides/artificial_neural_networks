@@ -83,6 +83,8 @@ Various applications of the aforementioned Methods and Models are also included 
 - Geospatial Data (including LiDAR, Hyperspectral images and GIS)
 - [Medical Imaging](code/applications/medical_imaging)
 - [Natural Language Processing](code/applications/natural_language_processing)
+- Robotics
+- Recommender Systems
 - [Sequential Data](code/applications/sequential_data) (including Time Series)
 - [Speech Processing](code/applications/speech_processing)
 
