@@ -283,7 +283,7 @@ def lstm_dense_sunspots(args):
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
                     y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
-                    y_pred[j:j + 1] = np.max([0, y_after])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
 
             # Multi-step ahead Forecasting of the last window
@@ -304,7 +304,7 @@ def lstm_dense_sunspots(args):
                 # remaining time steps of the last window (with recursion)
                 for j in range(pred_start + 1, pred_end):
                     k = j - pred_start
-                    x_dyn[0, :, 0] = np.copy(y_[j - look_back:j])  # use actual values (if possible)
+                    x_dyn = np.roll(x_dyn, -1)  # use act. values (if possible)
                     x_start = np.max([0, look_back - k])
                     y_start = np.max([0, k - look_back]) + pred_start
                     # y_start = np.max([pred_start, j - look_back])
@@ -312,7 +312,7 @@ def lstm_dense_sunspots(args):
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
                     y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
-                    y_pred[j:j + 1] = np.max([0, y_after])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
             """
             # One-step ahead Forecasting
