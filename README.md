@@ -1,5 +1,7 @@
 # artificial_neural_networks
 [![GitHub license](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](https://raw.githubusercontent.com/kourouklides/artificial_neural_networks/master/LICENSE)
+[![Contributions
+welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 ## About
 This repository contains a collection of Methods and Models for various architectures of __Artificial Neural Networks__.
@@ -72,15 +74,16 @@ Various applications of the aforementioned Methods and Models are also included 
 
 - [Bioinformatics](code/applications/bioinformatics)
 - [Compressed Sensing](code/applications/compressed_sensing)
-- [Computational Finance](code/applications/computational_finance)
+- [Computational Finance](code/applications/computational_finance) (including Financial Econometrics)
 - [Computer Vision](code/applications/computer_vision)
 - [Control](code/applications/control)
-- Econometrics
 - Energy
 - Environmetrics
 - Geospatial Data (including LiDAR, Hyperspectral images and GIS)
 - [Medical Imaging](code/applications/medical_imaging)
 - [Natural Language Processing](code/applications/natural_language_processing)
+- Robotics
+- Recommender Systems
 - [Sequential Data](code/applications/sequential_data) (including Time Series)
 - [Speech Processing](code/applications/speech_processing)
 
@@ -97,7 +100,7 @@ The wiki contains curated lists of online and offline resources (e.g. books, pap
 
 Contributors are all welcome.
 
-Please not that this project is __under development__, so it is likely you'll run into bugs and/or problems.
+Please not that this project is __under development__, so it is possible that you might run into bugs and/or problems.
 
 So, if you find any bugs and/or problems, please feel free to open an [issue](https://github.com/kourouklides/artificial_neural_networks/issues) or submit a [pull request](https://github.com/kourouklides/artificial_neural_networks/pulls).
 
