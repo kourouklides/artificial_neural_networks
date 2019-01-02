@@ -68,10 +68,12 @@ def sarimax_sunspots(args):
     # %%
     # Train-Test split
 
-    n_series = len(sunspots)
+    L_series = len(sunspots)
 
     split_ratio = 2 / 3  # between zero and one
-    n_split = int(n_series * split_ratio)
+    n_split = int(L_series * split_ratio)
+
+    steps_ahead = args.steps_ahead
 
     train_y = sunspots[:n_split]
     test_y = sunspots[n_split:]
@@ -153,19 +155,20 @@ def sarimax_sunspots(args):
         Predict using the SARIMAX Model (Multi-step ahead Forecasting)
         """
         n_y = y.shape[0]
-        n_iter = int(np.floor(n_y/s))
-        L_last_window = n_y % s
 
         y_pred = np.zeros(n_y)
 
+        n_iter = int(np.floor(n_y/steps_ahead))
+        L_last_window = n_y % steps_ahead
+
         # Multi-step ahead Forecasting of all the full windows
-        window_start = s
-        window_end = window_start + s - 1
+        window_start = steps_ahead
+        window_end = window_start + steps_ahead - 1
         for i in range(1, n_iter):
-            pred_start = i * s
-            pred_end = pred_start + s - 1
-            pred_outliers = np.zeros((s, 1))
-            x = y[pred_start - s:pred_start]
+            pred_start = i * steps_ahead
+            pred_end = pred_start + steps_ahead - 1
+            pred_outliers = np.zeros((steps_ahead, 1))
+            x = y[pred_start - steps_ahead:pred_start]
             pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order,
                                  exog=pred_outliers, trend=trend)
             y_pred[pred_start:pred_end + 1] = pred_model.filter(fitted_params).get_prediction(
@@ -173,12 +176,12 @@ def sarimax_sunspots(args):
 
         if L_last_window > 0:
             # Multi-step ahead Forecasting of the last window
-            window_start = s
+            window_start = steps_ahead
             window_end = window_start + L_last_window - 1
             pred_start = n_y - L_last_window
             pred_end = n_y
-            pred_outliers = np.zeros((s, 1))
-            x = y[pred_start - s:pred_start]
+            pred_outliers = np.zeros((steps_ahead, 1))
+            x = y[pred_start - steps_ahead:pred_start]
             pred_model = SARIMAX(x, order=order, seasonal_order=seasonal_order,
                                  exog=pred_outliers, trend=trend)
             pred_outliers = np.zeros((L_last_window, 1))
@@ -269,7 +272,7 @@ if __name__ == '__main__':
     parser.add_argument('--integrated', type=int, default=0)
     parser.add_argument('--moving_average', type=int, default=1)
     parser.add_argument('--seasonal_periods', type=int, default=126)
-    parser.add_argument('--steps_ahead', type=int, default=126)  # TODO: implement this
+    parser.add_argument('--steps_ahead', type=int, default=252)
 
     args = parser.parse_args()
 
