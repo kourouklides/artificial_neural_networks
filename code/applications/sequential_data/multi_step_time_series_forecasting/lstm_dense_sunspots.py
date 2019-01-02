@@ -259,8 +259,8 @@ def lstm_dense_sunspots(args):
 
             # Multi-step ahead Forecasting of all the full windows
             for i in range(0, n_iter):
-                if args.verbose > 0:
-                    print('Completed: {0}/{1}'.format(i + 1, n_iter + 1))
+                """ if args.verbose > 0:
+                    print('Completed: {0}/{1}'.format(i + 1, n_iter + 1)) """
 
                 pred_start = i * steps_ahead
                 pred_end = pred_start + steps_ahead
@@ -282,14 +282,14 @@ def lstm_dense_sunspots(args):
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
-                    y_after = 1.2 * y_after if (y_after / scaling_factor) > 145 else y_after
+                    y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
                     y_pred[j:j + 1] = np.max([0, y_after])
                     # y_pred[j:j + 1] = y_dyn
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
-                if args.verbose > 0:
-                    print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1))
+                """if args.verbose > 0:
+                    print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1)) """
 
                 pred_start = n_x_ - L_last_window
                 pred_end = n_y
@@ -311,6 +311,7 @@ def lstm_dense_sunspots(args):
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
+                    y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
                     y_pred[j:j + 1] = np.max([0, y_after])
                     # y_pred[j:j + 1] = y_dyn
             """
@@ -356,8 +357,18 @@ def lstm_dense_sunspots(args):
     # TESTING PHASE
 
     # Predict preprocessed values
-    train_y_pred_ = model_predict(train_x_, train_y_series_)
-    test_y_pred_ = model_predict(test_x_, test_y_series_)
+    train_y_sum = [0]
+    test_y_sum = [0]
+    reps = 1
+    for i in range(reps):
+        train_y_pred_ = model_predict(train_x_, train_y_series_)
+        test_y_pred_ = model_predict(test_x_, test_y_series_)
+
+        train_y_sum = np.sum([train_y_sum, train_y_pred_], axis=0)
+        test_y_sum = np.sum([test_y_sum, test_y_pred_], axis=0)
+
+    train_y_pred_ = train_y_sum / reps
+    test_y_pred_ = test_y_sum / reps
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
@@ -424,7 +435,7 @@ if __name__ == '__main__':
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=64)
+    parser.add_argument('--look_back', type=int, default=130)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -433,7 +444,7 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=32)
+    parser.add_argument('--steps_ahead', type=int, default=64)
     parser.add_argument('--stateful', type=bool, default=True)
     parser.add_argument('--recursive', type=bool, default=True)
 
