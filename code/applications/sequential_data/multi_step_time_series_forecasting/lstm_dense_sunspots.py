@@ -242,9 +242,9 @@ def lstm_dense_sunspots(args):
         """
         Predict using the LSTM Model (Multi-step ahead Forecasting)
         """
-        n_y = y_.shape[0]
+        n_y_ = y_.shape[0]
 
-        y_pred = np.zeros(n_y)
+        y_pred = np.zeros(n_y_)
 
         if args.recursive:  # Recursive Strategy
             if args.verbose > 0:
@@ -292,7 +292,7 @@ def lstm_dense_sunspots(args):
                     print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1)) """
 
                 pred_start = n_x_ - L_last_window
-                pred_end = n_y
+                pred_end = n_y_
 
                 # first time step of the last window (no recursion possible)
                 j = pred_start
@@ -332,8 +332,8 @@ def lstm_dense_sunspots(args):
             if args.verbose > 0:
                 print('Following Multiple Ouptput Strategy ...')
 
-            n_iter = int(np.floor(n_y/steps_ahead))
-            L_last_window = n_y % steps_ahead
+            n_iter = int(np.floor(n_y_/steps_ahead))
+            L_last_window = n_y_ % steps_ahead
 
             # Multi-step ahead Forecasting of all the full windows
             for i in range(0, n_iter):
@@ -345,8 +345,8 @@ def lstm_dense_sunspots(args):
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
-                pred_start = n_y - L_last_window
-                pred_end = n_y
+                pred_start = n_y_ - L_last_window
+                pred_end = n_y_
                 x_dyn[0, :, 0] = y_[pred_end - look_back:pred_end]
                 y_dyn = model.predict(x_dyn)[0]
                 y_pred[pred_start:pred_end] = y_dyn[:L_last_window]
