@@ -242,9 +242,9 @@ def lstm_dense_sunspots(args):
         """
         Predict using the LSTM Model (Multi-step ahead Forecasting)
         """
-        n_y = y_.shape[0]
+        n_y_ = y_.shape[0]
 
-        y_pred = np.zeros(n_y)
+        y_pred = np.zeros(n_y_)
 
         if args.recursive:  # Recursive Strategy
             if args.verbose > 0:
@@ -292,7 +292,7 @@ def lstm_dense_sunspots(args):
                     print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1)) """
 
                 pred_start = n_x_ - L_last_window
-                pred_end = n_y
+                pred_end = n_y_
 
                 # first time step of the last window (no recursion possible)
                 j = pred_start
@@ -304,7 +304,7 @@ def lstm_dense_sunspots(args):
                 # remaining time steps of the last window (with recursion)
                 for j in range(pred_start + 1, pred_end):
                     k = j - pred_start
-                    x_dyn[0, :, 0] = y_[j - look_back:j]  # use actual values (if possible)
+                    x_dyn = np.roll(x_dyn, -1)  # use act. values (if possible)
                     x_start = np.max([0, look_back - k])
                     y_start = np.max([0, k - look_back]) + pred_start
                     # y_start = np.max([pred_start, j - look_back])
@@ -314,6 +314,7 @@ def lstm_dense_sunspots(args):
                     y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
                     y_pred[j:j + 1] = np.max([0, y_after])
                     # y_pred[j:j + 1] = y_dyn
+
             """
             # One-step ahead Forecasting
 
@@ -332,8 +333,8 @@ def lstm_dense_sunspots(args):
             if args.verbose > 0:
                 print('Following Multiple Ouptput Strategy ...')
 
-            n_iter = int(np.floor(n_y/steps_ahead))
-            L_last_window = n_y % steps_ahead
+            n_iter = int(np.floor(n_y_/steps_ahead))
+            L_last_window = n_y_ % steps_ahead
 
             # Multi-step ahead Forecasting of all the full windows
             for i in range(0, n_iter):
@@ -345,8 +346,8 @@ def lstm_dense_sunspots(args):
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
-                pred_start = n_y - L_last_window
-                pred_end = n_y
+                pred_start = n_y_ - L_last_window
+                pred_end = n_y_
                 x_dyn[0, :, 0] = y_[pred_end - look_back:pred_end]
                 y_dyn = model.predict(x_dyn)[0]
                 y_pred[pred_start:pred_end] = y_dyn[:L_last_window]
@@ -436,7 +437,7 @@ if __name__ == '__main__':
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=130)
+    parser.add_argument('--look_back', type=int, default=10)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -445,7 +446,7 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=64)
+    parser.add_argument('--steps_ahead', type=int, default=5)
     parser.add_argument('--stateful', type=bool, default=True)
     parser.add_argument('--recursive', type=bool, default=True)
 
