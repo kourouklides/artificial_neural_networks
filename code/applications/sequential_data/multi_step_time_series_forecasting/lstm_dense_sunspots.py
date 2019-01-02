@@ -283,7 +283,7 @@ def lstm_dense_sunspots(args):
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
                     y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
-                    y_pred[j:j + 1] = np.max([0, y_dyn])
+                    y_pred[j:j + 1] = np.max([0, y_after])
                     # y_pred[j:j + 1] = y_dyn
 
             # Multi-step ahead Forecasting of the last window
@@ -312,7 +312,7 @@ def lstm_dense_sunspots(args):
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
                     y_after = 1.2 * y_after if (y_after / scaling_factor) > 130 else y_after
-                    y_pred[j:j + 1] = np.max([0, y_dyn])
+                    y_pred[j:j + 1] = np.max([0, y_after])
                     # y_pred[j:j + 1] = y_dyn
             """
             # One-step ahead Forecasting
