@@ -425,6 +425,7 @@ if __name__ == '__main__':
 
     # %%
     # SETTINGS
+
     parser = argparse.ArgumentParser()
 
     # General settings
