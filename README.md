@@ -74,10 +74,9 @@ Various applications of the aforementioned Methods and Models are also included 
 
 - [Bioinformatics](code/applications/bioinformatics)
 - [Compressed Sensing](code/applications/compressed_sensing)
-- [Computational Finance](code/applications/computational_finance)
+- [Computational Finance](code/applications/computational_finance) (including Financial Econometrics)
 - [Computer Vision](code/applications/computer_vision)
 - [Control](code/applications/control)
-- Econometrics
 - Energy
 - Environmetrics
 - Geospatial Data (including LiDAR, Hyperspectral images and GIS)
