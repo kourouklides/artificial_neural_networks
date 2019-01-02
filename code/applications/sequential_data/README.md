@@ -27,7 +27,7 @@ __Multi-Step ahead Time Series Forecasting__ has [four main strategies](https://
 
 1. _Multiple Output Strategy_, when using only actual (and not predicted) values as input to the (one) SIMO/MIMO model.
 
-\* Strategies 1 and 3 are much more _computational intensive_ (than the rest ones), since a separate model needs to be trained during the Training Phase.
+\* Strategies 1 and 3 are much more _computational intensive_ (than the rest ones), since many separate models need to be trained during the Training Phase.
 
 ## Sub-tasks
 There are various sub-tasks that fall under this specific domain and some of them are the following:
