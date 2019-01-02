@@ -101,7 +101,7 @@ The wiki contains curated lists of online and offline resources (e.g. books, pap
 
 Contributors are all welcome.
 
-Please not that this project is __under development__, so it is likely you'll run into bugs and/or problems.
+Please not that this project is __under development__, so it is possible that you might run into bugs and/or problems.
 
 So, if you find any bugs and/or problems, please feel free to open an [issue](https://github.com/kourouklides/artificial_neural_networks/issues) or submit a [pull request](https://github.com/kourouklides/artificial_neural_networks/pulls).
 
