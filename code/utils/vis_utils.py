@@ -122,3 +122,42 @@ def regression_figs(train_y, train_y_pred, test_y, test_y_pred):
     plt.plot([test_y.min(), test_y.max()], [0, 0], 'k--', lw=4)
     plt.title('Residuals vs Predicted for test set')
     plt.show()
+
+
+# %%
+
+
+def multistep_figs(steps_ahead, train_rmse, train_mae, train_r2, test_rmse, test_mae, test_r2):
+    """
+    Utility to plot regression figures
+    """
+
+    x_plot = range(1, steps_ahead + 1)
+
+    plt.figure()
+    plt.plot(x_plot, train_rmse, label='RMSE')
+    plt.plot(x_plot, train_mae, label='MAE')
+    plt.xticks(x_plot)
+    plt.title('Error vs Steps for the training set')
+    plt.legend()
+    plt.show()
+
+    plt.figure()
+    plt.plot(x_plot, 1.0 - train_r2)
+    plt.xticks(x_plot)
+    plt.title(r'$(1-R^2)$ vs Steps for the training set')
+    plt.show()
+
+    plt.figure()
+    plt.plot(x_plot, test_rmse, label='RMSE')
+    plt.plot(x_plot, test_mae, label='MAE')
+    plt.xticks(x_plot)
+    plt.title('Error vs Steps for the test set')
+    plt.legend()
+    plt.show()
+
+    plt.figure()
+    plt.plot(x_plot, 1.0 - test_r2)
+    plt.xticks(x_plot)
+    plt.title(r'$(1-R^2)$ vs Steps for the test set')
+    plt.show()
