@@ -52,6 +52,7 @@ def lstm_dense_sunspots(args):
         download_monthly_sunspots
     from artificial_neural_networks.code.utils.generic_utils import save_regress_model,  \
         series_to_supervised, affine_transformation
+    from artificial_neural_networks.code.utils.vis_utils import multistep_figs
 
     # %%
 
@@ -392,21 +393,21 @@ def lstm_dense_sunspots(args):
         test_r2[i] = r2_score(test_y_true[:, i], test_y_pred[:, i])
 
     if args.verbose > 0:
-        print('Train RMSE: %.4f ' % (train_rmse))
-        print('Train MAE: %.4f ' % (train_mae))
-        print('Train (1 - R_squared): %.4f ' % (1.0 - train_r2))
-        print('Train R_squared: %.4f ' % (train_r2))
+        print('Average Train RMSE: %.4f ' % np.mean(train_rmse))
+        print('Average Train MAE: %.4f ' % np.mean(train_mae))
+        print('Average Train (1 - R_squared): %.4f ' % np.mean(1.0 - train_r2))
+        print('Average Train R_squared: %.4f ' % np.mean(train_r2))
         print('')
-        print('Test RMSE: %.4f ' % (test_rmse))
-        print('Test MAE: %.4f ' % (test_mae))
-        print('Test (1 - R_squared): %.4f ' % (1.0 - test_r2))
-        print('Test R_squared: %.4f ' % (test_r2))
+        print('Average Test RMSE: %.4f ' % np.mean(test_rmse))
+        print('Average Test MAE: %.4f ' % np.mean(test_mae))
+        print('Average Test (1 - R_squared): %.4f ' % np.mean(1.0 - test_r2))
+        print('Average Test R_squared: %.4f ' % np.mean(test_r2))
 
     # %%
     # Data Visualization
 
     if args.plot:
-        print('TODO')
+        multistep_figs(steps_ahead, train_rmse, train_mae, train_r2, test_rmse, test_mae, test_r2)
 
     # %%
     # Save the architecture and the lastly trained model
@@ -444,7 +445,7 @@ if __name__ == '__main__':
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=10)
+    parser.add_argument('--look_back', type=int, default=30)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -453,7 +454,7 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=5)
+    parser.add_argument('--steps_ahead', type=int, default=15)
     parser.add_argument('--stateful', type=bool, default=True)
     parser.add_argument('--recursive', type=bool, default=True)
 
