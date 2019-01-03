@@ -52,7 +52,6 @@ def lstm_dense_sunspots(args):
         download_monthly_sunspots
     from artificial_neural_networks.code.utils.generic_utils import save_regress_model,  \
         series_to_supervised, affine_transformation
-    from artificial_neural_networks.code.utils.vis_utils import regression_figs
 
     # %%
 
@@ -247,8 +246,8 @@ def lstm_dense_sunspots(args):
         y_pred = np.zeros(n_y_)
 
         if args.recursive:  # Recursive Strategy
-            if args.verbose > 0:
-                print('Following Recursive Strategy ...')
+            """ if args.verbose > 0:
+                print('Following Recursive Strategy ...') """
 
             n_x_ = x_.shape[0]
 
@@ -288,7 +287,7 @@ def lstm_dense_sunspots(args):
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
-                """if args.verbose > 0:
+                """ if args.verbose > 0:
                     print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1)) """
 
                 pred_start = n_x_ - L_last_window
@@ -330,8 +329,8 @@ def lstm_dense_sunspots(args):
                 y_pred[i] = y_dyn
             """
         else:  # Multiple Ouptput Strategy
-            if args.verbose > 0:
-                print('Following Multiple Ouptput Strategy ...')
+            """ if args.verbose > 0:
+                print('Following Multiple Ouptput Strategy ...') """
 
             n_iter = int(np.floor(n_y_/steps_ahead))
             L_last_window = n_y_ % steps_ahead
@@ -358,30 +357,39 @@ def lstm_dense_sunspots(args):
     # TESTING PHASE
 
     # Predict preprocessed values
-    train_y_sum = [0]
-    test_y_sum = [0]
-    reps = 1
-    for i in range(reps):
-        train_y_pred_ = model_predict(train_x_, train_y_series_)
-        test_y_pred_ = model_predict(test_x_, test_y_series_)
+    n_train_iter = train_y_series_.shape[0] - steps_ahead
+    train_y_pred_ = np.zeros([n_train_iter, steps_ahead])
+    train_y_true_ = np.zeros([n_train_iter, steps_ahead])
+    for i in range(n_train_iter):
+        train_y_true_[i] = train_y_series_[i:i + steps_ahead]
+        train_y_pred_[i] = model_predict(train_x_[i:i + 1], train_y_true_[i])
 
-        train_y_sum = np.sum([train_y_sum, train_y_pred_], axis=0)
-        test_y_sum = np.sum([test_y_sum, test_y_pred_], axis=0)
-
-    train_y_pred_ = train_y_sum / reps
-    test_y_pred_ = test_y_sum / reps
+    n_test_iter = test_y_series_.shape[0] - steps_ahead
+    test_y_pred_ = np.zeros([n_test_iter, steps_ahead])
+    test_y_true_ = np.zeros([n_test_iter, steps_ahead])
+    for i in range(n_test_iter):
+        test_y_true_[i] = test_y_series_[i:i + steps_ahead]
+        test_y_pred_[i] = model_predict(test_x_[i:i + 1], test_y_true_[i])
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
     test_y_pred = affine_transformation(test_y_pred_, scaling_factor, translation, inverse=True)
+    train_y_true = affine_transformation(train_y_true_, scaling_factor, translation, inverse=True)
+    test_y_true = affine_transformation(test_y_true_, scaling_factor, translation, inverse=True)
 
-    train_rmse = sqrt(mean_squared_error(train_y_series, train_y_pred))
-    train_mae = mean_absolute_error(train_y_series, train_y_pred)
-    train_r2 = r2_score(train_y_series, train_y_pred)
-
-    test_rmse = sqrt(mean_squared_error(test_y_series, test_y_pred))
-    test_mae = mean_absolute_error(test_y_series, test_y_pred)
-    test_r2 = r2_score(test_y_series, test_y_pred)
+    train_rmse = np.zeros(steps_ahead)
+    train_mae = np.zeros(steps_ahead)
+    train_r2 = np.zeros(steps_ahead)
+    test_rmse = np.zeros(steps_ahead)
+    test_mae = np.zeros(steps_ahead)
+    test_r2 = np.zeros(steps_ahead)
+    for i in range(steps_ahead):
+        train_rmse[i] = sqrt(mean_squared_error(train_y_true[:, i], train_y_pred[:, i]))
+        train_mae[i] = mean_absolute_error(train_y_true[:, i], train_y_pred[:, i])
+        train_r2[i] = r2_score(train_y_true[:, i], train_y_pred[:, i])
+        test_rmse[i] = sqrt(mean_squared_error(test_y_true[:, i], test_y_pred[:, i]))
+        test_mae[i] = mean_absolute_error(test_y_true[:, i], test_y_pred[:, i])
+        test_r2[i] = r2_score(test_y_true[:, i], test_y_pred[:, i])
 
     if args.verbose > 0:
         print('Train RMSE: %.4f ' % (train_rmse))
@@ -398,8 +406,7 @@ def lstm_dense_sunspots(args):
     # Data Visualization
 
     if args.plot:
-        regression_figs(train_y=train_y_series, train_y_pred=train_y_pred,
-                        test_y=test_y_series, test_y_pred=test_y_pred)
+        print('TODO')
 
     # %%
     # Save the architecture and the lastly trained model
