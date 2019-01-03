@@ -288,7 +288,7 @@ def lstm_dense_sunspots(args):
 
             # Multi-step ahead Forecasting of the last window
             if L_last_window > 0:
-                """if args.verbose > 0:
+                """ if args.verbose > 0:
                     print('Completed: {0}/{1}'.format(n_iter + 1, n_iter + 1)) """
 
                 pred_start = n_x_ - L_last_window
