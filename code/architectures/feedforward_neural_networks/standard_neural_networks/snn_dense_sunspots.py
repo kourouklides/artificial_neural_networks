@@ -78,10 +78,10 @@ def snn_dense_sunspots(args):
     # %%
     # Train-Test split
 
-    n_series = len(sunspots)
+    L_series = len(sunspots)
 
     split_ratio = 2 / 3  # between zero and one
-    n_split = int(n_series * split_ratio)
+    n_split = int(L_series * split_ratio)
 
     look_back = args.look_back
 
