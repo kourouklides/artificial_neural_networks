@@ -361,7 +361,8 @@ def lstm_dense_sunspots(args):
     for i in range(n_train_iter):
         train_y_true_[i] = train_y_series_[i:i + steps_ahead]
         train_y_pred_[i] = model_predict(train_x_[i:i + 1], train_y_true_[i])
-        print(i)
+        if args.verbose > 0:
+            print(i)
 
     n_test_iter = test_y_series_.shape[0] - steps_ahead
     test_y_pred_ = np.zeros([n_test_iter, steps_ahead])
@@ -369,7 +370,8 @@ def lstm_dense_sunspots(args):
     for i in range(n_test_iter):
         test_y_true_[i] = test_y_series_[i:i + steps_ahead]
         test_y_pred_[i] = model_predict(test_x_[i:i + 1], test_y_true_[i])
-        print(i)
+        if args.verbose > 0:
+            print(i)
 
     # Remove preprocessing
     train_y_pred = affine_transformation(train_y_pred_, scaling_factor, translation, inverse=True)
