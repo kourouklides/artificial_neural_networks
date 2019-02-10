@@ -8,7 +8,7 @@ This repository contains a collection of Methods and Models for various architec
 
 The code implementation is in __Python 3__ (using [TensorFlow](https://www.tensorflow.org/) and [Keras](https://keras.io/) libraries).
 
-The repository is the one used for lectures of the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) and also, at the [meetups](https://github.com/PyDataCyprus/meetups) and [workshops](https://github.com/PyDataCyprus/workshops) of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
+The repository is the one used for the lectures of the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) and also, at the [meetups](https://github.com/PyDataCyprus/meetups) and [workshops](https://github.com/PyDataCyprus/workshops) of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
 
 If you like this repository or if you found it useful, feel free to __Star, Fork, Watch__ it or __share__ it online.
 
