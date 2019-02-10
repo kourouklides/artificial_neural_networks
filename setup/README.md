@@ -71,7 +71,7 @@ For Windows or Mac:
 
 For Linux:
 
-1. Go to [Docker Community Edition (CE)](https://docs.docker.com/install/) page and choose the installation for your Linux distribution (e.g. [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#uninstall-docker-ce)).
+1. Go to [Docker Community Edition (CE)](https://docs.docker.com/install/) page and choose the installation for your Linux distribution (e.g. [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)).
 1. Follow the instructions in the page above.
 
 ### 2. Anaconda environment
