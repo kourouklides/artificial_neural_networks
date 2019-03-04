@@ -282,7 +282,7 @@ def lstm_dense_sunspots(args):
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
-                    y_pred[j:j + 1] = np.max([0, y_after])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
 
             # Multi-step ahead Forecasting of the last window
@@ -310,7 +310,7 @@ def lstm_dense_sunspots(args):
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
-                    y_pred[j:j + 1] = np.max([0, y_after])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
             """
             # One-step ahead Forecasting
@@ -361,7 +361,7 @@ def lstm_dense_sunspots(args):
     for i in range(n_train_iter):
         train_y_true_[i] = train_y_series_[i:i + steps_ahead]
         train_y_pred_[i] = model_predict(train_x_[i:i + 1], train_y_true_[i])
-        if args.verbose > 0:
+        if (args.verbose > 0) and (i % 100 == 0):
             print(i)
 
     n_test_iter = test_y_series_.shape[0] - steps_ahead
@@ -370,7 +370,7 @@ def lstm_dense_sunspots(args):
     for i in range(n_test_iter):
         test_y_true_[i] = test_y_series_[i:i + steps_ahead]
         test_y_pred_[i] = model_predict(test_x_[i:i + 1], test_y_true_[i])
-        if args.verbose > 0:
+        if (args.verbose > 0) and (i % 100 == 0):
             print(i)
 
     # Remove preprocessing
