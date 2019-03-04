@@ -282,7 +282,7 @@ def lstm_dense_sunspots(args):
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
-                    y_pred[j:j + 1] = np.max([0, y_after])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
 
             # Multi-step ahead Forecasting of the last window
@@ -310,7 +310,7 @@ def lstm_dense_sunspots(args):
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
                     y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
-                    y_pred[j:j + 1] = np.max([0, y_after])
+                    y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
             """
             # One-step ahead Forecasting
@@ -434,7 +434,7 @@ if __name__ == '__main__':
     parser.add_argument('--plot', type=bool, default=True)
 
     # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=64)
+    parser.add_argument('--look_back', type=int, default=16)
     parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--layer_size', type=int, default=4)
@@ -443,7 +443,7 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--steps_ahead', type=int, default=32)
+    parser.add_argument('--steps_ahead', type=int, default=8)
     parser.add_argument('--stateful', type=bool, default=True)
     parser.add_argument('--recursive', type=bool, default=True)
 
