@@ -281,7 +281,7 @@ def lstm_dense_sunspots(args):
                     # y_start = np.max([pred_start, j - look_back])
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
-                    y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
+                    # y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
                     y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
 
@@ -309,7 +309,7 @@ def lstm_dense_sunspots(args):
                     # y_start = np.max([pred_start, j - look_back])
                     x_dyn[0, x_start:look_back, 0] = np.copy(y_pred[y_start:j])  # use pred. values
                     y_dyn = model.predict(x_dyn)[:, first]
-                    y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
+                    # y_after = np.max([0, y_dyn]) + 0.015 * np.random.randn()
                     y_pred[j:j + 1] = np.max([0, y_dyn])
                     # y_pred[j:j + 1] = y_dyn
             """

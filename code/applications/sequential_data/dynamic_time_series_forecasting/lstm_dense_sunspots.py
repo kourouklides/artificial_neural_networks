@@ -246,7 +246,7 @@ def lstm_dense_sunspots(args):
 
         y_pred = np.zeros(n_y_)
 
-        if args.recursive:  # Recursive Strategy
+        if args.recursive:  # Recursive Strategy # TODO
             if args.verbose > 0:
                 print('Following Recursive Strategy ...')
 
@@ -326,18 +326,19 @@ def lstm_dense_sunspots(args):
                 y_dyn = model.predict(x_dyn)[0, 0]
                 y_pred[i] = y_dyn
             """
-        else:  # Multiple Ouptput Strategy
+        else:  # Multiple Ouptput Strategy # TODO
             if args.verbose > 0:
                 print('Following Multiple Ouptput Strategy ...')
 
             n_iter = int(np.floor(n_y_/steps_ahead))
             L_last_window = n_y_ % steps_ahead
 
+            y_dyn = x_[0, steps_ahead]
             # Multi-step ahead Forecasting of all the full windows
             for i in range(0, n_iter):
                 pred_start = i * steps_ahead
                 pred_end = pred_start + steps_ahead
-                x_dyn = x_[pred_start:pred_start + 1]
+                x_dyn = x_[pred_start:pred_start + 1]  # TODO
                 y_dyn = model.predict(x_dyn)[0]
                 y_pred[pred_start:pred_end] = y_dyn
 
@@ -445,7 +446,7 @@ if __name__ == '__main__':
     parser.add_argument('--epsilon', type=none_or_float, default=None)
     parser.add_argument('--steps_ahead', type=int, default=8)
     parser.add_argument('--stateful', type=bool, default=True)
-    parser.add_argument('--recursive', type=bool, default=True)
+    parser.add_argument('--recursive', type=bool, default=False)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
