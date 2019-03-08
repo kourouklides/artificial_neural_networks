@@ -1,6 +1,7 @@
 
 # Ignore the following files and (sub)directories:
 .DS_Store
+.idea
 datasets/
 model_zoo/
 trained_models/
