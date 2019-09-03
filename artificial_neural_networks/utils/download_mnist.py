@@ -32,7 +32,7 @@ def download_mnist(new_dir=os.getcwd()):
     os.chdir(new_dir)
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.data_utils import download_dataset
+    from artificial_neural_networks.utils.data_utils import download_dataset
 
     # %%
 
