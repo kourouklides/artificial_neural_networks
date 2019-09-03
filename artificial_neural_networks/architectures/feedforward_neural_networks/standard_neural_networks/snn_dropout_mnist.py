@@ -1,6 +1,6 @@
 """
 
-Model: Convolutional Neural Network (CNN) with dropout layers
+Model: Standard Neural Network (SNN) with dropout layers
 Method: Backpropagation
 Architecture: Feedforward Neural Network
 
@@ -29,7 +29,7 @@ from timeit import default_timer as timer
 from keras import backend as K
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Input, Dense, Conv2D, MaxPooling2D, Flatten, Dropout
+from keras.layers import Input, Dense, Dropout
 from keras.models import Model
 from keras.utils import to_categorical
 import numpy as np
@@ -39,7 +39,7 @@ import tensorflow as tf
 # %%
 
 
-def cnn_dropout_mnist(new_dir=os.getcwd()):
+def snn_dropout_mnist(new_dir=os.getcwd()):
     """
     Main function
     """
@@ -49,10 +49,10 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
     os.chdir(new_dir)
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.download_mnist import download_mnist
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float, \
+    from artificial_neural_networks.utils.download_mnist import download_mnist
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float, \
         save_classif_model
-    from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
+    from artificial_neural_networks.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
     # %%
     # SETTINGS
@@ -70,16 +70,15 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
     parser.add_argument('--translation', type=float, default=0)
     parser.add_argument('--same_size', type=bool, default=True)
     parser.add_argument('--n_layers', type=int, default=2)
-    parser.add_argument('--layer_size', type=int, default=128)
+    parser.add_argument('--layer_size', type=int, default=512)
     parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[512, 512])
-    parser.add_argument('--n_epochs', type=int, default=12)
+    parser.add_argument('--n_epochs', type=int, default=25)
     parser.add_argument('--batch_size', type=none_or_int, default=128)
-    parser.add_argument('--optimizer', type=str, default='Adadelta')
-    parser.add_argument('--lrearning_rate', type=float, default=1e0)
+    parser.add_argument('--optimizer', type=str, default='RMSprop')
+    parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--dropout_rate_input', type=int, default=0.0)
-    parser.add_argument('--dropout_rate_conv', type=int, default=0.25)
-    parser.add_argument('--dropout_rate_hidden', type=int, default=0.5)
+    parser.add_argument('--dropout_rate_input', type=int, default=0.1)
+    parser.add_argument('--dropout_rate_hidden', type=int, default=0.2)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
@@ -131,8 +130,8 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
     n_out = np.unique(train_y).shape[0]  # number of classes/labels
 
     # Reshape training and test sets
-    train_x = train_x.reshape(n_train, img_width, img_height, 1)
-    test_x = test_x.reshape(n_test, img_width, img_height, 1)
+    train_x = train_x.reshape(n_train, n_in)
+    test_x = test_x.reshape(n_test, n_in)
 
     # Apply preprocessing
     train_x = scaling_factor * (train_x - translation)
@@ -160,26 +159,14 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
             N.append(args.explicit_layer_sizes[i])  # hidden layer i
     N.append(n_out)  # output layer
 
-    # ANN Architecture
     L = len(N) - 1
 
-    x = Input(shape=(img_width, img_height, 1))  # input layer
+    x = Input(shape=(n_in,))  # input layer
     h = Dropout(rate=args.dropout_rate_input)(x)
-
-    h = Conv2D(filters=32, kernel_size=(3, 3), activation='relu')(h)
-    h = MaxPooling2D(pool_size=(2, 2))(h)
-    h = Dropout(rate=args.dropout_rate_conv)(h)
-
-    h = Conv2D(filters=32, kernel_size=(3, 3), activation='relu')(h)
-    h = MaxPooling2D(pool_size=(2, 2))(h)
-    h = Dropout(rate=args.dropout_rate_conv)(h)
-
-    h = Flatten()(h)
 
     for i in range(1, L):
         h = Dense(units=N[i], activation='relu')(h)  # hidden layer i
         h = Dropout(rate=args.dropout_rate_hidden)(h)
-
     out = Dense(units=n_out, activation='softmax')(h)  # output layer
 
     model = Model(inputs=x, outputs=out)
@@ -221,7 +208,7 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
     # Save trained models for every epoch
 
     models_path = r'artificial_neural_networks/trained_models/'
-    model_name = 'mnist_cnn_dropout'
+    model_name = 'mnist_snn_dropout'
     weights_path = models_path + model_name + '_weights'
     model_path = models_path + model_name + '_model'
     file_suffix = '_{epoch:04d}_{val_acc:.4f}_{val_loss:.4f}'
@@ -233,7 +220,7 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
 
     file_path += file_suffix
 
-    # monitor = 'val_loss'
+    # monitor='val_loss'
     monitor = 'val_acc'
 
     if args.save_models:
@@ -331,4 +318,4 @@ def cnn_dropout_mnist(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    model_cnn_dropout = cnn_dropout_mnist('../../../../../')
+    model_snn_dropout = snn_dropout_mnist('../../../../../')

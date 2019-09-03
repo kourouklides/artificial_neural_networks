@@ -49,10 +49,10 @@ def cnn_dense_mnist(new_dir=os.getcwd()):
     os.chdir(new_dir)
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.download_mnist import download_mnist
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float, \
+    from artificial_neural_networks.utils.download_mnist import download_mnist
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float, \
         save_classif_model
-    from artificial_neural_networks.code.utils.vis_utils import plot_confusion_matrix, epoch_plot
+    from artificial_neural_networks.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
     # %%
     # SETTINGS
