@@ -43,13 +43,13 @@ If you do not want to use an IDE (e.g. [Spyder](https://www.spyder-ide.org/)) an
 
 For example, by __replacing__ \<your directory path> accordingly, you can __either__ run this:
 
-    cd <your directory path>/artificial_neural_networks/code/architectures/feedforward_neural_networks/standard_neural_networks/
+    cd <your directory path>/artificial_neural_networks/architectures/feedforward_neural_networks/standard_neural_networks/
     python -m snn_dense_mnist
 
 __or__ you can run this:
 
     cd <your directory path>/artificial_neural_networks/
-    python -m artificial_neural_networks.code.architectures.feedforward_neural_networks.standard_neural_networks.snn_dense_mnist
+    python -m artificial_neural_networks.architectures.feedforward_neural_networks.standard_neural_networks.snn_dense_mnist
 
 
 ## Methods and Models
