@@ -49,4 +49,4 @@ def download_imdb(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    dataset_path = download_imdb('../../../')
+    dataset_path = download_imdb('../../')

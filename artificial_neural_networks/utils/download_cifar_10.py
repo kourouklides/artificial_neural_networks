@@ -49,4 +49,4 @@ def download_cifar_10(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    dataset_path = download_cifar_10('../../../')
+    dataset_path = download_cifar_10('../../')

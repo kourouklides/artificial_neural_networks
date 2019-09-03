@@ -49,4 +49,4 @@ def download_monthly_sunspots(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    dataset_path = download_monthly_sunspots('../../../')
+    dataset_path = download_monthly_sunspots('../../')
