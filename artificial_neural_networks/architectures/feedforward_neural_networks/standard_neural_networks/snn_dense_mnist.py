@@ -316,4 +316,4 @@ def snn_dense_mnist(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    model_snn_dense = snn_dense_mnist('../../../../../')
+    model_snn_dense = snn_dense_mnist('../../../../')
