@@ -75,11 +75,11 @@ Some advanced __Methods__ of Machine Learning are also included:
 ## Areas of Application
 Various applications of the aforementioned Methods and Models are also included and they fall under the following domains, in alphabetical order:
 
-- [Bioinformatics](code/applications/bioinformatics)
-- [Compressed Sensing](code/applications/compressed_sensing)
-- [Computational Finance](code/applications/computational_finance) (including Financial Econometrics)
-- [Computer Vision](code/applications/computer_vision)
-- [Control](code/applications/control)
+- [Bioinformatics](artificial_neural_networks/applications/bioinformatics)
+- [Compressed Sensing](artificial_neural_networks/applications/compressed_sensing)
+- [Computational Finance](artificial_neural_networks/applications/computational_finance) (including Financial Econometrics)
+- [Computer Vision](artificial_neural_networks/applications/computer_vision)
+- [Control](artificial_neural_networks/applications/control)
 - Energy
 - Environmetrics
 - Geospatial Data (including LiDAR, Hyperspectral images and GIS)
@@ -87,8 +87,8 @@ Various applications of the aforementioned Methods and Models are also included 
 - [Natural Language Processing](code/applications/natural_language_processing)
 - Robotics
 - Recommender Systems
-- [Sequential Data](code/applications/sequential_data) (including Time Series)
-- [Speech Processing](code/applications/speech_processing)
+- [Sequential Data](artificial_neural_networks/applications/sequential_data) (including Time Series)
+- [Speech Processing](artificial_neural_networks/applications/speech_processing)
 
 ## Theory
 Finally, regarding theory of Artificial Neural Networks, you can check the following pages on my personal wiki:
