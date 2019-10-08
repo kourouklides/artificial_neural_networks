@@ -58,11 +58,11 @@ __or__ you can run this:
 ## Methods and Models
 This repository includes the following __architectures__:
 
-- [Feedforward Neural Network](rtificial_neural_networks/architectures/feedforward_neural_networks)
+- [Feedforward Neural Network](artificial_neural_networks/architectures/feedforward_neural_networks)
   - Bayesian Neural Networks
-  - [Convolutional Neural Networks](rtificial_neural_networks/architectures/feedforward_neural_networks/convolutional_neural_networks)
-  - [Standard Neural Networks](rtificial_neural_networks/architectures/feedforward_neural_networks/standard_neural_networks)
-- [Recurrent Neural Network](rtificial_neural_networks/architectures/recurrent_neural_networks)
+  - [Convolutional Neural Networks](artificial_neural_networks/architectures/feedforward_neural_networks/convolutional_neural_networks)
+  - [Standard Neural Networks](artificial_neural_networks/architectures/feedforward_neural_networks/standard_neural_networks)
+- [Recurrent Neural Network](artificial_neural_networks/architectures/recurrent_neural_networks)
   - GRUs
   - [LSTMs](rtificial_neural_networks/architectures/recurrent_neural_networks/LSTM)
   - Vanilla RNNs
