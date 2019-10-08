@@ -318,4 +318,4 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
 # %%
 
 if __name__ == '__main__':
-    model_snn_dropout = snn_dropout_mnist('../../../../../')
+    model_snn_dropout = snn_dropout_mnist('../../../../')
