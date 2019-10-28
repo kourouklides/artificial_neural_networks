@@ -1,5 +1,9 @@
 FROM continuumio/miniconda3
 
+# Set the ENTRYPOINT to use bash
+ENTRYPOINT [ "/bin/bash", "-c" ]
+
+# Use the environment.yml to create the conda environment
 ADD environment.yml /tmp/environment.yml
 RUN conda env create -f /tmp/environment.yml
 
