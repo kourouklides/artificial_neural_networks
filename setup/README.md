@@ -42,9 +42,8 @@ You first have to change the directory to the current one, by __replacing__ \<yo
 
 Then, to install the required Python packages and dependencies you have to run the following commands in a terminal:
 
-    conda install python=3.6.5 -y
-    conda install pyyaml=3.13 -y
-    pip install -r requirements.txt
+    conda env create -f environment.yml
+    conda activate ann
     
 __Note:__ For Windows, you should run all of the commands, including the above, at the __Anaconda Prompt__ instead of the Terminal.
 
