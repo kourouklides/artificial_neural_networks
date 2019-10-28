@@ -48,9 +48,9 @@ Then, to install the required Python packages and dependencies you have to run t
     
 __Note:__ For Windows, you should run all of the commands, including the above, at the __Anaconda Prompt__ instead of the Terminal.
 
-### 3. Download the datasets
+### ~~3. Download the datasets~~
 
-You need to download the necessary data for each corresponding code example, as they are __not__ inluded in this repository. To do this, follow the instructions in the [datasets](../datasets) folder.
+~~You need to download the necessary data for each corresponding code example, as they are __not__ inluded in this repository. To do this, follow the instructions in the [datasets](../datasets) folder.~~
 
     cd <your directory path>/artificial_neural_networks/datasets
 
