@@ -83,8 +83,8 @@ Various applications of the aforementioned Methods and Models are also included 
 - Energy
 - Environmetrics
 - Geospatial Data (including LiDAR, Hyperspectral images and GIS)
-- [Medical Imaging](code/applications/medical_imaging)
-- [Natural Language Processing](code/applications/natural_language_processing)
+- [Medical Imaging](artificial_neural_networks/applications/medical_imaging)
+- [Natural Language Processing](artificial_neural_networks/applications/natural_language_processing)
 - Robotics
 - Recommender Systems
 - [Sequential Data](artificial_neural_networks/applications/sequential_data) (including Time Series)
