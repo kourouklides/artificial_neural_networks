@@ -77,8 +77,8 @@ def snn_dropout_mnist(new_dir=os.getcwd()):
     parser.add_argument('--optimizer', type=str, default='RMSprop')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--dropout_rate_input', type=int, default=0.1)
-    parser.add_argument('--dropout_rate_hidden', type=int, default=0.2)
+    parser.add_argument('--dropout_rate_input', type=float, default=0.1)
+    parser.add_argument('--dropout_rate_hidden', type=float, default=0.2)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
