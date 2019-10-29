@@ -34,9 +34,9 @@ if __name__ == '__main__':
     os.chdir('../../../../../')
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.architectures.recurrent_neural_networks.LSTM. \
+    from artificial_neural_networks.architectures.recurrent_neural_networks.LSTM. \
         lstm_dense_sunspots import lstm_dense_sunspots
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float
 
     # %%
     # SETTINGS
