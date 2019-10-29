@@ -275,7 +275,7 @@ if __name__ == '__main__':
     os.chdir('../../../../')
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float
 
     # %%
     # SETTINGS
