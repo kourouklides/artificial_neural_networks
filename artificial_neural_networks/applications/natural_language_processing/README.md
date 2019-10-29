@@ -3,7 +3,7 @@
 ## About
 This part of the repository is concerned with __Natural Language Processing__.
 
-Keywords: 
+Keywords: NLP, Computational Lingustics
 
 ## Introduction
 
