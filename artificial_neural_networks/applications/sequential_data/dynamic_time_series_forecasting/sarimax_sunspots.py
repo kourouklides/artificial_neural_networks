@@ -41,10 +41,10 @@ def sarimax_sunspots(args):
     # IMPORTS
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.download_monthly_sunspots import \
+    from artificial_neural_networks.utils.download_monthly_sunspots import \
         download_monthly_sunspots
-    from artificial_neural_networks.code.utils.generic_utils import affine_transformation
-    from artificial_neural_networks.code.utils.vis_utils import regression_figs
+    from artificial_neural_networks.utils.generic_utils import affine_transformation
+    from artificial_neural_networks.utils.vis_utils import regression_figs
 
     # %%
 
