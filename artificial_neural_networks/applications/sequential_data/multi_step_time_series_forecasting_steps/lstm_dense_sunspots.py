@@ -48,11 +48,11 @@ def lstm_dense_sunspots(args):
     # IMPORTS
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.download_monthly_sunspots import \
+    from artificial_neural_networks.utils.download_monthly_sunspots import \
         download_monthly_sunspots
-    from artificial_neural_networks.code.utils.generic_utils import save_regress_model,  \
+    from artificial_neural_networks.utils.generic_utils import save_regress_model,  \
         series_to_supervised, affine_transformation
-    from artificial_neural_networks.code.utils.vis_utils import multistep_figs
+    from artificial_neural_networks.utils.vis_utils import multistep_figs
 
     # %%
 
@@ -431,7 +431,7 @@ if __name__ == '__main__':
     os.chdir('../../../../../')
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float
 
     # %%
     # SETTINGS
