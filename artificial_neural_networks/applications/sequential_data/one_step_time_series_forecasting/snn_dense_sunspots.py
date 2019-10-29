@@ -34,9 +34,9 @@ if __name__ == '__main__':
     os.chdir('../../../../../')
 
     # code repository sub-package imports
-    from artificial_neural_networks.code.architectures.feedforward_neural_networks.\
+    from artificial_neural_networks.architectures.feedforward_neural_networks.\
         standard_neural_networks.snn_dense_sunspots import snn_dense_sunspots
-    from artificial_neural_networks.code.utils.generic_utils import none_or_int, none_or_float
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float
 
     # %%
     # SETTINGS
