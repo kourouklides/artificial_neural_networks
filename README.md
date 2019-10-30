@@ -6,6 +6,8 @@ welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](#c
 ## About
 This repository contains a collection of Methods and Models for various architectures of __Artificial Neural Networks__.
 
+For comparison purposes, sometimes other Machine Learning Methods and Models might also be included.
+
 The code implementation is in __Python 3__ (using [TensorFlow](https://www.tensorflow.org/) and [Keras](https://keras.io/) libraries).
 
 The repository is the one used for the module [CEI 523: Data Science](https://github.com/kourouklides/CEI_523_2018) at the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) at the [Cyprus Unioversity of Technology](https://www.cut.ac.cy/) and also, at the [meetups](https://github.com/PyDataCyprus/meetups) and [workshops](https://github.com/PyDataCyprus/workshops) of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
