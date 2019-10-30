@@ -3,7 +3,7 @@
 ## About
 This part of the repository is concerned with __Speech Processing__.
 
-Keywords: 
+Keywords: Audio Signal Processing, Signal Processing
 
 ## Introduction
 
