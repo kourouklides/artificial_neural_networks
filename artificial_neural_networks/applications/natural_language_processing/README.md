@@ -3,7 +3,7 @@
 ## About
 This part of the repository is concerned with __Natural Language Processing__.
 
-Keywords: NLP, Computational Lingustics, Text Mining
+Keywords: NLP, Computational Lingustics, Text Mining, Seq2seq Models
 
 ## Introduction
 
