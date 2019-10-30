@@ -200,7 +200,7 @@ if __name__ == '__main__':
     # %%
     # IMPORTS
 
-    os.chdir('../../../../../')
+    os.chdir('../../../../')
 
     # %%
     # SETTINGS
