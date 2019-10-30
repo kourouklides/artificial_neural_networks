@@ -12,7 +12,7 @@ Keywords: NLP, Computational Lingustics, Text Mining, Seq2seq Models
 ## Sub-tasks
 There are various sub-tasks that fall under this specific domain and some of them are the following:
 
-- 
+- Machine Translation
 
 ## Theory
 Regarding theory of Sequential Data, you can check the following pages on my personal wiki:
