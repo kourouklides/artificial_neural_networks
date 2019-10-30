@@ -29,7 +29,7 @@ __Note:__ Hyperparameter Optimization, Model Selection and Model Evaluation are 
 It is strongly recommended that you download the whole GitHub repository, but you can also try to download just the individual Python files and see if they work. However, there is no guarantee that individual files will work on their own.
 
 To download the whole repository, there are currently two mains options:
-* Clone the repository using [GitHub Desktop](https://desktop.github.com/) or using the [command line (terminal)](https://help.github.com/articles/cloning-a-repository/):
+* Clone the repository either using [GitHub Desktop](https://desktop.github.com/) or using the [command line (terminal)](https://help.github.com/articles/cloning-a-repository/):
 
         git clone https://github.com/kourouklides/artificial_neural_networks.git
 
