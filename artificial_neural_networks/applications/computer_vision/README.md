@@ -18,6 +18,7 @@ There are various sub-tasks that fall under this specific domain and some of the
 Regarding theory of Sequential Data, you can check the following pages on my personal wiki:
 
 - [Computer Vision](https://wiki.kourouklides.com/wiki/Computer_Vision)
+- [Digital Image Processing](https://wiki.kourouklides.com/wiki/Digital_Image_Processing)
 
 The wiki contains curated lists of online and offline resources (e.g. books, papers, URL links) about these topics.
 
