@@ -13,7 +13,7 @@ Task: One-step Ahead Forecasting of Univariate Time Series (Univariate Regressio
 
 """
 # %%
-# Python configurations
+# IMPORTS
 
 from __future__ import absolute_import
 from __future__ import division
