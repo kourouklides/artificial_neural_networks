@@ -267,6 +267,7 @@ def snn_dense_sunspots(args):
 
 # %%
 
+
 if __name__ == '__main__':
 
     # %%
