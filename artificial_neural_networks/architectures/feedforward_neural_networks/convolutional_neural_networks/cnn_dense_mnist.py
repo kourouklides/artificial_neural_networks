@@ -39,54 +39,19 @@ import tensorflow as tf
 # %%
 
 
-def cnn_dense_mnist(new_dir=os.getcwd()):
+def cnn_dense_mnist(args):
     """
     Main function
     """
     # %%
     # IMPORTS
 
-    os.chdir(new_dir)
-
     # code repository sub-package imports
     from artificial_neural_networks.utils.download_mnist import download_mnist
-    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float, \
-        save_classif_model
+    from artificial_neural_networks.utils.generic_utils import save_classif_model
     from artificial_neural_networks.utils.vis_utils import plot_confusion_matrix, epoch_plot
 
     # %%
-    # SETTINGS
-    parser = argparse.ArgumentParser()
-
-    # General settings
-    parser.add_argument('--verbose', type=int, default=1)
-    parser.add_argument('--reproducible', type=bool, default=True)
-    parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--time_training', type=bool, default=True)
-    parser.add_argument('--plot', type=bool, default=False)
-
-    # Settings for preprocessing and hyperparameters
-    parser.add_argument('--scaling_factor', type=float, default=(1 / 255))
-    parser.add_argument('--translation', type=float, default=0)
-    parser.add_argument('--same_size', type=bool, default=True)
-    parser.add_argument('--n_layers', type=int, default=2)
-    parser.add_argument('--layer_size', type=int, default=128)
-    parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[512, 512])
-    parser.add_argument('--n_epochs', type=int, default=12)
-    parser.add_argument('--batch_size', type=none_or_int, default=None)
-    parser.add_argument('--optimizer', type=str, default='Adadelta')
-    parser.add_argument('--lrearning_rate', type=float, default=1e0)
-    parser.add_argument('--epsilon', type=none_or_float, default=None)
-
-    # Settings for saving the model
-    parser.add_argument('--save_architecture', type=bool, default=True)
-    parser.add_argument('--save_last_weights', type=bool, default=True)
-    parser.add_argument('--save_last_model', type=bool, default=True)
-    parser.add_argument('--save_models', type=bool, default=False)
-    parser.add_argument('--save_weights_only', type=bool, default=False)
-    parser.add_argument('--save_best', type=bool, default=True)
-
-    args = parser.parse_args()
 
     if args.verbose > 0:
         print(args)
@@ -323,5 +288,52 @@ def cnn_dense_mnist(new_dir=os.getcwd()):
 
 # %%
 
+
 if __name__ == '__main__':
-    model_cnn_dense = cnn_dense_mnist('../../../../../')
+
+    # %%
+    # IMPORTS
+
+    os.chdir('../../../../')
+
+    # code repository sub-package imports
+    from artificial_neural_networks.utils.generic_utils import none_or_int, none_or_float
+
+    # %%
+    # SETTINGS
+    parser = argparse.ArgumentParser()
+
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--time_training', type=bool, default=True)
+    parser.add_argument('--plot', type=bool, default=False)
+
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--scaling_factor', type=float, default=(1 / 255))
+    parser.add_argument('--translation', type=float, default=0)
+    parser.add_argument('--same_size', type=bool, default=True)
+    parser.add_argument('--n_layers', type=int, default=2)
+    parser.add_argument('--layer_size', type=int, default=128)
+    parser.add_argument('--explicit_layer_sizes', nargs='*', type=int, default=[512, 512])
+    parser.add_argument('--n_epochs', type=int, default=12)
+    parser.add_argument('--batch_size', type=none_or_int, default=None)
+    parser.add_argument('--optimizer', type=str, default='Adadelta')
+    parser.add_argument('--lrearning_rate', type=float, default=1e0)
+    parser.add_argument('--epsilon', type=none_or_float, default=None)
+
+    # Settings for saving the model
+    parser.add_argument('--save_architecture', type=bool, default=True)
+    parser.add_argument('--save_last_weights', type=bool, default=True)
+    parser.add_argument('--save_last_model', type=bool, default=True)
+    parser.add_argument('--save_models', type=bool, default=False)
+    parser.add_argument('--save_weights_only', type=bool, default=False)
+    parser.add_argument('--save_best', type=bool, default=True)
+
+    args = parser.parse_args()
+
+    # %%
+    # MODEL
+
+    model_cnn_dense = cnn_dense_mnist(args)
