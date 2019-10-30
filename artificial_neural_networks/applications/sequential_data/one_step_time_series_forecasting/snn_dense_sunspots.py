@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # %%
     # IMPORTS
 
-    os.chdir('../../../../../')
+    os.chdir('../../../../')
 
     # code repository sub-package imports
     from artificial_neural_networks.architectures.feedforward_neural_networks.\
