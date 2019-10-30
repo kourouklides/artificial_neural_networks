@@ -31,14 +31,12 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 # %%
 
 
-def naive_persistence_model_sunspots(new_dir=os.getcwd()):
+def naive_persistence_model_sunspots(args):
     """
     Main function
     """
     # %%
     # IMPORTS
-
-    os.chdir(new_dir)
 
     # code repository sub-package imports
     from artificial_neural_networks.utils.download_monthly_sunspots import \
@@ -48,21 +46,6 @@ def naive_persistence_model_sunspots(new_dir=os.getcwd()):
     from artificial_neural_networks.utils.vis_utils import regression_figs
 
     # %%
-    # SETTINGS
-    parser = argparse.ArgumentParser()
-
-    # General settings
-    parser.add_argument('--verbose', type=int, default=1)
-    parser.add_argument('--reproducible', type=bool, default=True)
-    parser.add_argument('--seed', type=int, default=0)
-    parser.add_argument('--plot', type=bool, default=False)
-
-    # Settings for preprocessing and hyperparameters
-    parser.add_argument('--look_back', type=int, default=3)
-    parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
-    parser.add_argument('--translation', type=float, default=0)
-
-    args = parser.parse_args()
 
     if args.verbose > 0:
         print(args)
@@ -164,5 +147,32 @@ def naive_persistence_model_sunspots(new_dir=os.getcwd()):
 
 # %%
 
+
 if __name__ == '__main__':
-    naive_persistence_model_sunspots('../../../../')
+
+    # %%
+    # IMPORTS
+
+    os.chdir('../../../../')
+
+    # %%
+    # SETTINGS
+    parser = argparse.ArgumentParser()
+
+    # General settings
+    parser.add_argument('--verbose', type=int, default=1)
+    parser.add_argument('--reproducible', type=bool, default=True)
+    parser.add_argument('--seed', type=int, default=0)
+    parser.add_argument('--plot', type=bool, default=False)
+
+    # Settings for preprocessing and hyperparameters
+    parser.add_argument('--look_back', type=int, default=3)
+    parser.add_argument('--scaling_factor', type=float, default=(1 / 780))
+    parser.add_argument('--translation', type=float, default=0)
+
+    args = parser.parse_args()
+
+    # %%
+    # MODEL
+
+    naive_persistence_model_sunspots(args)
