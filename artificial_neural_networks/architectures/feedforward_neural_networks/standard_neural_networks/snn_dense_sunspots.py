@@ -36,6 +36,14 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 import tensorflow as tf
 
+# Hide specific TensorFlow warnings
+try:
+    from tensorflow.python.util import module_wrapper as deprecation
+except ImportError:
+    from tensorflow.python.util import deprecation_wrapper as deprecation
+deprecation._PER_MODULE_WARNING_LIMIT = 0
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 # %%
 
 
