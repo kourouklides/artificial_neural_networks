@@ -38,6 +38,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 import tensorflow as tf
 
+
 # Enable eager execution in TensorFlow
 tf.compat.v1.enable_eager_execution()
 
@@ -56,7 +57,7 @@ num_examples = 30000
 BATCH_SIZE = 256
 embedding_dim = 256
 units = 256
-EPOCHS = 10
+EPOCHS = 3
 
 
 # %%
@@ -448,15 +449,20 @@ def translate(sentence):
 # restoring the latest checkpoint in checkpoint_dir
 checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
+# En: it s very cold here.
 translate(u'hace mucho frio aqui.')
 
+# En: this is my life.
 translate(u'esta es mi vida.')
 
+# En: are we still at home?
 translate(u'¿todavia estan en casa?')
 
-# wrong translation
+# En: try to find out.
 translate(u'trata de averiguarlo.')
 
+# En: this is my life and it s very cold here.
+translate(u'esta es mi vida y hace mucho frio aqui.')
 
 # %%
 # Examples & Debugging
