@@ -12,16 +12,28 @@ Task: Text generation
         https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
 
 """
-from __future__ import absolute_import, division, print_function, unicode_literals
+# %%
+# IMPORTS
 
-import tensorflow as tf
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
+from __future__ import unicode_literals
 
 
-import numpy as np
+# standard library imports
 import os
 import time
 
+
+# third-party imports
+import numpy as np
+import tensorflow as tf
+
+
+# Enable eager execution in TensorFlow
 tf.compat.v1.enable_eager_execution()
+
 
 # %%
 
@@ -155,9 +167,10 @@ checkpoint_callback=tf.keras.callbacks.ModelCheckpoint(
     filepath=checkpoint_prefix,
     save_weights_only=True)
 
-EPOCHS=20
+EPOCHS = 10
 
-history = model.fit(dataset.repeat(), epochs=EPOCHS, steps_per_epoch=steps_per_epoch, callbacks=[checkpoint_callback])
+history = model.fit(dataset.repeat(), epochs=EPOCHS, steps_per_epoch=steps_per_epoch,
+                     callbacks=[checkpoint_callback])
 
 # %%
 
@@ -248,8 +261,8 @@ for epoch in range(EPOCHS):
               template = 'Epoch {} Batch {} Loss {:.4f}'
               print(template.format(epoch+1, batch_n, loss))
 
-    # saving (checkpoint) the model every 5 epochs
-    if (epoch + 1) % 5 == 0:
+    # saving (checkpoint) the model every 1 epoch
+    if (epoch + 1) % 1 == 0:
       model3.save_weights(checkpoint_prefix.format(epoch=epoch))
 
     print ('Epoch {} Loss {:.4f}'.format(epoch+1, loss))
