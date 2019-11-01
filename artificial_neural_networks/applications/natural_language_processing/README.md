@@ -12,7 +12,7 @@ Keywords: NLP, Computational Lingustics, Text Mining, Seq2seq Models
 ## Sub-tasks
 There are various sub-tasks that fall under this specific domain and some of them are the following:
 
-- Chatbots (Question-Answering Systems)
+- Chatbots (including Question-Answering Systems)
 - [Machine Translation](/artificial_neural_networks/applications/natural_language_processing/machine_translation)
 - Text generation
 
