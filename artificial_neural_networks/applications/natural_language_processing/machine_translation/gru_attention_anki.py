@@ -82,7 +82,7 @@ def preprocess_sentence(sentence):
     sentence = re.sub(r"([?.!,¿])", r" \1 ", sentence)
     sentence = re.sub(r'[" "]+', " ", sentence)
 
-    # Replace everything with space except (a-z, A-Z, ".", "?", "!", ",")
+    # Replace everything with space except (a-z, A-Z, ".", "?", "!", ",", "¿")
     sentence = re.sub(r"[^a-zA-Z?.!,¿]+", " ", sentence)
 
     sentence = sentence.rstrip().strip()
