@@ -39,7 +39,7 @@ import tensorflow as tf
 
 
 # Enable eager execution in TensorFlow
-tf.compat.v1.enable_eager_execution()
+tf.enable_eager_execution()
 
 
 # %%
@@ -296,6 +296,7 @@ encoder = Encoder(vocab_inp_size, embedding_dim, rnn_units, BATCH_SIZE)
 decoder = Decoder(vocab_tar_size, embedding_dim, rnn_units, BATCH_SIZE)
 
 optimizer = tf.keras.optimizers.Adam()
+
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True, reduction='none')
 
 
