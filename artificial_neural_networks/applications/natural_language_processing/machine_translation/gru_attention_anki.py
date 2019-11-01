@@ -449,20 +449,21 @@ def translate(sentence):
 # restoring the latest checkpoint in checkpoint_dir
 checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
-# En: it s very cold here.
+
 translate(u'hace mucho frio aqui.')
+print("Real translation: it s very cold here.")
 
-# En: this is my life.
 translate(u'esta es mi vida.')
+print("Real translation: this is my life.")
 
-# En: are we still at home?
 translate(u'¿todavia estan en casa?')
+print("Real translation: are we still at home?")
 
-# En: try to find out.
 translate(u'trata de averiguarlo.')
+print("Real translation: try to find out.")
 
-# En: this is my life and it s very cold here.
 translate(u'esta es mi vida y hace mucho frio aqui.')
+print("Real translation: this is my life and it s very cold here.")
 
 # %%
 # Examples & Debugging
