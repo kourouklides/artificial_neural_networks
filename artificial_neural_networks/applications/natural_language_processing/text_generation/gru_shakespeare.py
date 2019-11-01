@@ -143,11 +143,11 @@ model = build_model(
 model.summary()
 
 
-def loss(labels, logits):
+def loss_function(labels, logits):
     return tf.keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits=True)
 
 
-model.compile(optimizer=tf.compat.v1.train.AdamOptimizer(), loss=loss)
+model.compile(optimizer=tf.compat.v1.train.AdamOptimizer(), loss=loss_function)
 
 
 # %%
@@ -164,7 +164,7 @@ checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
 
 
 # %%
-# TRAINING PHASE
+# TRAINING PHASE (ver. 1)
 
 history = model.fit(dataset.repeat(), epochs=EPOCHS, steps_per_epoch=steps_per_epoch,
                     callbacks=[checkpoint_callback])
@@ -227,7 +227,7 @@ def generate_text(model, start_string):
 print(generate_text(model_2, start_string=u"ROMEO: "))
 
 # %%
-# TRAINING PHASE
+# TRAINING PHASE (ver. 2)
 
 model_3 = build_model(
         vocab_size=len(vocab),
@@ -238,7 +238,22 @@ model_3 = build_model(
 
 optimizer = tf.train.AdamOptimizer()
 
-# Training step
+
+# @tf.function
+def train_step(inp, target):
+    with tf.GradientTape() as tape:
+        predictions = model_3(inp)
+
+        # loss = tf.losses.sparse_softmax_cross_entropy(target, predictions)
+        loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(
+                target, predictions, from_logits=True))
+
+    grads = tape.gradient(loss, model_3.trainable_variables)
+    optimizer.apply_gradients(zip(grads, model_3.trainable_variables))
+
+    return loss
+
+
 EPOCHS = 1
 
 for epoch in range(EPOCHS):
@@ -249,14 +264,7 @@ for epoch in range(EPOCHS):
     hidden = model_3.reset_states()
 
     for (batch_n, (inp, target)) in enumerate(dataset):
-        with tf.GradientTape() as tape:
-            # feeding the hidden state back into the model
-            # This is the interesting step
-            predictions = model_3(inp)
-            loss = tf.losses.sparse_softmax_cross_entropy(target, predictions)
-
-        grads = tape.gradient(loss, model_3.trainable_variables)
-        optimizer.apply_gradients(zip(grads, model_3.trainable_variables))
+        loss = train_step(inp, target)
 
         if batch_n % 5 == 0:
             template = 'Epoch {} Batch {} Loss {:.4f}'
@@ -275,6 +283,7 @@ model_3.save_weights(checkpoint_prefix.format(epoch=epoch))
 # %%
 # Examples & Debugging
 
+"""
 for i in char_dataset.take(5):
     print(idx2char[i.numpy()])
 
@@ -298,7 +307,8 @@ for input_example_batch, target_example_batch in dataset.take(1):
 sampled_indices = tf.random.categorical(example_batch_predictions[0], num_samples=1)
 sampled_indices = tf.squeeze(sampled_indices, axis=-1).numpy()
 
-example_batch_loss = loss(target_example_batch, example_batch_predictions)
+example_batch_loss = loss_function(target_example_batch, example_batch_predictions)
 print("Prediction shape: ", example_batch_predictions.shape,
       " # (batch_size, sequence_length, vocab_size)")
 print("scalar_loss:      ", example_batch_loss.numpy().mean())
+"""
