@@ -659,6 +659,7 @@ print("Real translation: this is the first book i've ever done.")
 # %%
 # Examples & Debugging
 
+"""
 sample_string = 'Transformer is awesome.'
 
 tokenized_string = tokenizer_en.encode(sample_string)
@@ -799,7 +800,4 @@ plt.plot(temp_learning_rate_schedule(tf.range(4e4, dtype=np.float32)).numpy())
 plt.ylabel("Learning Rate")
 plt.xlabel("Train Step")
 
-
-
-
-
+"""
