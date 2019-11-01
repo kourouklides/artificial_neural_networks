@@ -53,10 +53,11 @@ parser.add_argument('--verbose', type=int, default=1)
 
 args = parser.parse_args()
 
+
 num_examples = 30000
 BATCH_SIZE = 256
 embedding_dim = 256
-units = 256
+rnn_units = 256
 EPOCHS = 3
 
 
@@ -274,11 +275,8 @@ if args.verbose > 0:
     print(len(input_tensor_train), len(target_tensor_train), len(input_tensor_val),
           len(target_tensor_val))
 
-
-# %%
-# Model hyperparameters and ANN Architecture
-
 BUFFER_SIZE = len(input_tensor_train)
+
 steps_per_epoch = len(input_tensor_train)//BATCH_SIZE
 vocab_inp_size = len(input_lang.word_index)+1
 vocab_tar_size = len(target_lang.word_index)+1
@@ -288,12 +286,15 @@ dataset = tf.data.Dataset.from_tensor_slices((input_tensor_train,
 
 dataset = dataset.batch(BATCH_SIZE, drop_remainder=True)
 
+
+# %%
+# Model hyperparameters and ANN Architecture
+
 # Encoder of the Seq2Seq model
-encoder = Encoder(vocab_inp_size, embedding_dim, units, BATCH_SIZE)
-attention_layer = BahdanauAttention(10)
+encoder = Encoder(vocab_inp_size, embedding_dim, rnn_units, BATCH_SIZE)
 
 # Decoder of the Seq2Seq model
-decoder = Decoder(vocab_tar_size, embedding_dim, units, BATCH_SIZE)
+decoder = Decoder(vocab_tar_size, embedding_dim, rnn_units, BATCH_SIZE)
 
 optimizer = tf.keras.optimizers.Adam()
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True, reduction='none')
@@ -391,7 +392,7 @@ def evaluate(sentence):
 
     result = ''
 
-    hidden = [tf.zeros((1, units))]
+    hidden = [tf.zeros((1, rnn_units))]
     enc_out, enc_hidden = encoder(inputs, hidden)
 
     dec_hidden = enc_hidden
@@ -490,13 +491,14 @@ example_input_batch.shape, example_target_batch.shape
 # sample input
 sample_hidden = encoder.initialize_hidden_state()
 sample_output, sample_hidden = encoder(example_input_batch, sample_hidden)
-print('Encoder output shape: (batch size, sequence length, units) {}'.format(sample_output.shape))
-print('Encoder Hidden state shape: (batch size, units) {}'.format(sample_hidden.shape))
+print('Encoder output shape: (batch size, sequence length, rnn_units) {}'.
+      format(sample_output.shape))
+print('Encoder Hidden state shape: (batch size, rnn_units) {}'.format(sample_hidden.shape))
 
-
+attention_layer = BahdanauAttention(10)
 attention_result, attention_weights = attention_layer(sample_hidden, sample_output)
 
-print("Attention result shape: (batch size, units) {}".format(attention_result.shape))
+print("Attention result shape: (batch size, rnn_units) {}".format(attention_result.shape))
 print("Attention weights shape: (batch_size, sequence_length, 1) {}".
       format(attention_weights.shape))
 
