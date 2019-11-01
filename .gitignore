@@ -116,3 +116,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+*.data-00000-of-00001
+*.index
+artificial_neural_networks/applications/natural_language_processing/machine_translation/training_checkpoints2/checkpoint
+artificial_neural_networks/applications/natural_language_processing/training_checkpoints/checkpoint
+artificial_neural_networks/applications/natural_language_processing/text_generation/training_checkpoints/checkpoint
