@@ -12,7 +12,6 @@ Task: Machine Translation
         https://github.com/kourouklides/artificial_neural_networks/blob/master/LICENSE
 
 """
-
 # %%
 # IMPORTS
 
