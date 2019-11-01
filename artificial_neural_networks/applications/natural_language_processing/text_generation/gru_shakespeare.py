@@ -33,7 +33,7 @@ import tensorflow as tf
 
 
 # Enable eager execution in TensorFlow
-tf.compat.v1.enable_eager_execution()
+tf.enable_eager_execution()
 
 
 # %%
@@ -142,12 +142,18 @@ model = build_model(
 
 model.summary()
 
+optimizer = tf.keras.optimizers.Adam()
+
+loss_object = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+
 
 def loss_function(labels, logits):
-    return tf.keras.losses.sparse_categorical_crossentropy(labels, logits, from_logits=True)
+    loss_ = loss_object(labels, logits)
+
+    return loss_
 
 
-model.compile(optimizer=tf.compat.v1.train.AdamOptimizer(), loss=loss_function)
+model.compile(optimizer=optimizer, loss=loss_function)
 
 
 # %%
