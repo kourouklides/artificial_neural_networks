@@ -90,12 +90,13 @@ path_to_file = tf.keras.utils.get_file(
 # Read, then decode for py2 compat.
 text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
 
+vocab = sorted(set(text))
+
 if args.verbose > 0:
     # length of text is the number of characters in it
     print('Length of text: {} characters'.format(len(text)))
 
     # The unique characters in the file
-    vocab = sorted(set(text))
     print('{} unique characters'.format(len(vocab)))
 
 
