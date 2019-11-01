@@ -506,10 +506,4 @@ sample_decoder_output, _, _ = decoder(tf.random_uniform((64, 1)), sample_hidden,
 
 print('Decoder output shape: (batch_size, vocab size) {}'.format(sample_decoder_output.shape))
 
-
-for a, b in dataset.take(1):
-    print(a, b)
-
-for (a, (b, c)) in enumerate(dataset.take(1)):
-    print(a, b, c)
 """
