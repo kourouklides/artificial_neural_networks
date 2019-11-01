@@ -420,7 +420,6 @@ def evaluate(sentence):
     return result, sentence, attention_plot
 
 
-# function for plotting the attention weights
 def plot_attention(attention, sentence, predicted_sentence):
     fig = plt.figure(figsize=(10, 10))
     ax = fig.add_subplot(1, 1, 1)
