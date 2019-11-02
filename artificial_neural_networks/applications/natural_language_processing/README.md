@@ -12,9 +12,9 @@ Keywords: NLP, Computational Lingustics, Text Mining, Seq2seq Models, Natural La
 ## Sub-tasks
 There are various sub-tasks that fall under this specific domain and some of them are the following:
 
-- Chatbots
-- Task-oriented dialogue systems / Goal-oriented conversational agent (GO-CA)
 - [Machine Translation](/artificial_neural_networks/applications/natural_language_processing/machine_translation)
+- Non-Task-Oriented Dialogue System / Chatbot (in the strict sense) / Question-Answering (QA) System
+- Task-oriented dialogue systems / Goal-oriented conversational agent
 - Text generation
 
 ## Theory
