@@ -180,7 +180,7 @@ history = model.fit(dataset.repeat(), epochs=EPOCHS, steps_per_epoch=steps_per_e
 
 tf.train.latest_checkpoint(checkpoint_dir)
 
-model_2 = build_model(vocab_size, embedding_dim, rnn_units, batch_size=1)
+model_2 = build_model(vocab_size=vocab_size, embedding_dim=embedding_dim, rnn_units=rnn_units, batch_size=1, rnn=RNN)
 
 model_2.load_weights(tf.train.latest_checkpoint(checkpoint_dir))
 
