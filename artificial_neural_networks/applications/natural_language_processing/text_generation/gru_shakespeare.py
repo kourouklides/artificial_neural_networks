@@ -88,7 +88,7 @@ path_to_file = tf.keras.utils.get_file(
         'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
 
 # Read, then decode for py2 compat.
-text = open(path_to_file, 'rb').read().decode(encoding='utf-8')
+text = open(path_to_file, 'rb').read().decode(encoding='utf-8', errors='ignore')
 
 vocab = sorted(set(text))
 
