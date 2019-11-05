@@ -100,7 +100,7 @@ def create_dataset(path, num_examples=None):
     """
 
     # Remove the accents
-    lines = io.open(path, encoding='UTF-8').read().strip().split('\n')
+    lines = io.open(path, encoding='UTF-8', errors='ignore').read().strip().split('\n')
 
     # Clean the sentences
     word_pairs = [[preprocess_sentence(w) for w in l.split('\t')] for l in lines[:num_examples]]
