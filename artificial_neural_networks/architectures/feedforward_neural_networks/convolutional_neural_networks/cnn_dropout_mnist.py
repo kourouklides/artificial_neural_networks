@@ -326,7 +326,7 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='Adadelta')
     parser.add_argument('--lrearning_rate', type=float, default=1e0)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--dropout_rate_input', type=int, default=0.0)
+    parser.add_argument('--dropout_rate_input', type=float, default=0.0)
     parser.add_argument('--dropout_rate_conv', type=float, default=0.25)
     parser.add_argument('--dropout_rate_hidden', type=float, default=0.5)
 
