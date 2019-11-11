@@ -60,8 +60,8 @@ if __name__ == '__main__':
     parser.add_argument('--optimizer', type=str, default='Adam')
     parser.add_argument('--lrearning_rate', type=float, default=1e-3)
     parser.add_argument('--epsilon', type=none_or_float, default=None)
-    parser.add_argument('--dropout_rate_input', type=int, default=0.01)
-    parser.add_argument('--dropout_rate_hidden', type=int, default=0.01)
+    parser.add_argument('--dropout_rate_input', type=float, default=0.01)
+    parser.add_argument('--dropout_rate_hidden', type=float, default=0.01)
 
     # Settings for saving the model
     parser.add_argument('--save_architecture', type=bool, default=True)
