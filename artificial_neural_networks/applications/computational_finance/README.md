@@ -3,7 +3,7 @@
 ## About
 This part of the repository is concerned with __Computational Finance__.
 
-Keywords: 
+Keywords: Quantiative Finance, Financial Engineering, Financial Econometrics, Mathematical Finance
 
 ## Introduction
 
