@@ -61,36 +61,36 @@ __or__ you can run this:
 This repository includes the following __architectures__:
 
 - [Feedforward Neural Network](artificial_neural_networks/architectures/feedforward_neural_networks)
-  - Bayesian Neural Networks
-  - [Convolutional Neural Networks](artificial_neural_networks/architectures/feedforward_neural_networks/convolutional_neural_networks)
-  - [Standard Neural Networks](artificial_neural_networks/architectures/feedforward_neural_networks/standard_neural_networks)
+  - - [ ] Bayesian Neural Networks
+  - - [x] [Convolutional Neural Networks](artificial_neural_networks/architectures/feedforward_neural_networks/convolutional_neural_networks)
+  - - [x] [Standard Neural Networks](artificial_neural_networks/architectures/feedforward_neural_networks/standard_neural_networks)
 - [Recurrent Neural Network](artificial_neural_networks/architectures/recurrent_neural_networks)
-  - GRUs
-  - [LSTMs](artificial_neural_networks/architectures/recurrent_neural_networks/LSTM)
-  - Vanilla RNNs
+  - - [ ] GRUs
+  - - [x] [LSTMs](artificial_neural_networks/architectures/recurrent_neural_networks/LSTM)
+  - - [ ] Vanilla RNNs
 
 Some advanced __Methods__ of Machine Learning are also included:
 
-- Ensemble Learning
-- Transfer Learning
+-  - [ ] Ensemble Learning
+-  - [ ] Transfer Learning
 
 ## Areas of Application
 Various applications of the aforementioned Methods and Models are also included and they fall under the following domains, in alphabetical order:
 
-- [Bioinformatics](artificial_neural_networks/applications/bioinformatics)
-- [Compressed Sensing](artificial_neural_networks/applications/compressed_sensing)
-- [Computational Finance](artificial_neural_networks/applications/computational_finance) (including Financial Econometrics)
-- [Computer Vision](artificial_neural_networks/applications/computer_vision)
-- [Control](artificial_neural_networks/applications/control)
-- Energy
-- Environmetrics
-- Geospatial Data (including LiDAR, Hyperspectral images and GIS)
-- [Medical Imaging](artificial_neural_networks/applications/medical_imaging)
-- [Natural Language Processing](artificial_neural_networks/applications/natural_language_processing)
-- Robotics
-- Recommender Systems
-- [Sequential Data](artificial_neural_networks/applications/sequential_data) (including Time Series)
-- [Speech Processing](artificial_neural_networks/applications/speech_processing)
+- - [ ] [Bioinformatics](artificial_neural_networks/applications/bioinformatics)
+- - [ ] [Compressed Sensing](artificial_neural_networks/applications/compressed_sensing)
+- - [ ] [Computational Finance](artificial_neural_networks/applications/computational_finance) (including Financial Econometrics)
+- - [ ] [Computer Vision](artificial_neural_networks/applications/computer_vision)
+- - [ ] [Control](artificial_neural_networks/applications/control)
+- - [ ] Energy
+- - [ ] Environmetrics
+- - [ ] Geospatial Data (including LiDAR, Hyperspectral images and GIS)
+- - [ ] [Medical Imaging](artificial_neural_networks/applications/medical_imaging)
+- - [ ] [Natural Language Processing](artificial_neural_networks/applications/natural_language_processing)
+- - [ ] Robotics
+- - [ ] Recommender Systems
+- - [ ] [Sequential Data](artificial_neural_networks/applications/sequential_data) (including Time Series)
+- - [ ] [Speech Processing](artificial_neural_networks/applications/speech_processing)
 
 ## Theory
 Finally, regarding theory of Artificial Neural Networks, you can check the following pages on my personal wiki:
