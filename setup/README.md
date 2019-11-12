@@ -36,9 +36,9 @@ The code examples require several Python packages to be installed. These package
 
 Currently, there are [known issues in TensorFlow](https://github.com/tensorflow/tensorflow/issues/20444) with Python 3.7+, so follow the instructions below carefully.
 
-You first have to change the directory to the current one, by __replacing__ \<your directory path> accordingly:
+You first have to change the directory to the root of the repository, by __replacing__ \<your directory path> accordingly:
 
-    cd <your directory path>/artificial_neural_networks/setup
+    cd <your directory path>/artificial_neural_networks
 
 Then, to install the required Python packages and dependencies you have to run the following commands in a terminal:
 
