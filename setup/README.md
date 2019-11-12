@@ -34,7 +34,7 @@ __Note:__ Anaconda uses ``conda`` to create _virtual environments_, so is __cann
 The code examples require several Python packages to be installed. These packages are listed in the 
 [requirements.txt](requirements.txt) file of this folder. You do not need to edit the file for the quick installation.
 
-Currently, there are [known issues in TensorFlow](https://github.com/tensorflow/tensorflow/issues/20444) with Python 3.7, so follow the instructions below carefully.
+Currently, there are [known issues in TensorFlow](https://github.com/tensorflow/tensorflow/issues/20444) with Python 3.7+, so follow the instructions below carefully.
 
 You first have to change the directory to the current one, by __replacing__ \<your directory path> accordingly:
 
