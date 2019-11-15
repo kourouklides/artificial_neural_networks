@@ -5,11 +5,11 @@ To download each of the datasets below, either use the corresponding URL link to
 So this folder is intentionally left (almost) empty.
 
 # Table of Contents
-1. [MNIST](#)
-1. [CIFAR-10](#)
-1. [CIFAR-100](#)
-1. [IMDB](#)
-1. [Monthly sunspots](#)
+1. [MNIST](#mnist)
+1. [CIFAR-10](#cifar-10)
+1. [CIFAR-100](#cifar-100)
+1. [IMDB](#imdb)
+1. [Monthly sunspots](#monthly-sunspots)
 
 ## MNIST
 - URL: https://s3.amazonaws.com/img-datasets/mnist.npz
