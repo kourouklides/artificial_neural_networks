@@ -8,7 +8,7 @@ This repository contains a collection of Methods and Models for various architec
 
 For comparison purposes, sometimes other Machine Learning Methods and Models might also be included.
 
-The focus of this repository is mainly on __Supervised Learning__ and to a lesser degree to __Unsupervised Learning__.
+The focus of this repository is mainly on __Supervised Learning__ and to a lesser degree on __Unsupervised Learning__.
 
 The code implementation is in __Python 3__ (using [TensorFlow](https://www.tensorflow.org/) library and [Keras](https://keras.io/) which is now part of it).
 
