@@ -10,7 +10,7 @@ For comparison purposes, sometimes other Machine Learning Methods and Models mig
 
 The code implementation is in __Python 3__ (using [TensorFlow](https://www.tensorflow.org/) library and [Keras](https://keras.io/) which is now part of it).
 
-The repository is the one used for the module [CEI 523: Data Science](https://github.com/kourouklides/CEI_523_2019) at the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) at the [Cyprus Unioversity of Technology](https://www.cut.ac.cy/) and also, at the [meetups](https://github.com/PyDataCyprus/meetups) and [workshops](https://github.com/PyDataCyprus/workshops) of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
+The repository is the one used for the module [CEI 523: Data Science](https://github.com/kourouklides/CEI_523_2019) at the Master's degree [MSc in Data Science and Engineering](https://www.cut.ac.cy/faculties/fet/eecei/module-description/modules-msc-data-science-and-engineering/?languageId=1) at the [Cyprus University of Technology](https://www.cut.ac.cy/) and also, at the [meetups](https://github.com/PyDataCyprus/meetups) and [workshops](https://github.com/PyDataCyprus/workshops) of [PyData Cyprus](https://www.meetup.com/PyDataCyprus/).
 
 If you like this repository or if you found it useful, feel free to __Star, Fork, Watch__ it or __share__ it online.
 
