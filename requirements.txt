@@ -6,3 +6,5 @@ keras==2.2.5
 matplotlib==3.0.2
 scikit-learn==0.20.4
 tqdm==4.28.1
+tick
+nltk
