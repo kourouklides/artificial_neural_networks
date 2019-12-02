@@ -3,7 +3,7 @@ channels:
   - anaconda
   - defaults
 dependencies:
-  - pip
+  - pip=19.3.1
   - python=3.6.5
   - pyyaml=3.13
   - pip:
