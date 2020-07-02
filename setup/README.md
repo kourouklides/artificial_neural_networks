@@ -2,7 +2,7 @@
 
 This is a step-by-step tutorial that will guide you through the installation of the necessary libraries and how to setup your environment, in order to run the various code examples.
 
-The code should run on any machine (i.e. Windows, macOS, Linux) that supports __Python 3__.
+The code should run on any machine (i.e. Windows, macOS, Linux) that supports __Python 3 (64-bit, NOT 32-bit)__ .
 
 __Note:__ It is possible that the code might work with Python 2, either as is or with a few modifications. However, this repository does __not__ support Python 2. Also, there is __no__ guarantee that __individual files__ will work on their own.
 
@@ -18,12 +18,12 @@ If, for any reason, you want to spend the minimum amount of time for setting up 
 
 This installation process requires the __minimum__ knowledge of software tools. It cannot get any easier than this.
 
-### 1. Install Python 3 with Anaconda
+### 1. Install Python 3 (64-bit) with Anaconda
 
 In order to save a lot of trouble, download the [Anaconda Distribution](https://www.anaconda.com/distribution/), which is actively supported by the Data Science community.
 
 1. Go to [Download](https://www.anaconda.com/download/) page and choose the installation for either [Windows](https://www.anaconda.com/download/#windows), [macOS](https://www.anaconda.com/download/#macos) or [Linux](https://www.anaconda.com/download/#linux) accordingly.
-1. Choose __Python 3__ (latest version is fine, since you can create a new environment after you donwload it)
+1. Choose __Python 3 (64-bit, NOT 32-bit)__ (latest version is fine, since you can create a new environment after you donwload it)
 
 The Anaconda Distribution also includes the [Spyder](https://www.spyder-ide.org/) IDE, which is the one that was used for writting the code examples in this repository. This IDE is considered to be ideal for __Machine Learning, Data Science, Scientific Computing, Computational Science and Engineering__. An other free option is [Pycharm Community Edition](https://www.jetbrains.com/pycharm/download/).
 
